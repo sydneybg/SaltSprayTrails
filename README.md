@@ -10,20 +10,33 @@ Inspired by AllTrails, SaltSpray Trails is a full stack web application with a f
 
 # Features Overview
 
-User Auth:
+### User Auth:
 Create an account or sign in and log out
 Sign in as a Demo User to access full site functionality
 
-Reviews/Ratings:
+### Locations:
+View locations for best swimming, kayaking, rafting, and surfing spots
+Add, Edit, or Delete Locations
+Organize locations based on type of activity
+
+### Reviews/Ratings:
 View reviews/ratings for a location and post a review
 Edit or delete your own reviews/ratings
+Filter locations based on rating score
 
-Collections:
+### Collections:
 View your collections on the 'My SplashSite' page
 Customize your collections via add, edit and delete forms (Visited or Saved/Future)
 
-Search:
+### Search:
 All Users can explore locations
+
+LongTerm Goals:
+Create a social community for people to post pictures at the locations and comment on eachothers
+
+Very LongTerm Goals:
+Add friends and social network
+Live messaging
 
 # Features Indepth
 
@@ -169,4 +182,3 @@ Require Authentication: False
 Request
 Method: GET
 URL:
-
