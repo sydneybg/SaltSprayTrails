@@ -60,7 +60,7 @@ URL: /locations
 ### Create a Location
 
 Users should be able to create a new location listing.
-New listing should include name, description, image(s), and other relevant details.
+New listing should include name, description, image(s), street, city, state, country, zip_code, and other relevant details.
 Once created, the location should appear in the locations catalog for users to view and explore.
 Listings can only be created if they do not have existing latitude, longitude and activity type in the database to prevent duplicative data.
 
@@ -94,7 +94,7 @@ URL: /locations/:id
 ### View user's collections
 
 Users should be able to view their collections on the 'My SplashSite' page.
-The Visited and Saved/Future collections should be displayed.
+The collections are customizable and a collection image is displayed with it.
 The option to create customizable collections.
 
 Require Authentication: True
@@ -172,4 +172,4 @@ Users should be able to filter locations based on various criteria.
 
 Require Authentication: False
 Request Method: GET
-URL:
+URL: /locations/search
