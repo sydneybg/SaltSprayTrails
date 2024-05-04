@@ -8,6 +8,8 @@ Inspired by AllTrails, SaltSpray Trails is a full stack web application with a f
 
 # Database
 
+![Database Schema](images/DB_Schema.png)
+
 # Features Overview
 
 ### User Auth:
