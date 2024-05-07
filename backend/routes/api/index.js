@@ -8,7 +8,6 @@ router.use(restoreUser);
 
 module.exports = router;
 
-module.exports = router;
 
 // GET /api/set-token-cookie
 // const { setTokenCookie } = require('../../utils/auth.js');
