@@ -1,10 +1,14 @@
 const express = require('express');
 const router = express.Router();
-
-
 const apiRouter = require('./api');
 
 router.use('/api', apiRouter);
+
+router.get('/not-found', (req, res, next) => {
+    const err = new Error('The requested resource couldn\'t be found.');
+    err.status = 404;
+    next(err);
+  });
 
 
 module.exports = router;
