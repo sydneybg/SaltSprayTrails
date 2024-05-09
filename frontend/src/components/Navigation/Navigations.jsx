@@ -1,34 +1,17 @@
+// frontend/src/components/Navigation/Navigation.jsx
+
 import { NavLink } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import ProfileButton from './ProfileButton';
-import { FaCarrot } from 'react-icons/fa6';
-
-import * as sessionActions from '../../store/session';
 
 function Navigation({ isLoaded }) {
   const sessionUser = useSelector(state => state.session.user);
-  const dispatch = useDispatch();
 
-  const logout = (e) => {
-    e.preventDefault();
-    dispatch(sessionActions.logout());
-  };
-
-// const Carrot = () => {
-//   return (
-//     <div style={{ color: "orange", fontSize: "100px" }}>
-//       <FaCarrot />
-//     </div>
-//   );
-// };
 
   const sessionLinks = sessionUser ? (
     <>
       <li>
         <ProfileButton user={sessionUser} />
-      </li>
-      <li>
-        <button onClick={logout}>Log Out</button>
       </li>
     </>
   ) : (
