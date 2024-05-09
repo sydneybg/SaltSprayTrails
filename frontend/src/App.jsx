@@ -28,19 +28,37 @@ function Layout() {
 const router = createBrowserRouter([
   {
     path: '/',
-    element: <h1>Welcome to Salt'n'Swim!</h1>
+    element: <Layout />,
+    children: [
+      {
+        index: true,
+        element: <h1>Welcome to Salt'n'Swim!</h1>,
+      },
+      {
+        path: '/login',
+        element: <LoginFormPage />,
+      },
+      {
+        path: '/signup',
+        element: <SignupFormPage />,
+      },
+    ],
   },
-  {
-    path: '/login',
-    element: <LoginFormPage />
-  },
-  {
-    path: "/signup",
-    element: <SignupFormPage />
-  }
 ]);
 
+// function App() {
+//   return <RouterProvider router={router} />;
+// }
 function App() {
+  const dispatch = useDispatch();
+  const [isLoaded, setIsLoaded] = useState(false);
+
+  useEffect(() => {
+    dispatch(sessionActions.restoreUser()).then(() => {
+      setIsLoaded(true);
+    });
+  }, [dispatch]);
+
   return <RouterProvider router={router} />;
 }
 

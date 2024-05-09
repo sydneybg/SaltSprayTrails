@@ -1,7 +1,7 @@
 // frontend/src/components/Navigation/Navigation.jsx
 
 import { NavLink } from 'react-router-dom';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 import ProfileButton from './ProfileButton';
 
 function Navigation({ isLoaded }) {
