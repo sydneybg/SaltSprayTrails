@@ -1,9 +1,11 @@
-import configureStore from './store';
-import sessionReducer from './session';
+// import configureStore from './store';
+// // import sessionReducer from './session';
 
-const rootReducer = combineReducers({
-  session: sessionReducer,
-  
-});
+// // const rootReducer = combineReducers({
+// //   session: sessionReducer,
 
-export default configureStore;
+// // });
+
+
+
+// export default configureStore;
