@@ -35,9 +35,6 @@ const router = createBrowserRouter([
   },
 ]);
 
-// function App() {
-//   return <RouterProvider router={router} />;
-// }
 
 function App() {
   const dispatch = useDispatch();
@@ -55,3 +52,6 @@ function App() {
 export default App;
 
 
+// function App() {
+//   return <RouterProvider router={router} />;
+// }
