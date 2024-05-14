@@ -13,10 +13,10 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      // User.hasMany(
-      //   models.Locations,
-      //   { foreignKey: 'ownerId', onDelete: 'CASCADE', hooks: true}
-      // );
+      User.hasMany(
+        models.Locations,
+        { foreignKey: 'ownerId', onDelete: 'CASCADE', hooks: true}
+      );
 
     }
   }
@@ -57,6 +57,10 @@ module.exports = (sequelize, DataTypes) => {
       validate: {
         len: [3, 256],
         isEmail: true
+      },
+      set(value) {
+        // Email address lowercase
+        this.setDataValue('email', value.trim().toLowerCase());
       }
     },
     hashedPassword: {
@@ -69,6 +73,7 @@ module.exports = (sequelize, DataTypes) => {
   }, {
     sequelize,
     modelName: 'User',
+    timestamps: true,
     defaultScope: {
       attributes: {
         exclude: ["hashedPassword", "email", "createAt", "updatedAt"]
