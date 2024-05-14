@@ -9,51 +9,28 @@ if (process.env.NODE_ENV === 'production') {
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable('Locations', {
+    await queryInterface.createTable('Collections', {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER
       },
+      userId: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+        references: {
+          model: 'Users',
+          key: 'id'
+        },
+        onDelete: 'CASCADE'
+      },
       name: {
         type: Sequelize.STRING,
         allowNull: false
       },
-      description: {
+      imageUrl: {
         type: Sequelize.STRING,
-        allowNull: false
-      },
-      activity_type: {
-        type: Sequelize.STRING,
-        allowNull: false
-      },
-      street: {
-        type: Sequelize.STRING,
-        allowNull: false
-      },
-      city: {
-        type: Sequelize.STRING,
-        allowNull: false
-      },
-      state: {
-        type: Sequelize.STRING,
-        allowNull: false
-      },
-      country: {
-        type: Sequelize.STRING,
-        allowNull: false
-      },
-      zip_code: {
-        type: Sequelize.STRING,
-        allowNull: false
-      },
-      latitude: {
-        type: Sequelize.FLOAT,
-        allowNull: false
-      },
-      longitude: {
-        type: Sequelize.FLOAT,
         allowNull: false
       },
       createdAt: {
@@ -70,7 +47,7 @@ module.exports = {
   },
 
   async down(queryInterface, Sequelize) {
-    options.tableName = "Locations";
+    options.tableName = "Collections";
     await queryInterface.dropTable(options);
   }
 };

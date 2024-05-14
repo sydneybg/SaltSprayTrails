@@ -1,32 +1,62 @@
 'use strict';
-const {
-  Model
-} = require('sequelize');
+
+const { Model } = require('sequelize');
+
 module.exports = (sequelize, DataTypes) => {
   class Location extends Model {
-    /**
-     * Helper method for defining associations.
-     * This method is not a part of Sequelize lifecycle.
-     * The `models/index` file will call this method automatically.
-     */
     static associate(models) {
-      // define association here
+      Location.hasMany(models.LocationImage, { foreignKey: 'locationId' });
+      Location.hasMany(models.Review, { foreignKey: 'locationId' });
+      Location.belongsToMany(models.Collection, { through: models.CollectionLocation, foreignKey: 'locationId' });
     }
-  }
-  Location.init({
-    name: DataTypes.STRING,
-    description: DataTypes.STRING,
-    activity_type: DataTypes.STRING,
-    street: DataTypes.STRING,
-    city: DataTypes.STRING,
-    state: DataTypes.STRING,
-    country: DataTypes.STRING,
-    zip_code: DataTypes.STRING,
-    latitude: DataTypes.FLOAT,
-    longitude: DataTypes.FLOAT
-  }, {
-    sequelize,
-    modelName: 'Location',
-  });
+  };
+
+  Location.init(
+    {
+      name: {
+        type: DataTypes.STRING,
+        allowNull: false
+      },
+      description: {
+        type: DataTypes.STRING,
+        allowNull: false
+      },
+      activity_type: {
+        type: DataTypes.STRING,
+        allowNull: false
+      },
+      street: {
+        type: DataTypes.STRING,
+        allowNull: false
+      },
+      city: {
+        type: DataTypes.STRING,
+        allowNull: false
+      },
+      state: {
+        type: DataTypes.STRING,
+        allowNull: false
+      },
+      country: {
+        type: DataTypes.STRING,
+        allowNull: false
+      },
+      zip_code: {
+        type: DataTypes.STRING,
+        allowNull: false
+      },
+      latitude: {
+        type: DataTypes.FLOAT,
+        allowNull: false
+      },
+      longitude: {
+        type: DataTypes.FLOAT,
+        allowNull: false
+      }
+    }, {
+      sequelize,
+      modelName: 'Location'
+    }
+  );
   return Location;
 };
