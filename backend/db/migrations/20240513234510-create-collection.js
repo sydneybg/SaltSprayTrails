@@ -5,7 +5,6 @@ if (process.env.NODE_ENV === 'production') {
   options.schema = process.env.SCHEMA;
 }
 
-
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
@@ -26,11 +25,11 @@ module.exports = {
         onDelete: 'CASCADE'
       },
       name: {
-        type: Sequelize.STRING,
+        type: Sequelize.STRING(255), // Example limit
         allowNull: false
       },
       imageUrl: {
-        type: Sequelize.STRING,
+        type: Sequelize.STRING(255), // Example limit
         allowNull: false
       },
       createdAt: {

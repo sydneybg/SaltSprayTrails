@@ -40,7 +40,12 @@ module.exports = {
         defaultValue: Sequelize.literal('CURRENT_TIMESTAMP')
       }
     }, options);
+
+    await queryInterface.addIndex('LocationImages', ['locationId']);
+    await queryInterface.addIndex('LocationImages', ['imageUrl']);
   },
+
+
 
   async down(queryInterface, Sequelize) {
     options.tableName = "LocationImages";

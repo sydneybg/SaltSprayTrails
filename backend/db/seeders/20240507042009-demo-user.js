@@ -1,5 +1,4 @@
 "use strict";
-const { Model, Validator } = require('sequelize');
 
 const { User } = require("../models");
 const bcrypt = require("bcryptjs");
@@ -111,7 +110,6 @@ module.exports = {
           ],
         },
       },
-      {}
-    );
+      {});
   },
 };

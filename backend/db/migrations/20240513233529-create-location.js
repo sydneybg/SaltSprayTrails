@@ -81,7 +81,7 @@ module.exports = {
   async down(queryInterface, Sequelize) {
     try {
       options.tableName = "Locations";
-      await queryInterface.dropTable(options);
+      await queryInterface.dropTable("Locations");
     } catch (error) {
       console.error('Failed to revert migration:', error);
       throw error;
