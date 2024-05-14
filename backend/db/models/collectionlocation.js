@@ -5,25 +5,49 @@ const { Model } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
   class CollectionLocation extends Model {
     static associate(models) {
-      CollectionLocation.belongsTo(models.Collection, { foreignKey: 'collectionId' });
-      CollectionLocation.belongsTo(models.Location, { foreignKey: 'locationId' });
+      CollectionLocation.belongsTo(models.Collection, {
+        foreignKey: 'collectionId',
+        onDelete: 'CASCADE'
+      });
+      CollectionLocation.belongsTo(models.Location, {
+        foreignKey: 'locationId',
+        onDelete: 'CASCADE'
+      });
     }
   };
 
-  CollectionLocation.init(
-    {
-      collectionId: {
-        type: DataTypes.INTEGER,
-        allowNull: false
-      },
-      locationId: {
-        type: DataTypes.INTEGER,
-        allowNull: false
+  CollectionLocation.init({
+    collectionId: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      references: {
+        model: 'Collection',
+        key: 'id'
       }
-    }, {
-      sequelize,
-      modelName: 'CollectionLocation'
+    },
+    locationId: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      references: {
+        model: 'Location',
+        key: 'id'
+      }
+    },
+    createdAt: {
+      type: DataTypes.DATE,
+      allowNull: false,
+      defaultValue: DataTypes.NOW
+    },
+    updatedAt: {
+      type: DataTypes.DATE,
+      allowNull: false,
+      defaultValue: DataTypes.NOW
     }
-  );
+  }, {
+    sequelize,
+    modelName: 'CollectionLocation',
+    timestamps: true
+  });
+
   return CollectionLocation;
 };

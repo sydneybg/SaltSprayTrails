@@ -2,7 +2,6 @@
 
 module.exports = {
   async up (queryInterface, Sequelize) {
-    // Array of review objects to insert into the database
     await queryInterface.bulkInsert('Reviews', [
       {
         userId: 1,

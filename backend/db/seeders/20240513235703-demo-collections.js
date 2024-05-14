@@ -1,25 +1,47 @@
 'use strict';
 
-/** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up (queryInterface, Sequelize) {
-    /**
-     * Add seed commands here.
-     *
-     * Example:
-     * await queryInterface.bulkInsert('People', [{
-     *   name: 'John Doe',
-     *   isBetaMember: false
-     * }], {});
-    */
+    await queryInterface.bulkInsert('Collections', [
+      {
+        userId: 1,
+        name: 'Mountain Adventures',
+        imageUrl: 'http://example.com/image/mountain.jpg',
+        createdAt: new Date(),
+        updatedAt: new Date()
+      },
+      {
+        userId: 1,
+        name: 'Beach Holidays',
+        imageUrl: 'http://example.com/image/beach.jpg',
+        createdAt: new Date(),
+        updatedAt: new Date()
+      },
+      {
+        userId: 2,
+        name: 'Historic Sites',
+        imageUrl: 'http://example.com/image/historic.jpg',
+        createdAt: new Date(),
+        updatedAt: new Date()
+      },
+      {
+        userId: 3,
+        name: 'Nature Walks',
+        imageUrl: 'http://example.com/image/nature.jpg',
+        createdAt: new Date(),
+        updatedAt: new Date()
+      },
+      {
+        userId: 4,
+        name: 'City Breaks',
+        imageUrl: 'http://example.com/image/city.jpg',
+        createdAt: new Date(),
+        updatedAt: new Date()
+      }
+    ], {});
   },
 
   async down (queryInterface, Sequelize) {
-    /**
-     * Add commands to revert seed here.
-     *
-     * Example:
-     * await queryInterface.bulkDelete('People', null, {});
-     */
+    await queryInterface.bulkDelete('Collections', null, {});
   }
 };

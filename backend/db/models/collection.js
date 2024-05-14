@@ -5,29 +5,51 @@ const { Model } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
   class Collection extends Model {
     static associate(models) {
-      Collection.belongsTo(models.User, { foreignKey: 'userId' });
+      Collection.belongsTo(models.User, { foreignKey: 'userId', onDelete: 'CASCADE' });
       Collection.belongsToMany(models.Location, { through: models.CollectionLocation, foreignKey: 'collectionId' });
     }
   };
 
-  Collection.init(
-    {
-      userId: {
-        type: DataTypes.INTEGER,
-        allowNull: false
+  Collection.init({
+    id: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      autoIncrement: true,
+      primaryKey: true
+    },
+    userId: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      references: {
+        model: 'Users',
+        key: 'id'
       },
-      name: {
-        type: DataTypes.STRING,
-        allowNull: false
-      },
-      imageUrl: {
-        type: DataTypes.STRING,
-        allowNull: false
+      onDelete: 'CASCADE'
+    },
+    name: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        len: [1, 255]
       }
-    }, {
-      sequelize,
-      modelName: 'Collection'
+    },
+    imageUrl: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        len: [1, 255]
+      }
     }
-  );
+  }, {
+    sequelize,
+    modelName: 'Collection',
+    timestamps: true,
+    defaultScope: {
+      attributes: {
+        exclude: ['userId']
+      }
+    }
+  });
+
   return Collection;
 };
