@@ -24,6 +24,12 @@ module.exports = (sequelize, DataTypes) => {
 
   Location.init(
     {
+      id: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        autoIncrement: true,
+        primaryKey: true
+      },
       name: {
         type: DataTypes.STRING,
         allowNull: false
@@ -97,3 +103,12 @@ module.exports = (sequelize, DataTypes) => {
   );
   return Location;
 };
+
+
+// /: Delimiters that mark the start and end of the regular expression pattern.
+// ^: Anchors the match at the start of the string.
+// \d{5}: Matches exactly five digits. \d is a shorthand for any digit character (0-9), and {5} specifies that there must be exactly five occurrences of the preceding digit pattern.
+// (-\d{4})?: This part of the pattern matches an optional hyphen followed by exactly four digits. Here's what each component does:
+// (-\d{4}): Matches a hyphen (-) followed by exactly four digits.
+// ?: Makes the preceding group ( -\d{4} ) optional. This means that the hyphen and four digits are not required for a match.
+// $: Anchors the match at the end of the string.

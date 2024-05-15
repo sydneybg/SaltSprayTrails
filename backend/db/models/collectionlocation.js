@@ -17,13 +17,20 @@ module.exports = (sequelize, DataTypes) => {
   };
 
   CollectionLocation.init({
+    id: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      autoIncrement: true,
+      primaryKey: true
+    },
     collectionId: {
       type: DataTypes.INTEGER,
       allowNull: false,
       references: {
         model: 'Collection',
         key: 'id'
-      }
+      },
+      onDelete: 'CASCADE'
     },
     locationId: {
       type: DataTypes.INTEGER,
@@ -31,7 +38,8 @@ module.exports = (sequelize, DataTypes) => {
       references: {
         model: 'Location',
         key: 'id'
-      }
+      },
+      onDelete: 'CASCADE'
     },
     createdAt: {
       type: DataTypes.DATE,
