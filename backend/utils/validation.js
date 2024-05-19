@@ -1,4 +1,6 @@
 const { validationResult } = require('express-validator');
+const { check } = require('express-validator');
+const { Location } = require('../db/models');
 
 const handleValidationErrors = (req, _res, next) => {
   const validationErrors = validationResult(req);
@@ -18,6 +20,40 @@ const handleValidationErrors = (req, _res, next) => {
   next();
 };
 
+
+const validateLocation = [
+  check('name')
+    .exists({ checkFalsy: true })
+    .withMessage('Name is required'),
+  check('type')
+    .exists({ checkFalsy: true })
+    .withMessage('Type is required'),
+  check('latitude')
+    .exists({ checkFalsy: true })
+    .withMessage('Latitude is required')
+    .isNumeric()
+    .withMessage('Latitude must be a number'),
+  check('longitude')
+    .exists({ checkFalsy: true })
+    .withMessage('Longitude is required')
+    .isNumeric()
+    .withMessage('Longitude must be a number'),
+  check('type').custom(async (type, { req }) => {
+    const { latitude, longitude } = req.body;
+    const existingLocation = await Location.findOne({
+      where: {
+        type,
+        latitude,
+        longitude,
+      },
+    });
+    if (existingLocation) {
+      throw new Error('A location with the same type and longitude/latitude already exists');
+    }
+  }),
+];
+
 module.exports = {
-  handleValidationErrors
+  validateLocation,
+  handleValidationErrors,
 };
