@@ -14,9 +14,17 @@ function Navigation({ isLoaded }) {
   let sessionLinks;
   if (sessionUser) {
     sessionLinks = (
-      <li>
-        <ProfileButton user={sessionUser} />
-      </li>
+      <>
+        <li>
+          <NavLink to="/my-locations">My Locations</NavLink>
+        </li>
+        <li>
+          <NavLink to="/my-collections">My Collections</NavLink>
+        </li>
+        <li>
+          <ProfileButton user={sessionUser} />
+        </li>
+      </>
     );
   } else {
     sessionLinks = (
