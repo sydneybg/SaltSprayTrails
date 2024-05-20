@@ -16,6 +16,15 @@ module.exports = {
           primaryKey: true,
           type: Sequelize.INTEGER
         },
+        ownerId: {
+          type: Sequelize.INTEGER,
+          allowNull: true,
+          references: {
+            model: 'Users',
+            key: 'id'
+          },
+          onDelete: 'SET NULL'
+        },
         name: {
           type: Sequelize.STRING,
           allowNull: false

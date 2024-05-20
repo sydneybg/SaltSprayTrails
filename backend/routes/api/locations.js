@@ -1,65 +1,110 @@
 const express = require('express');
-const { Location } = require('../../db/models');
+const { Location, LocationImage } = require('../../db/models');
 const { requireAuth } = require('../../utils/auth');
 const { validateLocation, handleValidationErrors } = require('../../utils/validation');
 
 
 const router = express.Router();
 
-// GET all locations with pagination
+// GET all locations with pagination and associated location images
 router.get('/', async (req, res, next) => {
-    try {
-      const { page = 1, size = 20 } = req.query;
-      const limit = parseInt(size);
-      const offset = (parseInt(page) - 1) * limit;
+  try {
+    const { page = 1, size = 20 } = req.query;
+    const limit = parseInt(size);
+    const offset = (parseInt(page) - 1) * limit;
 
-      const { count, rows } = await Location.findAndCountAll({
-        limit,
-        offset,
-      });
+    const { count, rows } = await Location.findAndCountAll({
+      limit,
+      offset,
+      include: [
+        {
+          model: LocationImage,
+          as: 'LocationImages',
+          attributes: ['id', 'imageUrl'],
+        },
+      ],
+    });
 
-      const totalPages = Math.ceil(count / limit);
+    const totalPages = Math.ceil(count / limit);
 
-      res.json({
-        locations: rows,
-        currentPage: parseInt(page),
-        totalPages,
-        totalLocations: count,
-      });
-    } catch (error) {
-      console.error('Error fetching locations:', error);
-      res.status(500).json({ message: 'Internal server error' });
-    }
-  });
+    const locations = rows.map((location) => ({
+      ...location.toJSON(),
+      locationImages: location.locationImages,
+    }));
 
-// GET a specific location by ID
+    res.json({
+      locations,
+      currentPage: parseInt(page),
+      totalPages,
+      totalLocations: count,
+    });
+  } catch (error) {
+    console.error('Error fetching locations:', error);
+    res.status(500).json({ message: 'Internal server error' });
+  }
+});
+
+// GET a specific location by ID with associated location images
 router.get('/:id', async (req, res, next) => {
     try {
-      const location = await Location.findByPk(req.params.id);
+      const location = await Location.findByPk(req.params.id, {
+        include: [
+          {
+            model: LocationImage,
+            as: 'LocationImages',
+            attributes: ['id', 'imageUrl'],
+          },
+        ],
+      });
+
       if (!location) {
         return res.status(404).json({ message: 'Location could not be found' });
       }
-      res.json(location);
+
+      const locationData = location.toJSON();
+      locationData.locationImages = locationData.LocationImages;
+      delete locationData.LocationImages;
+
+      res.json(locationData);
     } catch (error) {
       console.error('Error fetching location:', error);
       res.status(500).json({ message: 'Internal server error' });
     }
   });
 
-  // GET all locations owned by the current user
+
+// GET all locations owned by the current user with associated location images
 router.get('/current', requireAuth, async (req, res, next) => {
-    try {
+    try { //not necessary but using to figure out why requireauth isnt working
+      if (!req.user) {
+        return res.status(401).json({ message: 'You must be logged in to access this resource' });
+      }
+
       const userId = req.user.id;
       const locations = await Location.findAll({
-        where: {
-          userId: userId,
-        },
+        where: { ownerId: userId },
+        include: [
+          {
+            model: LocationImage,
+            as: 'LocationImages',
+            attributes: ['id', 'imageUrl'],
+          },
+        ],
       });
 
-      res.json({ locations });
-    } catch (error) {
-      console.error('Error fetching locations for current user:', error);
-      res.status(500).json({ message: 'Internal server error' });
+      const locationsWithImages = locations.map((location) => ({
+        ...location.toJSON(),
+        locationImages: location.LocationImages,
+      }));
+
+      res.json({ locations: locationsWithImages });
+    } catch (err) {
+      console.error('Error fetching locations for current user:', err);
+      if (err.status === 401) {
+        res.status(401).json({ message: err.errors.message });
+      } else {
+        res.status(500).json({ message: 'Internal server error' });
+      }
     }
   });
 

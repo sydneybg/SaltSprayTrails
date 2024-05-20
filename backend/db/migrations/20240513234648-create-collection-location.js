@@ -28,7 +28,7 @@ module.exports = {
         type: Sequelize.INTEGER,
         allowNull: false,
         references: {
-          model: 'Locations', // Ensure the table name matches exactly as Sequelize defines it
+          model: 'Locations',
           key: 'id'
         },
         onDelete: 'CASCADE'
@@ -41,7 +41,7 @@ module.exports = {
       updatedAt: {
         allowNull: false,
         type: Sequelize.DATE,
-        defaultValue: Sequelize.literal('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP')
+        defaultValue: Sequelize.literal('CURRENT_TIMESTAMP')
       }
     }, options);
   },

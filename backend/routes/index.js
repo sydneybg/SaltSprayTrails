@@ -36,6 +36,13 @@ if (process.env.NODE_ENV !== 'production') {
   });
 }
 
+    router.get("/api/csrf/restore", (req, res) => {
+        const csrfToken = req.csrfToken();
+        res.cookie("XSRF-TOKEN", csrfToken);
+        res.status(200).json({
+          'XSRF-Token': csrfToken
+        });
+      });
 
 router.get('/not-found', (req, res, next) => {
     const err = new Error('The requested resource couldn\'t be found.');
@@ -51,11 +58,3 @@ module.exports = router;
     //   res.cookie('XSRF-TOKEN', req.csrfToken());
     //   res.send('Hello World!');
     // });
-
-    // router.get("/api/csrf/restore", (req, res) => {
-    //     const csrfToken = req.csrfToken();
-    //     res.cookie("XSRF-TOKEN", csrfToken);
-    //     res.status(200).json({
-    //       'XSRF-Token': csrfToken
-    //     });
-    //   });

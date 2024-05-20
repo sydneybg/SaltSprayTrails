@@ -20,7 +20,8 @@ const demoLocations = [
     country: 'Country 1',
     zip_code: '12345',
     latitude: 37.7749,
-    longitude: -122.4194
+    longitude: -122.4194,
+    ownerId: 1
   },
   {
     name: 'Sunset Beach',
@@ -32,7 +33,8 @@ const demoLocations = [
     country: 'Country 2',
     zip_code: '54321',
     latitude: 40.7128,
-    longitude: -74.0060
+    longitude: -74.0060,
+    ownerId: 2
   },
   {
     name: 'Mountain Peak Trail',
@@ -44,7 +46,8 @@ const demoLocations = [
     country: 'Country 3',
     zip_code: '98765',
     latitude: 37.3382,
-    longitude: -121.8863
+    longitude: -121.8863,
+    ownerId: 3
   },
   {
     name: 'Riverside Park',
@@ -56,7 +59,8 @@ const demoLocations = [
     country: 'Country 4',
     zip_code: '24680',
     latitude: 41.8781,
-    longitude: -87.6298
+    longitude: -87.6298,
+    ownerId: 4
   },
   {
     name: 'Lakeside Campground',
@@ -68,7 +72,8 @@ const demoLocations = [
     country: 'Country 5',
     zip_code: '13579',
     latitude: 44.9778,
-    longitude: -93.2650
+    longitude: -93.2650,
+    ownerId: 5
   },
   {
     name: 'Coastal Cliffs',
@@ -80,7 +85,8 @@ const demoLocations = [
     country: 'Country 6',
     zip_code: '97531',
     latitude: 37.7749,
-    longitude: -122.4194
+    longitude: -122.4194,
+    ownerId: 6
   },
   {
     name: 'Wildflower Meadow',
@@ -92,7 +98,8 @@ const demoLocations = [
     country: 'Country 7',
     zip_code: '86420',
     latitude: 39.7392,
-    longitude: -104.9903
+    longitude: -104.9903,
+    ownerId: 7
   },
   {
     name: 'Desert Canyon',
@@ -104,7 +111,8 @@ const demoLocations = [
     country: 'Country 8',
     zip_code: '24601',
     latitude: 36.1699,
-    longitude: -115.1398
+    longitude: -115.1398,
+    ownerId: 8
   },
   {
     name: 'Snowy Mountain Resort',
@@ -116,7 +124,8 @@ const demoLocations = [
     country: 'Country 9',
     zip_code: '13579',
     latitude: 39.6383,
-    longitude: -106.3742
+    longitude: -106.3742,
+    ownerId: 9
   },
   {
     name: 'Tropical Island Retreat',
@@ -128,7 +137,8 @@ const demoLocations = [
     country: 'Country 10',
     zip_code: '86420',
     latitude: 21.3069,
-    longitude: -157.8583
+    longitude: -157.8583,
+    ownerId: 10
   },
   {
     name: 'Historic Landmarks Tour',
@@ -140,7 +150,8 @@ const demoLocations = [
     country: 'Country 11',
     zip_code: '97531',
     latitude: 38.9072,
-    longitude: -77.0369
+    longitude: -77.0369,
+    ownerId: 1
   },
   {
     name: 'Waterfall Hike',
@@ -152,7 +163,8 @@ const demoLocations = [
     country: 'Country 12',
     zip_code: '24601',
     latitude: 47.6062,
-    longitude: -122.3321
+    longitude: -122.3321,
+    ownerId: 2
   },
   {
     name: 'Ski Lodge Getaway',
@@ -164,7 +176,8 @@ const demoLocations = [
     country: 'Country 13',
     zip_code: '13579',
     latitude: 45.5051,
-    longitude: -122.6750
+    longitude: -122.6750,
+    ownerId: 3
   },
   {
     name: 'Coastal Bike Trail',
@@ -176,7 +189,8 @@ const demoLocations = [
     country: 'Country 14',
     zip_code: '86420',
     latitude: 34.0522,
-    longitude: -118.2437
+    longitude: -118.2437,
+    ownerId: 4
   },
   {
     name: 'Mountain Lake Fishing',
@@ -188,7 +202,8 @@ const demoLocations = [
     country: 'Country 15',
     zip_code: '97531',
     latitude: 39.0742,
-    longitude: -120.1792
+    longitude: -120.1792,
+    ownerId: 5
   },
   {
     name: 'Desert Oasis Campground',
@@ -200,7 +215,8 @@ const demoLocations = [
     country: 'Country 16',
     zip_code: '24601',
     latitude: 33.8734,
-    longitude: -115.9010
+    longitude: -115.9010,
+    ownerId: 6
   },
   {
     name: 'Vineyard Tour and Tasting',
@@ -212,7 +228,8 @@ const demoLocations = [
     country: 'Country 17',
     zip_code: '13579',
     latitude: 38.2982,
-    longitude: -122.2900
+    longitude: -122.2900,
+    ownerId: 7
   },
   {
     name: 'River Rafting Adventure',
@@ -224,7 +241,8 @@ const demoLocations = [
     country: 'Country 18',
     zip_code: '86420',
     latitude: 38.5737,
-    longitude: -109.5498
+    longitude: -109.5498,
+    ownerId: 8
   },
   {
     name: 'Coastal Wildlife Sanctuary',
@@ -236,7 +254,8 @@ const demoLocations = [
     country: 'Country 19',
     zip_code: '97531',
     latitude: 27.9378,
-    longitude: -82.4902
+    longitude: -82.4902,
+    ownerId: 9
   },
   {
     name: 'Hot Springs Retreat',
@@ -248,7 +267,8 @@ const demoLocations = [
     country: 'Country 20',
     zip_code: '24601',
     latitude: 44.5646,
-    longitude: -110.8281
+    longitude: -110.8281,
+    ownerId: 10
   }
 ];
 
