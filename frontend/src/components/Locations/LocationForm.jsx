@@ -24,7 +24,16 @@ const LocationForm = ({ location, onClose }) => {
     <div>
       <h2>{location ? 'Edit Location' : 'Create Location'}</h2>
       <form onSubmit={handleSubmit}>
-        {/* Render form fields for location data */}
+      <input type="text" name="name" placeholder="Name" value={formData.name} onChange={handleChange} required />
+        <input type="text" name="description" placeholder="Description" value={formData.description} onChange={handleChange} required />
+        <input type="text" name="activity_type" placeholder="Activity Type" value={formData.activity_type} onChange={handleChange} required />
+        <input type="text" name="street" placeholder="Street" value={formData.street} onChange={handleChange} required />
+        <input type="text" name="city" placeholder="City" value={formData.city} onChange={handleChange} required />
+        <input type="text" name="state" placeholder="State" value={formData.state} onChange={handleChange} required />
+        <input type="text" name="country" placeholder="Country" value={formData.country} onChange={handleChange} required />
+        <input type="text" name="zip_code" placeholder="Zip Code" value={formData.zip_code} onChange={handleChange} required />
+        <input type="text" name="latitude" placeholder="Latitude" value={formData.latitude} onChange={handleChange} required />
+        <input type="text" name="longitude" placeholder="Longitude" value={formData.longitude} onChange={handleChange} required />
         <button type="submit">{location ? 'Update' : 'Create'}</button>
       </form>
     </div>
