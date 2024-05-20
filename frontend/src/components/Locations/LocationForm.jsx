@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { createLocation, updateLocation } from '../store/locations'; // Assuming you have createLocation and updateLocation action creators
+import { createLocation, updateLocation } from '../../store/locations';
 
 const LocationForm = ({ location, onClose }) => {
   const dispatch = useDispatch();

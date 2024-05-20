@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { fetchUserLocations, deleteLocation } from '../../store/locations';
+import { fetchUserLocations, deleteUserLocation } from '../../store/locations';
 import LocationForm from './LocationForm';
-import DeleteConfirmationModal from './DeleteConfirmationModal';
+import DeleteConfirmationModal from '../DeleteModal/DeleteConfirmationModal';
 
 const MyLocations = () => {
   const dispatch = useDispatch();
@@ -18,8 +18,8 @@ const MyLocations = () => {
   }, [dispatch]);
 
   const handleDelete = (locationId) => {
-    dispatch(deleteLocation(locationId));
-    setIsModalOpen(false); // Close the modal after deleting
+    dispatch(deleteUserLocation(locationId));
+    setIsModalOpen(false);
   };
 
   const openDeleteModal = (locationId) => {

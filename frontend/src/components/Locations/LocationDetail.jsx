@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
-import { fetchLocation } from '../store/locations'; // Assuming you have a fetchLocation action creator
+import { fetchLocation } from '../../store/locations';
 
 const LocationDetail = () => {
   const dispatch = useDispatch();

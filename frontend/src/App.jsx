@@ -4,6 +4,9 @@ import { createBrowserRouter, RouterProvider, Outlet } from 'react-router-dom';
 import Navigation from './components/Navigation';
 import * as sessionActions from './store/session';
 import LandingPage from './components/Locations/LandingPage';
+import MyLocations from './components/Locations/MyLocations';
+import LocationForm from './components/Locations/LocationForm';
+import LocationDetail from './components/Locations/LocationDetail';
 
 function Layout() {
   const dispatch = useDispatch();
@@ -29,15 +32,14 @@ const router = createBrowserRouter([
     element: <Layout />,
     children: [
       {
-        index: true,
-        element: <LandingPage/>,
-      }
+        index: true, element: <LandingPage/>,
+      },
+      { path: 'my-locations', element: <MyLocations /> },
+      { path: 'locations/new', element: <LocationForm /> },
+      { path: 'locations/:locationId', element: <LocationDetail /> },
+      { path: 'locations/:locationId/edit', element: <LocationForm /> },
     ],
   },
-  // {
-  //   path: '/login',
-  //   element: <LoginFormModal />
-  // },
 ]);
 
 function App() {
