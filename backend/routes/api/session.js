@@ -1,8 +1,8 @@
 const express = require('express');
 const { Op } = require('sequelize');
 const bcrypt = require('bcryptjs');
-const { check } = require('express-validator');
-const { handleValidationErrors, validateLogin } = require('../../utils/validation');
+// const { check } = require('express-validator');
+const { validateLogin } = require('../../utils/validation');
 const { setTokenCookie, restoreUser } = require('../../utils/auth');
 const { User } = require('../../db/models');
 
@@ -25,6 +25,8 @@ router.post(
         }
       }
     });
+
+    console.log('Found user:', user);
 
     if(!credential || !password) {
       return res.status(400).json({
