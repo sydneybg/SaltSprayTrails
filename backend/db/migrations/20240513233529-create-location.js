@@ -34,8 +34,8 @@ module.exports = {
           allowNull: false
         },
         activity_type: {
-          type: Sequelize.STRING,
-          allowNull: false
+          type: Sequelize.ENUM('swimming', 'surfing', 'rafting', 'kayaking'),
+          allowNull: false,
         },
         street: {
           type: Sequelize.STRING,

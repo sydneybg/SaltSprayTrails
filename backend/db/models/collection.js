@@ -30,30 +30,30 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       allowNull: false,
       validate: {
-        len: [1, 255] // validates length
+        len: [1, 255]
       }
     },
     imageUrl: {
       type: DataTypes.STRING,
       allowNull: false,
       validate: {
-        len: [1, 255] // validates length
+        len: [1, 255]
       }
     },
     createdAt: {
       type: DataTypes.DATE,
       allowNull: false,
-      defaultValue: DataTypes.NOW // reflects the migration setting
+      defaultValue: sequelize.literal('CURRENT_TIMESTAMP')
     },
     updatedAt: {
       type: DataTypes.DATE,
       allowNull: false,
-      defaultValue: DataTypes.NOW // reflects the migration setting
+      defaultValue: sequelize.literal('CURRENT_TIMESTAMP')
     }
   }, {
     sequelize,
     modelName: 'Collection',
-    timestamps: true, // Sequelize manages createdAt and updatedAt
+    timestamps: true,
     defaultScope: {
       attributes: {
         exclude: ['userId']

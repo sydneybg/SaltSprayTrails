@@ -43,8 +43,8 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: false
       },
       activity_type: {
-        type: DataTypes.STRING,
-        allowNull: false
+        type: DataTypes.ENUM('swimming', 'surfing', 'rafting', 'kayaking'),
+        allowNull: false,
       },
       street: {
         type: DataTypes.STRING,
@@ -99,6 +99,16 @@ module.exports = (sequelize, DataTypes) => {
             msg: 'Longitude must be between -180 and 180'
           }
         }
+      },
+      createdAt: {
+        type: DataTypes.DATE,
+        allowNull: false,
+        defaultValue: sequelize.literal('CURRENT_TIMESTAMP')
+      },
+      updatedAt: {
+        type: DataTypes.DATE,
+        allowNull: false,
+        defaultValue: sequelize.literal('CURRENT_TIMESTAMP')
       }
     }, {
       sequelize,
