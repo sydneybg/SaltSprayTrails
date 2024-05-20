@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux';
 import { createBrowserRouter, RouterProvider, Outlet } from 'react-router-dom';
 import Navigation from './components/Navigation';
 import * as sessionActions from './store/session';
-import LoginFormModal from './components/LoginFormModal/LoginFormModal';
+import LandingPage from './components/Locations/LandingPage';
 
 function Layout() {
   const dispatch = useDispatch();
@@ -30,7 +30,7 @@ const router = createBrowserRouter([
     children: [
       {
         index: true,
-        element: <h1>Welcome to Salt'n'Swim!</h1>,
+        element: <LandingPage/>,
       }
     ],
   },

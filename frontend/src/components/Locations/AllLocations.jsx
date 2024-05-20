@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchLocations } from '../store/locations'; // Assuming you have a locations Redux slice
+import { fetchLocations } from '../store/locations';
+
 
 const AllLocations = () => {
   const dispatch = useDispatch();
@@ -17,7 +18,7 @@ const AllLocations = () => {
         <div key={location.id}>
           <h2>{location.name}</h2>
           <p>{location.description}</p>
-          
+
         </div>
       ))}
     </div>
