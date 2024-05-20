@@ -2,8 +2,8 @@
 import { NavLink } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import ProfileButton from './ProfileButton';
-import OpenModalButton from '../OpenModalButton';
-import LoginFormModal from '../LoginFormModal';
+import OpenModalButton from '../OpenModalButton/OpenModalButton';
+import LoginFormModal from '../LoginFormModal/LoginFormModal'
 import SignupFormModal from '../SignupFormModal';
 import './Navigation.css';
 
@@ -38,12 +38,26 @@ function Navigation({ isLoaded }) {
   }
 
   return (
-    <ul>
-      <li>
-        <NavLink to="/">Home</NavLink>
-      </li>
-      {isLoaded && sessionLinks}
-    </ul>
+    <nav>
+      <div className="nav-left">
+        <NavLink to="/">
+          <div className="logo-container">
+            <span className="logo-placeholder">Logo</span>
+            <span className="app-name">Salt'n'Swim</span>
+          </div>
+        </NavLink>
+      </div>
+      <div className="nav-center">
+        <input
+          type="text"
+          placeholder="Search..."
+          onClick={() => alert('Feature coming soon')}
+        />
+      </div>
+      <ul className="nav-right">
+        {isLoaded && sessionLinks}
+      </ul>
+    </nav>
   );
 }
 

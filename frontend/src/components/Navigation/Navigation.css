@@ -1,3 +1,49 @@
 .hidden {
-    display: none;
-  }
+  display: none;
+}
+
+nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  background-color: #f0f0f0;
+}
+
+.nav-left {
+  margin-right: auto;
+}
+
+.logo-container {
+  display: flex;
+  align-items: center;
+}
+
+.logo-placeholder {
+  font-weight: bold;
+  margin-right: 10px;
+}
+
+.app-name {
+  font-weight: bold;
+}
+
+.nav-center {
+  margin: 0 auto;
+}
+
+.nav-center input {
+  padding: 5px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.nav-right {
+  display: flex;
+  list-style: none;
+  margin-left: auto;
+}
+
+.nav-right li {
+  margin-left: 10px;
+}

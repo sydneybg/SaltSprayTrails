@@ -17,6 +17,14 @@ function LoginFormModal() {
 
   if (sessionUser) return <Navigate to="/" replace={true} />;
 
+  // useEffect(() => {
+  //   if (sessionUser) {
+  //     closeModal();
+  //     navigate('/');
+  //   }
+  // }, [sessionUser, closeModal, navigate]);
+
+
   const handleSubmit = (e) => {
     e.preventDefault();
     setErrors({});
