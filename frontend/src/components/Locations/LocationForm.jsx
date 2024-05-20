@@ -1,10 +1,28 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { createLocation, updateLocation } from '../../store/locations';
 
 const LocationForm = ({ location, onClose }) => {
   const dispatch = useDispatch();
-  const [formData, setFormData] = useState(location || {});
+  const [formData, setFormData] = useState({
+    name: '',
+    description: '',
+    activity_type: '',
+    street: '',
+    city: '',
+    state: '',
+    country: '',
+    zip_code: '',
+    latitude: '',
+    longitude: '',
+    ...location
+  });
+
+  useEffect(() => {
+    if (location) {
+      setFormData(location);
+    }
+  }, [location]);
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -21,7 +39,7 @@ const LocationForm = ({ location, onClose }) => {
   };
 
   return (
-    <div>
+    <div className="location-form">
       <h2>{location ? 'Edit Location' : 'Create Location'}</h2>
       <form onSubmit={handleSubmit}>
       <input type="text" name="name" placeholder="Name" value={formData.name} onChange={handleChange} required />
