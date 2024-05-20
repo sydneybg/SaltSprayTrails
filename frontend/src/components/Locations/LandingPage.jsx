@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { fetchLocations } from '../../store/locations'
 import { Link } from 'react-router-dom';
 import './LandingPage.css';
-import largeImage from '../../../../images/LandingPageLargeImage.png'
+// import largeImage from '../../../../images/largeImage.png'
 
 const LandingPage = () => {
   const dispatch = useDispatch();
@@ -15,9 +15,9 @@ const LandingPage = () => {
 
   return (
     <div className="landing-page">
-      <div className="large-image-container">
+      {/* <div className="large-image-container">
         <img src={largeImage} alt="Large Image" className="large-image" />
-      </div>
+      </div> */}
       <h1>Welcome to Salt'n'Swim!</h1>
       <div className="locations-grid">
         {locations.map((location) => (
