@@ -1,0 +1,29 @@
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useParams } from 'react-router-dom';
+import { fetchLocation } from '../store/locations'; // Assuming you have a fetchLocation action creator
+
+const LocationDetail = () => {
+  const dispatch = useDispatch();
+  const { locationId } = useParams();
+  const location = useSelector((state) => state.locations.currentLocation);
+
+  useEffect(() => {
+    dispatch(fetchLocation(locationId));
+  }, [dispatch, locationId]);
+
+  if (!location) {
+    return <div>Loading...</div>;
+  }
+
+  return (
+    <div>
+      <h1>{location.name}</h1>
+      <p>{location.description}</p>
+      {/* Render other location details */}
+      {/* Add edit and delete buttons */}
+    </div>
+  );
+};
+
+export default LocationDetail;

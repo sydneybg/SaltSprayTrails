@@ -74,7 +74,9 @@ router.get('/:id', async (req, res, next) => {
 
 
 // GET all locations owned by the current user with associated location images
-router.get('/current', requireAuth, async (req, res, next) => {
+router.get('/current',
+requireAuth,
+async (req, res, next) => {
     try { //not necessary but using to figure out why requireauth isnt working
       if (!req.user) {
         return res.status(401).json({ message: 'You must be logged in to access this resource' });
@@ -109,7 +111,11 @@ router.get('/current', requireAuth, async (req, res, next) => {
   });
 
   // POST create a new location
-  router.post('/', requireAuth, validateLocation, handleValidationErrors, async (req, res, next) => {
+  router.post('/',
+  requireAuth,
+  validateLocation,
+  handleValidationErrors,
+  async (req, res, next) => {
     try {
       const location = await Location.create(req.body);
       res.status(201).json(location);
