@@ -44,14 +44,20 @@ const setUser = (user) => {
 export const login = ({credential, password}) => async (dispatch) => {
     const response = await csrfFetch('/api/session', {
       method: 'POST',
+      headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
         credential,
         password,
       }),
     });
-    const data = await response.json();
-    dispatch(setUser(data.user));
-    return response;
+    if (response.ok) {
+      const data = await response.json();
+      dispatch(setUser(data.user));
+      return data;
+    } else {
+      const errorData = await response.json();
+      return Promise.reject(errorData); 
+    }
   };
 
   //Restore User

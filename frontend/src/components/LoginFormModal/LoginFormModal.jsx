@@ -1,80 +1,4 @@
-// import { useState } from 'react';
-// import * as sessionActions from '../../store/session';
-// import { useDispatch, useSelector } from 'react-redux';
-// import { Navigate } from 'react-router-dom';
-// import { useModal } from '../../context/Modal';
-// import './LoginForm.css';
-
-
-// function LoginFormModal() {
-//   const dispatch = useDispatch();
-//   const sessionUser = useSelector((state) => state.session.user);
-//   const [credential, setCredential] = useState("");
-//   const [password, setPassword] = useState("");
-//   const [errors, setErrors] = useState({});
-//   const { closeModal } = useModal();
-
-
-//   if (sessionUser) return <Navigate to="/" replace={true} />;
-
-//   // useEffect(() => {
-//   //   if (sessionUser) {
-//   //     closeModal();
-//   //     navigate('/');
-//   //   }
-//   // }, [sessionUser, closeModal, navigate]);
-
-
-//   const handleSubmit = (e) => {
-//     e.preventDefault();
-//     setErrors({});
-//     return dispatch(sessionActions.login({ credential, password }))
-//       .then(closeModal)
-//       .catch(async (res) => {
-//         const data = await res.json();
-//         if (data && data.errors) {
-//           setErrors(data.errors);
-//         }
-//       });
-//     };
-
-
-//   return (
-//     <>
-//       <h1>Log In</h1>
-//       <form onSubmit={handleSubmit}>
-//         <label>
-//           Username or Email
-//           <input
-//             type="text"
-//             value={credential}
-//             onChange={(e) => setCredential(e.target.value)}
-//             required
-//           />
-//         </label>
-//         <label>
-//           Password
-//           <input
-//             type="password"
-//             value={password}
-//             onChange={(e) => setPassword(e.target.value)}
-//             required
-//           />
-//         </label>
-//         {errors.credential && (
-//           <p>{errors.credential}</p>
-//         )}
-//         <button type="submit">Log In</button>
-//       </form>
-//     </>
-//   );
-// }
-
-// export default LoginFormModal;
-
-
-
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import * as sessionActions from '../../store/session';
 import { useDispatch } from 'react-redux';
 import { useModal } from '../../context/Modal';
@@ -87,20 +11,67 @@ function LoginFormModal() {
   const [errors, setErrors] = useState({});
   const { closeModal } = useModal();
 
+  const validateEmail = (email) => {
+    return email.match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/);
+  };
+
+  const updateErrors = (field, condition, message) => {
+    setErrors(prev => {
+      const newErrors = { ...prev };
+      if (condition) {
+        newErrors[field] = message;
+      } else {
+        delete newErrors[field];
+      }
+      return newErrors;
+    });
+  };
+
+  useEffect(() => {
+    if (credential.includes('@')) {
+      updateErrors('credential', !validateEmail(credential), "Enter a valid email address.");
+    } else {
+      updateErrors('credential', credential.length > 0 && credential.length < 4, "Username must be at least 4 characters.");
+    }
+  }, [credential]);
+
+  useEffect(() => {
+    updateErrors('password', password.length > 0 && password.length < 6, "Password must be at least 6 characters long.");
+  }, [password]);
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    setErrors({});
+    if (Object.keys(errors).length === 0) {
+        dispatch(sessionActions.login({ credential, password }))
+        .then(closeModal)
+        .catch((errorData) => {
+            if (errorData.status === 401) {
 
-    return dispatch(sessionActions.login({ credential, password }))
-      .then(closeModal)
-      .catch(async (res) => {
-        const data = await res.json();
+                setErrors({ credential: "Invalid username or password." });
+            } else {
 
-        if (res.status === 401) {
-          setErrors({credential: data.message});
-        }
-      });
-  };
+                setErrors({ general: errorData.message || "An unexpected error occurred." });
+            }
+        });
+    }
+};
+
+
+  // const handleSubmit = (e) => {
+  //   e.preventDefault();
+  //   if (Object.keys(errors).length === 0) {
+  //     dispatch(sessionActions.login({ credential, password }))
+  //       .then(closeModal)
+  //       .catch(async (res) => {
+  //         const data = await res.json();
+  //         if (res.status === 401) {
+  //           setErrors({ credential: data.message || "Invalid username or password." });
+  //         } else {
+  //           setErrors(data.errors || { general: "An unexpected error occurred." });
+  //         }
+  //       });
+  //   }
+  // };
 
   const demoLogin = (e) => {
     e.preventDefault();
@@ -112,10 +83,8 @@ function LoginFormModal() {
     .then(closeModal)
   }
 
-  let disabledClass = ""
-  if (password.length < 6 || credential.length < 4) {
-      disabledClass = "disabled-button"
-  }
+  const isDisabled = Object.keys(errors).length > 0 || !credential || !password;
+
 
   return (
     <>
@@ -126,15 +95,18 @@ function LoginFormModal() {
           Username or Email
           <input
             type="text"
+            placeholder='Enter your username or email'
             value={credential}
             onChange={(e) => setCredential(e.target.value)}
             required
           />
         </label>
+        {errors.credential && <p className="error-message">{errors.credential}</p>}
         <label>
           Password
           <input
             type="password"
+            placeholder='Enter your password'
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             required
@@ -143,7 +115,7 @@ function LoginFormModal() {
         {errors.credential && (
           <p>{errors.credential}</p>
         )}
-        <button className={disabledClass} type="submit" disabled={password.length < 6 || credential.length < 4}>Log In</button>
+          <button className={isDisabled ? "disabled-button" : ""} type="submit" disabled={isDisabled}>Log In</button>
         <div className='demo'>
         <a href="/" onClick={demoLogin}>Demo User</a>
         </div>
