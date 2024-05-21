@@ -7,6 +7,7 @@ import LandingPage from './components/Locations/LandingPage';
 import MyLocations from './components/Locations/MyLocations';
 import LocationForm from './components/Locations/LocationForm';
 import LocationDetail from './components/Locations/LocationDetail';
+import MyCollections from './components/Collections/MyCollections';
 
 function Layout() {
   const dispatch = useDispatch();
@@ -38,6 +39,7 @@ const router = createBrowserRouter([
       { path: 'locations/new', element: <LocationForm /> },
       { path: 'locations/:locationId', element: <LocationDetail /> },
       { path: 'locations/:locationId/edit', element: <LocationForm /> },
+      { path: 'my-collections', element: <MyCollections /> },
     ],
   },
 ]);
