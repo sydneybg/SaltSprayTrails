@@ -44,6 +44,42 @@ router.get('/', async (req, res, next) => {
   }
 });
 
+// GET all locations owned by the current user with associated location images
+router.get('/current',
+requireAuth,
+async (req, res, next) => {
+    try { //not necessary but using to figure out why requireauth isnt working
+      if (!req.user) {
+        return res.status(401).json({ message: 'You must be logged in to access this resource' });
+      }
+      const userId = req.user.id;
+      const locations = await Location.findAll({
+        where: { ownerId: userId },
+        include: [
+          {
+            model: LocationImage,
+            as: 'LocationImages',
+            attributes: ['id', 'imageUrl'],
+          },
+        ],
+      });
+
+      const locationsWithImages = locations.map((location) => ({
+        ...location.toJSON(),
+        locationImages: location.LocationImages,
+      }));
+
+      res.json({ locations: locationsWithImages });
+    } catch (err) {
+      console.error('Error fetching locations for current user:', err);
+      if (err.status === 401) {
+        res.status(401).json({ message: err.errors.message });
+      } else {
+        res.status(500).json({ message: 'Internal server error' });
+      }
+    }
+  });
+
 // GET a specific location by ID with associated location images
 router.get('/:id', async (req, res, next) => {
     try {
@@ -73,42 +109,6 @@ router.get('/:id', async (req, res, next) => {
   });
 
 
-// GET all locations owned by the current user with associated location images
-router.get('/current',
-requireAuth,
-async (req, res, next) => {
-    try { //not necessary but using to figure out why requireauth isnt working
-      if (!req.user) {
-        return res.status(401).json({ message: 'You must be logged in to access this resource' });
-      }
-
-      const userId = req.user.id;
-      const locations = await Location.findAll({
-        where: { ownerId: userId },
-        include: [
-          {
-            model: LocationImage,
-            as: 'LocationImages',
-            attributes: ['id', 'imageUrl'],
-          },
-        ],
-      });
-
-      const locationsWithImages = locations.map((location) => ({
-        ...location.toJSON(),
-        locationImages: location.LocationImages,
-      }));
-
-      res.json({ locations: locationsWithImages });
-    } catch (err) {
-      console.error('Error fetching locations for current user:', err);
-      if (err.status === 401) {
-        res.status(401).json({ message: err.errors.message });
-      } else {
-        res.status(500).json({ message: 'Internal server error' });
-      }
-    }
-  });
 
   // POST create a new location
   router.post('/',
@@ -116,7 +116,7 @@ async (req, res, next) => {
   validateLocation,
   async (req, res, next) => {
     try {
-      const location = await Location.create(req.body);
+      const location = await Location.create({ ...req.body, ownerId: req.user.id });
       res.status(201).json(location);
     } catch (error) {
       console.error('Error creating location:', error);

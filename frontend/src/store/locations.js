@@ -52,6 +52,7 @@ export const fetchLocation = (locationId) => async (dispatch) => {
 
 export const createLocation = (locationData) => async (dispatch) => {
   try {
+    locationData.type = locationData.activity_type;
     const response = await csrfFetch('/api/locations', {
       method: 'POST',
       body: JSON.stringify(locationData),
@@ -91,7 +92,7 @@ export const deleteUserLocation = (locationId) => async (dispatch) => {
 
   export const fetchUserLocations = () => async (dispatch) => {
     try {
-      const response = await csrfFetch('/api/locations/user');
+      const response = await csrfFetch('/api/locations/current');
       const data = await response.json();
       dispatch(setUserLocations(data.locations));
     } catch (error) {
@@ -123,4 +124,3 @@ const locationsReducer = (state = initialState, action) => {
 };
 
 export default locationsReducer;
-

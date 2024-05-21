@@ -37,7 +37,7 @@ const validateLocation = [
   check('name')
     .exists({ checkFalsy: true })
     .withMessage('Name is required'),
-  check('type')
+  check('activity_type')
     .exists({ checkFalsy: true })
     .withMessage('Type is required'),
   check('latitude')
@@ -50,11 +50,11 @@ const validateLocation = [
     .withMessage('Longitude is required')
     .isNumeric()
     .withMessage('Longitude must be a number'),
-  check('type').custom(async (type, { req }) => {
+  check('activity_type').custom(async (activity_type, { req }) => {
     const { latitude, longitude } = req.body;
     const existingLocation = await Location.findOne({
       where: {
-        type,
+        activity_type,
         latitude,
         longitude,
       },
