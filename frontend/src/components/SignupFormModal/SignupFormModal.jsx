@@ -19,7 +19,33 @@ function SignupFormModal() {
   const { closeModal } = useModal();
 
 
-  if (sessionUser) return <Navigate to="/" replace={true} />;
+  // if (sessionUser) return <Navigate to="/" replace={true} />;
+
+  // const handleSubmit = (e) => {
+  //   e.preventDefault();
+  //   if (password === confirmPassword) {
+  //     setErrors({});
+  //     return dispatch(
+  //       sessionActions.signup({
+  //         email,
+  //         username,
+  //         firstName,
+  //         lastName,
+  //         password
+  //       })
+  //     )
+  //       .then(closeModal)
+  //       .catch(async (res) => {
+  //         const data = await res.json();
+  //         if (data?.errors) {
+  //           setErrors(data.errors);
+  //         }
+  //       });
+  //   }
+  //   return setErrors({
+  //     confirmPassword: "Confirm Password field must be the same as the Password field"
+  //   });
+  // };
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -34,18 +60,26 @@ function SignupFormModal() {
           password
         })
       )
-        .then(closeModal)
-        .catch(async (res) => {
-          const data = await res.json();
-          if (data?.errors) {
-            setErrors(data.errors);
-          }
-        });
+      .then(() => {
+        closeModal()
+      })
+      .catch(async (res) => {
+        const data = await res.json();
+        if (data?.errors) {
+          setErrors(data.errors);
+        }
+      });
     }
     return setErrors({
       confirmPassword: "Confirm Password field must be the same as the Password field"
     });
   };
+
+  let disabledClass = ""
+  if (password.length < 6 || username.length < 4) {
+      disabledClass = "disabled-button"
+  }
+
 
   return (
     <>

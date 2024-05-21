@@ -20,25 +20,38 @@ const setUser = (user) => {
 
 // Thunk Action Creator
 //Login
-export const login = (user) => async (dispatch) => {
-    const { credential, password } = user;
-    const response = await csrfFetch("/api/session", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
+// export const login = (user) => async (dispatch) => {
+//     const { credential, password } = user;
+//     const response = await csrfFetch("/api/session", {
+//       method: "POST",
+//       headers: { "Content-Type": "application/json" },
+//       body: JSON.stringify({
+//         credential,
+//         password
+//       })
+//     });
+//     if(response.ok) {
+//         const data = await response.json();
+//         dispatch(setUser(data));
+//       } else if (response.status < 500) {
+//         const errorMessages = await response.json();
+//         return errorMessages
+//       } else {
+//         return { server: "Something went wrong. Please try again" }
+//       }
+//   };
+
+export const login = ({credential, password}) => async (dispatch) => {
+    const response = await csrfFetch('/api/session', {
+      method: 'POST',
       body: JSON.stringify({
         credential,
-        password
-      })
+        password,
+      }),
     });
-    if(response.ok) {
-        const data = await response.json();
-        dispatch(setUser(data));
-      } else if (response.status < 500) {
-        const errorMessages = await response.json();
-        return errorMessages
-      } else {
-        return { server: "Something went wrong. Please try again" }
-      }
+    const data = await response.json();
+    dispatch(setUser(data.user));
+    return response;
   };
 
   //Restore User
@@ -50,6 +63,23 @@ export const login = (user) => async (dispatch) => {
   };
 
 //Signup
+// export const signup = (user) => async (dispatch) => {
+//     const { username, firstName, lastName, email, password } = user;
+//     const response = await csrfFetch("/api/users", {
+//       method: "POST",
+//       body: JSON.stringify({
+//         username,
+//         firstName,
+//         lastName,
+//         email,
+//         password
+//       })
+//     });
+//     const data = await response.json();
+//     dispatch(setUser(data.user));
+//     return response;
+//   };
+
 export const signup = (user) => async (dispatch) => {
     const { username, firstName, lastName, email, password } = user;
     const response = await csrfFetch("/api/users", {
@@ -65,7 +95,7 @@ export const signup = (user) => async (dispatch) => {
     const data = await response.json();
     dispatch(setUser(data.user));
     return response;
-  };
+};
 
 //Logout
 export const logout = () => async (dispatch) => {
