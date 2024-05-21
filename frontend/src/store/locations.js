@@ -52,9 +52,10 @@ export const fetchLocation = (locationId) => async (dispatch) => {
 
 export const createLocation = (locationData) => async (dispatch) => {
   try {
-    locationData.type = locationData.activity_type;
+    // locationData.type = locationData.activity_type;
     const response = await csrfFetch('/api/locations', {
       method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(locationData),
     });
     const data = await response.json();

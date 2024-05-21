@@ -18,10 +18,20 @@ const LocationForm = ({ location, onClose }) => {
     ...location
   });
 
+  const [errors, setErrors] = useState({});
   useEffect(() => {
-    if (location) {
-      setFormData(location);
-    }
+    setFormData(location ? location : {
+      name: '',
+      description: '',
+      activity_type: '',
+      street: '',
+      city: '',
+      state: '',
+      country: '',
+      zip_code: '',
+      latitude: '',
+      longitude: ''
+    });
   }, [location]);
 
   const handleChange = (e) => {
@@ -30,12 +40,19 @@ const LocationForm = ({ location, onClose }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    let action;
+
     if (location) {
-      dispatch(updateLocation(location.id, formData));
+      action = updateLocation(location.id, formData);
     } else {
-      dispatch(createLocation(formData));
+      action = createLocation(formData);
     }
-    onClose();
+    const resultAction = await dispatch(action);
+    if (resultAction.error) {
+      setErrors(resultAction.error);
+    } else {
+      onClose(); 
+    }
   };
 
   return (
