@@ -1,6 +1,6 @@
 const { validationResult } = require('express-validator');
 const { check } = require('express-validator');
-const { Location } = require('../db/models');
+const { Location, Collection } = require('../db/models');
 
 const handleValidationErrors = (req, _res, next) => {
   const validationErrors = validationResult(req);
@@ -63,6 +63,7 @@ const validateLocation = [
       throw new Error('A location with the same type and longitude/latitude already exists');
     }
   }),
+  handleValidationErrors
 ];
 
 //Validate Signup Request Body
@@ -94,10 +95,50 @@ const validateSignup = [
   handleValidationErrors
 ];
 
+const validateCollection = [
+  check('name')
+    .exists({ checkFalsy: true })
+    .withMessage('Name is required'),
+  check('imageUrl')
+    .exists({ checkFalsy: true })
+    .withMessage('Image URL is required')
+    .isURL()
+    .withMessage('Image URL must be a valid URL'),
+  handleValidationErrors
+];
+
+const validateCollectionLocation = [
+  check('collectionId')
+    .exists({ checkFalsy: true })
+    .withMessage('Collection ID is required')
+    .isInt()
+    .withMessage('Collection ID must be an integer')
+    .custom(async (value) => {
+      const collection = await Collection.findByPk(value);
+      if (!collection) {
+        throw new Error('Collection not found');
+      }
+    }),
+  check('locationId')
+    .exists({ checkFalsy: true })
+    .withMessage('Location ID is required')
+    .isInt()
+    .withMessage('Location ID must be an integer')
+    .custom(async (value) => {
+      const location = await Location.findByPk(value);
+      if (!location) {
+        throw new Error('Location not found');
+      }
+    }),
+  handleValidationErrors
+];
+
 
 module.exports = {
   validateLocation,
   handleValidationErrors,
   validateLogin,
-  validateSignup
+  validateSignup,
+  validateCollection,
+  validateCollectionLocation
 };

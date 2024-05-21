@@ -1,7 +1,7 @@
 const express = require('express');
 const { Location, LocationImage } = require('../../db/models');
 const { requireAuth } = require('../../utils/auth');
-const { validateLocation, handleValidationErrors } = require('../../utils/validation');
+const { validateLocation } = require('../../utils/validation');
 
 
 const router = express.Router();
@@ -114,7 +114,6 @@ async (req, res, next) => {
   router.post('/',
   requireAuth,
   validateLocation,
-  handleValidationErrors,
   async (req, res, next) => {
     try {
       const location = await Location.create(req.body);
@@ -126,7 +125,7 @@ async (req, res, next) => {
   });
 
   // PUT update an existing location
-  router.put('/:id', requireAuth, validateLocation, handleValidationErrors, async (req, res, next) => {
+  router.put('/:id', requireAuth, validateLocation, async (req, res, next) => {
     try {
       const location = await Location.findByPk(req.params.id);
       if (!location) {

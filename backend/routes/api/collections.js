@@ -2,6 +2,8 @@ const express = require('express');
 const router = express.Router();
 const { Collection } = require('../models');
 const { CollectionLocation } = require('../models');
+const { requireAuth } = require('../../utils/auth');
+const { validateCollection, validateCollectionLocation } = require('../../utils/validation');
 
 
 // Get all collections
@@ -31,7 +33,7 @@ router.get('/:id', async (req, res) => {
 });
 
 // Create a new collection
-router.post('/', async (req, res) => {
+router.post('/', requireAuth, validateCollection, async (req, res) => {
   try {
     const { name, imageUrl, userId } = req.body;
     const collection = await Collection.create({ name, imageUrl, userId });
@@ -43,7 +45,7 @@ router.post('/', async (req, res) => {
 });
 
 // Update a collection
-router.put('/:id', async (req, res) => {
+router.put('/:id', requireAuth, validateCollection, async (req, res) => {
   try {
     const { name, imageUrl } = req.body;
     const collection = await Collection.findByPk(req.params.id);
@@ -60,7 +62,7 @@ router.put('/:id', async (req, res) => {
 });
 
 // Delete a collection
-router.delete('/:id', async (req, res) => {
+router.delete('/:id', requireAuth, async (req, res) => {
   try {
     const collection = await Collection.findByPk(req.params.id);
     if (!collection) {
@@ -87,7 +89,7 @@ router.get('/', async (req, res) => {
   });
 
   // Add a location to a collection
-  router.post('/', async (req, res) => {
+  router.post('/', requireAuth, validateCollectionLocation, async (req, res) => {
     try {
       const { collectionId, locationId } = req.body;
       const collectionLocation = await CollectionLocation.create({ collectionId, locationId });
@@ -99,7 +101,7 @@ router.get('/', async (req, res) => {
   });
 
   // Remove a location from a collection
-  router.delete('/:id', async (req, res) => {
+  router.delete('/:id', requireAuth, async (req, res) => {
     try {
       const collectionLocation = await CollectionLocation.findByPk(req.params.id);
       if (!collectionLocation) {

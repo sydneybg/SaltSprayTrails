@@ -33,6 +33,9 @@ const setTokenCookie = (res, user) => {
   const restoreUser = (req, res, next) => {
     // token parsed from cookies
     const { token } = req.cookies;
+    if (!token) {
+      return next();
+    }
     req.user = null;
 
     return jwt.verify(token, secret, null, async (err, jwtPayload) => {
@@ -44,7 +47,7 @@ const setTokenCookie = (res, user) => {
         const { id } = jwtPayload.data;
         req.user = await User.findByPk(id, {
           attributes: {
-            include: ['email', 'createdAt', 'updatedAt']
+            include: ['username', 'email', 'firstName', 'lastName']
           }
         });
       } catch (e) {
@@ -59,8 +62,8 @@ const setTokenCookie = (res, user) => {
   };
 
   // If there is no current user, return an error
-const requireAuth = function (req, _res, next) {
-    if (req.user) return next();
+const requireAuth = function ({ user }, _res, next) {
+    if (user) return next();
 
     const err = new Error('Authentication required');
     err.title = 'Authentication required';
