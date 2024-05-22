@@ -1,11 +1,13 @@
 import { useState, useRef } from 'react';
 import { useDispatch } from 'react-redux';
 import { FaUserCircle } from 'react-icons/fa';
+import { useNavigate } from 'react-router-dom';
 import './Navigation.css';
 import * as sessionActions from '../../store/session';
 
 function ProfileButton({ user }) {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [showMenu, setShowMenu] = useState(false);
   const ulRef = useRef(); //for hidding the dropdown
 
@@ -20,7 +22,9 @@ function ProfileButton({ user }) {
 
   const logout = (e) => {
     e.preventDefault();
-    dispatch(sessionActions.logout());
+    dispatch(sessionActions.logout()).then(() => {
+      navigate('/', { replace: true });
+    });
   };
 
   const ulClassName = "profile-dropdown" + (showMenu ? "" : " hidden");
@@ -31,17 +35,14 @@ function ProfileButton({ user }) {
     }
   };
 
-//   const toggleMenu = (e) => { //Instead of ulref
-//     e.stopPropagation(); // Keep click from bubbling up to document and triggering closeMenu
-//     setShowMenu(!showMenu);
-//   };
+
 
   return (
     <>
       <button onClick={openMenu}>
         <FaUserCircle />
       </button>
-            <ul className={ulClassName} ref={ulRef}>
+      <ul className={ulClassName} ref={ulRef}>
         <li>{user.username}</li>
         <li>{user.firstName} {user.lastName}</li>
         <li>{user.email}</li>
@@ -57,6 +58,12 @@ function ProfileButton({ user }) {
 }
 
 export default ProfileButton;
+
+
+//   const toggleMenu = (e) => { //Instead of ulref
+//     e.stopPropagation(); // Keep click from bubbling up to document and triggering closeMenu
+//     setShowMenu(!showMenu);
+//   };
 
 
 //Alternative option to useRef

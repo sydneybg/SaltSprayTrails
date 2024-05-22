@@ -38,12 +38,12 @@ const LocationForm = ({ location, onClose }) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     let action;
 
     if (location) {
-      action = updateLocation(location.id, formData);
+      action = updateLocation(formData);
     } else {
       action = createLocation(formData);
     }
@@ -51,7 +51,7 @@ const LocationForm = ({ location, onClose }) => {
     if (resultAction.error) {
       setErrors(resultAction.error);
     } else {
-      onClose(); 
+      onClose();
     }
   };
 

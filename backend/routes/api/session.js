@@ -43,10 +43,6 @@ router.post(
       error.message = 'Invalid Credentials',
       error.status = 401
       return next(error)
-
-      // return res.status(401).json({
-      //   message: 'Invalid credentials',
-      // })
     }
 
     const safeUser = {

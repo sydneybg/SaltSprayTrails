@@ -18,7 +18,7 @@ const LandingPage = () => {
       {/* <div className="large-image-container">
         <img src={largeImage} alt="Large Image" className="large-image" />
       </div> */}
-      <h1>Welcome to Salt'n'Swim!</h1>
+      <h1>Welcome to Salt&apos;n&apos;Swim!</h1>
       <div className="locations-grid">
         {locations.map((location) => (
           <Link to={`/locations/${location.id}`} key={location.id} className="location-tile">

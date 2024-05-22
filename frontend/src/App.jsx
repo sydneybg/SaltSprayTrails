@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { createBrowserRouter, RouterProvider, Outlet } from 'react-router-dom';
+import { createBrowserRouter, RouterProvider, Outlet, Navigate } from 'react-router-dom';
 import Navigation from './components/Navigation';
 import * as sessionActions from './store/session';
 import LandingPage from './components/Locations/LandingPage';
@@ -29,40 +29,56 @@ function Layout() {
 }
 
 
+function ProtectedRoute({ children }) {
+  const user = useSelector(state => state.session.user);
+  return user ? children : <Navigate to="/" />;
+}
+
 function App() {
-  const userState = useSelector(state => state.session.user)
   const router = createBrowserRouter([
     {
       path: '/',
       element: <Layout />,
       children: [
-        {
-          index: true, element: <LandingPage/>,
-        },
-        { path: 'my-locations', element: <MyLocations />, isProtected: true },
-        { path: 'locations/new', element: <LocationForm /> },
+        { index: true, element: <LandingPage /> },
+        { path: 'my-locations', element: <ProtectedRoute><MyLocations /></ProtectedRoute> },
+        { path: 'locations/new', element: <ProtectedRoute><LocationForm /></ProtectedRoute> },
         { path: 'locations/:locationId', element: <LocationDetail /> },
-        { path: 'locations/:locationId/edit', element: <LocationForm /> },
-        // { path: 'my-collections', element: <MyCollections /> },
-      ].filter(child => !child.isProtected || userState),
+        { path: 'locations/:locationId/edit', element: <ProtectedRoute><LocationForm /></ProtectedRoute> },
+        // { path: 'my-collections', element: <ProtectedRoute><MyCollections /></ProtectedRoute> },
+      ],
     },
   ]);
+
   return <RouterProvider router={router} />;
 }
+
 
 
 export default App;
 
 
-//function App() {
-  //   const dispatch = useDispatch();
-  //   const [isLoaded, setIsLoaded] = useState(false);
 
-  //   useEffect(() => {
-  //     dispatch(sessionActions.restoreUser()).then(() => {
-  //       setIsLoaded(true);
-  //     });
-  //   }, [dispatch]);
 
-  //   return <RouterProvider router={router} />;
-  // }
+
+
+// function App() {
+//   const userState = useSelector(state => state.session.user)
+//   const router = createBrowserRouter([
+//     {
+//       path: '/',
+//       element: <Layout />,
+//       children: [
+//         {
+//           index: true, element: <LandingPage/>,
+//         },
+//         { path: 'my-locations', element: <MyLocations />, isProtected: true },
+//         { path: 'locations/new', element: <LocationForm /> },
+//         { path: 'locations/:locationId', element: <LocationDetail /> },
+//         { path: 'locations/:locationId/edit', element: <LocationForm /> },
+//         // { path: 'my-collections', element: <MyCollections /> },
+//       ].filter(child => !child.isProtected || userState),
+//     },
+//   ]);
+//   return <RouterProvider router={router} />;
+// }
