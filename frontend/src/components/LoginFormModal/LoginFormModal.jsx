@@ -93,11 +93,13 @@ function LoginFormModal() {
 
     return dispatch(sessionActions.login({ credential, password }))
       .then(closeModal)
-      .catch(async (res) => {
-        const data = await res.json();
+      .catch(async ({ data }) => {
+        const parsedData = await data.json();
 
-        if (res.status === 401) {
-          setErrors({credential: data.message});
+        console.log('res', parsedData)
+
+        if (data.status === 401) {
+          setErrors({credential: parsedData.message});
         }
       });
   };

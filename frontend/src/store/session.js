@@ -49,9 +49,15 @@ export const login = ({credential, password}) => async (dispatch) => {
         password,
       }),
     });
-    const data = await response.json();
-    dispatch(setUser(data.user));
-    return response;
+    console.log('response ', response)
+    if (response.ok) {
+      const data = await response.json();
+      dispatch(setUser(data.user));
+      return data
+    }
+    const error = new Error()
+    error.data = response
+    throw error
   };
 
   //Restore User
