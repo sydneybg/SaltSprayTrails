@@ -41,37 +41,20 @@ function LoginFormModal() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (Object.keys(errors).length === 0) {
-        dispatch(sessionActions.login({ credential, password }))
-        .then(closeModal)
-        .catch((errorData) => {
-            if (errorData.status === 401) {
+    setErrors({});
 
-                setErrors({ credential: "Invalid username or password." });
-            } else {
+    return dispatch(sessionActions.login({ credential, password }))
+      .then(closeModal)
+      .catch(async ({ data }) => {
+        const parsedData = await data.json();
 
-                setErrors({ general: errorData.message || "An unexpected error occurred." });
-            }
-        });
-    }
-};
+        console.log('res', parsedData)
 
-
-  // const handleSubmit = (e) => {
-  //   e.preventDefault();
-  //   if (Object.keys(errors).length === 0) {
-  //     dispatch(sessionActions.login({ credential, password }))
-  //       .then(closeModal)
-  //       .catch(async (res) => {
-  //         const data = await res.json();
-  //         if (res.status === 401) {
-  //           setErrors({ credential: data.message || "Invalid username or password." });
-  //         } else {
-  //           setErrors(data.errors || { general: "An unexpected error occurred." });
-  //         }
-  //       });
-  //   }
-  // };
+        if (data.status === 401) {
+          setErrors({credential: parsedData.message});
+        }
+      });
+  };
 
   const demoLogin = (e) => {
     e.preventDefault();
