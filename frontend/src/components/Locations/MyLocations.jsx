@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { fetchUserLocations, deleteUserLocation } from '../../store/locations';
-import LocationForm from './LocationForm';
+// import LocationForm from './LocationForm';
 import DeleteConfirmationModal from '../DeleteModal/DeleteConfirmationModal';
 
 const MyLocations = () => {
@@ -10,8 +10,8 @@ const MyLocations = () => {
   const userLocations = useSelector(state => state.locations.userLocations);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [currentLocationId, setCurrentLocationId] = useState(null);
-  const [formVisible, setFormVisible] = useState(false);
-  const [editLocation, setEditLocation] = useState(null);
+  // const [formVisible, setFormVisible] = useState(false);
+  // const [editLocation, setEditLocation] = useState(null);
 
   useEffect(() => {
     dispatch(fetchUserLocations());
@@ -27,20 +27,20 @@ const MyLocations = () => {
     setIsModalOpen(true);
   };
 
-  const openEditForm = (location) => {
-    setEditLocation(location);
-    setFormVisible(true);
-  };
+  // const openEditForm = (location) => {
+  //   setEditLocation(location);
+  //   setFormVisible(true);
+  // };
 
-  const closeForm = () => {
-    setFormVisible(false);
-    setEditLocation(null);
-  };
+  // const closeForm = () => {
+  //   setFormVisible(false);
+  //   setEditLocation(null);
+  // };
 
   return (
     <div className="my-locations-page">
       <h1>My Locations</h1>
-      <button onClick={() => setFormVisible(true)} className="create-location-button">Create Location</button>
+      <Link to="/locations/new" className="create-location-button">Create Location</Link>
       <div className="locations-grid">
         {userLocations.map(location => (
           <div key={location.id} className="location-tile">
@@ -50,13 +50,13 @@ const MyLocations = () => {
             <div className="location-details">
               <h2>{location.name}</h2>
               <p>{location.description}</p>
-              <button onClick={() => openEditForm(location)}>Edit</button>
+              <Link to={`/locations/${location.id}/edit`}>Edit</Link>
               <button onClick={() => openDeleteModal(location.id)}>Delete</button>
             </div>
           </div>
         ))}
       </div>
-      {formVisible && <LocationForm location={editLocation} onClose={closeForm} />}
+      {/* {formVisible && <LocationForm location={editLocation} onClose={closeForm} />} */}
       {isModalOpen && (
         <DeleteConfirmationModal
           isOpen={isModalOpen}

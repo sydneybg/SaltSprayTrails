@@ -1,10 +1,16 @@
 import React, { useState, useEffect } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate, useParams } from 'react-router-dom';
 import { createLocation, updateLocation } from '../../store/locations';
+import { fetchLocation } from '../../store/locations'
 import './LocationForm.css'
 
-const LocationForm = ({ location, onClose }) => {
+const LocationForm = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const { locationId } = useParams();
+  const currentLocation = useSelector((state) => state.locations.currentLocation);
+
   const [formData, setFormData] = useState({
     name: '',
     description: '',
@@ -15,25 +21,35 @@ const LocationForm = ({ location, onClose }) => {
     country: '',
     zip_code: '',
     latitude: '',
-    longitude: '',
-    ...location
+    longitude: ''
   });
 
   const [errors, setErrors] = useState({});
+
   useEffect(() => {
-    setFormData(location ? location : {
-      name: '',
-      description: '',
-      activity_type: '',
-      street: '',
-      city: '',
-      state: '',
-      country: '',
-      zip_code: '',
-      latitude: '',
-      longitude: ''
-    });
-  }, [location]);
+    if (locationId) {
+      dispatch(fetchLocation(locationId));
+    } else {
+      setFormData({
+        name: '',
+        description: '',
+        activity_type: '',
+        street: '',
+        city: '',
+        state: '',
+        country: '',
+        zip_code: '',
+        latitude: '',
+        longitude: '',
+      });
+    }
+  }, [locationId, dispatch]);
+
+  useEffect(() => {
+    if (currentLocation) {
+      setFormData(currentLocation);
+    }
+  }, [currentLocation]);
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -44,7 +60,7 @@ const LocationForm = ({ location, onClose }) => {
     let action;
 
     if (location) {
-      action = updateLocation(formData);
+      action = updateLocation({ id: locationId, ...formData });
     } else {
       action = createLocation(formData);
     }
@@ -52,13 +68,13 @@ const LocationForm = ({ location, onClose }) => {
     if (resultAction.error) {
       setErrors(resultAction.error.errors || {});
     } else {
-      onClose();
+      navigate(`/locations/${resultAction.location.id}`);
     }
   };
 
   return (
     <div className="location-form">
-      <h2>{location ? 'Edit Location' : 'Create Location'}</h2>
+      <h2>{locationId ? 'Edit Location' : 'Create Location'}</h2>
       <form onSubmit={handleSubmit}>
       <input type="text" name="name" placeholder="Name" value={formData.name} onChange={handleChange} required />
       {errors.name && <p className="error">{errors.name}</p>}
@@ -96,7 +112,7 @@ const LocationForm = ({ location, onClose }) => {
         <input type="text" name="longitude" placeholder="Longitude" value={formData.longitude} onChange={handleChange} required />
         {errors.longitude && <p className="error">{errors.longitude}</p>}
 
-        <button type="submit">{location ? 'Update' : 'Create'}</button>
+        <button type="submit">{locationId ? 'Update' : 'Create'}</button>
       </form>
     </div>
   );
