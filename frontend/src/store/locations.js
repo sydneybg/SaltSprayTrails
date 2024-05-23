@@ -69,6 +69,7 @@ export const updateLocation = (locationId, locationData) => async (dispatch) => 
   try {
     const response = await csrfFetch(`/api/locations/${locationId}`, {
       method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(locationData),
     });
     const data = await response.json();
