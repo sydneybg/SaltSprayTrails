@@ -52,7 +52,6 @@ export const fetchLocation = (locationId) => async (dispatch) => {
 
 export const createLocation = (locationData) => async (dispatch) => {
   try {
-    // locationData.type = locationData.activity_type;
     const response = await csrfFetch('/api/locations', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -60,12 +59,14 @@ export const createLocation = (locationData) => async (dispatch) => {
     });
     const data = await response.json();
     dispatch(setLocation(data));
+    return data;
   } catch (error) {
     console.error('Error creating location:', error);
+    throw error
   }
 };
 
-export const updateLocation = (locationId, locationData) => async (dispatch) => {
+export const updateLocation = ({ id, ...locationData }) => async (dispatch) => {
   try {
     const response = await csrfFetch(`/api/locations/${locationId}`, {
       method: 'PUT',

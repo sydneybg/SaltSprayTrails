@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom';
-import { createLocation, updateLocation } from '../../store/locations';
-import { fetchLocation } from '../../store/locations'
+import { createLocation, updateLocation, fetchLocation } from '../../store/locations';
 import './LocationForm.css'
 
 const LocationForm = () => {
@@ -59,16 +58,23 @@ const LocationForm = () => {
     e.preventDefault();
     let action;
 
-    if (location) {
+    if (locationId) {
       action = updateLocation({ id: locationId, ...formData });
     } else {
       action = createLocation(formData);
     }
-    const resultAction = await dispatch(action);
-    if (resultAction.error) {
-      setErrors(resultAction.error.errors || {});
-    } else {
-      navigate(`/locations/${resultAction.location.id}`);
+
+    console.log(action)
+    try {
+      const resultAction = await dispatch(action);
+      console.log(resultAction) //undefined but still not seeing catch error
+      if (resultAction.errors) {
+        setErrors(resultAction.errors);
+      } else {
+        navigate(`/locations/${resultAction.id}`);
+      }
+    } catch (error) {
+      console.error('Error submitting location:', error);
     }
   };
 
