@@ -50,31 +50,61 @@ export const fetchLocation = (locationId) => async (dispatch) => {
   }
 };
 
+// export const createLocation = (locationData) => async (dispatch) => {
+//   try {
+//     // locationData.type = locationData.activity_type;
+//     const response = await csrfFetch('/api/locations', {
+//       method: 'POST',
+//       headers: { 'Content-Type': 'application/json' },
+//       body: JSON.stringify(locationData),
+//     });
+//     const data = await response.json();
+//     dispatch(setLocation(data));
+//   } catch (error) {
+//     console.error('Error creating location:', error);
+//   }
+// };
+
+// export const updateLocation = (locationId, locationData) => async (dispatch) => {
+//   try {
+//     const response = await csrfFetch(`/api/locations/${locationId}`, {
+//       method: 'PUT',
+//       body: JSON.stringify(locationData),
+//     });
+//     const data = await response.json();
+//     dispatch(setLocation(data));
+//   } catch (error) {
+//     console.error('Error updating location:', error);
+//   }
+// };
+
+// New createLocation
 export const createLocation = (locationData) => async (dispatch) => {
   try {
-    // locationData.type = locationData.activity_type;
     const response = await csrfFetch('/api/locations', {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(locationData),
     });
     const data = await response.json();
     dispatch(setLocation(data));
+    return data;
   } catch (error) {
-    console.error('Error creating location:', error);
+    return { error: error.data.errors };
   }
 };
 
-export const updateLocation = (locationId, locationData) => async (dispatch) => {
+// New updateLocation
+export const updateLocation = (locationData) => async (dispatch) => {
   try {
-    const response = await csrfFetch(`/api/locations/${locationId}`, {
+    const response = await csrfFetch(`/api/locations/${locationData.id}`, {
       method: 'PUT',
       body: JSON.stringify(locationData),
     });
     const data = await response.json();
     dispatch(setLocation(data));
+    return data;
   } catch (error) {
-    console.error('Error updating location:', error);
+    return { error: error.data.errors };
   }
 };
 

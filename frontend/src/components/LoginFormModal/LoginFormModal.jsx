@@ -39,22 +39,59 @@ function LoginFormModal() {
     updateErrors('password', password.length > 0 && password.length < 6, "Password must be at least 6 characters long.");
   }, [password]);
 
+  // const handleSubmit = (e) => {
+  //   e.preventDefault();
+  //   setErrors({});
+
+  //   return dispatch(sessionActions.login({ credential, password }))
+  //     .then(closeModal)
+  //     .catch(async ({ data }) => {
+  //       const parsedData = await data.json();
+
+  //       console.log('res', parsedData)
+
+  //       if (data.status === 401) {
+  //         setErrors({credential: parsedData.message});
+  //       }
+  //     });
+  // };
+
+  // const handleSubmit = async (e) => {
+  //   e.preventDefault();
+  //   setErrors({});
+
+  //   try {
+  //     await dispatch(sessionActions.login({ credential, password }));
+  //     closeModal();
+  //   } catch (error) {
+  //     if (error.data) {
+  //       const parsedData = await error.data.json();
+  //       if (parsedData.errors) {
+  //         setErrors(parsedData.errors);
+  //       } else if (parsedData.message) {
+  //         setErrors({ credential: parsedData.message });
+  //       }
+  //     }
+  //   }
+  // };
+
   const handleSubmit = (e) => {
     e.preventDefault();
     setErrors({});
 
-    return dispatch(sessionActions.login({ credential, password }))
-      .then(closeModal)
-      .catch(async ({ data }) => {
-        const parsedData = await data.json();
-
-        console.log('res', parsedData)
-
-        if (data.status === 401) {
-          setErrors({credential: parsedData.message});
+    dispatch(sessionActions.login({ credential, password }))
+      .then((res) => {
+        if (res.error) {
+          setErrors(res.error.errors || { credential: res.error.message });
+        } else {
+          closeModal();
         }
+      })
+      .catch((error) => {
+        console.error('Login failed:', error);
       });
   };
+
 
   const demoLogin = (e) => {
     e.preventDefault();
@@ -95,9 +132,8 @@ function LoginFormModal() {
             required
           />
         </label>
-        {errors.credential && (
-          <p>{errors.credential}</p>
-        )}
+        {errors.password && <p className="error-message">{errors.password}</p>}
+
           <button className={isDisabled ? "disabled-button" : ""} type="submit" disabled={isDisabled}>Log In</button>
         <div className='demo'>
         <a href="/" onClick={demoLogin}>Demo User</a>

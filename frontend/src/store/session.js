@@ -20,24 +20,38 @@ const setUser = (user) => {
 
 // Thunk Action Creator
 //Login
-export const login = ({credential, password}) => async (dispatch) => {
+// export const login = ({credential, password}) => async (dispatch) => {
+//     const response = await csrfFetch('/api/session', {
+//       method: 'POST',
+//       headers: { "Content-Type": "application/json" },
+//       body: JSON.stringify({
+//         credential,
+//         password,
+//       }),
+//     });
+//     if (response.ok) {
+//       const data = await response.json();
+//       dispatch(setUser(data.user));
+//       return data
+//     }
+//     const error = new Error()
+//     error.data = response
+//     throw error
+//   };
+
+export const login = ({ credential, password }) => async (dispatch) => {
+  try {
     const response = await csrfFetch('/api/session', {
       method: 'POST',
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        credential,
-        password,
-      }),
+      body: JSON.stringify({ credential, password }),
     });
-    if (response.ok) {
-      const data = await response.json();
-      dispatch(setUser(data.user));
-      return data
-    }
-    const error = new Error()
-    error.data = response
-    throw error
-  };
+    const data = await response.json();
+    dispatch(setUser(data.user));
+    return data;
+  } catch (error) {
+    return { error: error.data };
+  }
+};
 
   //Restore User
   export const restoreUser = () => async (dispatch) => {

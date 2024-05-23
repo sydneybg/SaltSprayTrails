@@ -39,8 +39,28 @@ const LocationForm = ({ location, onClose }) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
+  // const handleSubmit = async (e) => {
+  //   e.preventDefault();
+  //   let action;
+
+  //   if (location) {
+  //     action = updateLocation(formData);
+  //   } else {
+  //     action = createLocation(formData);
+  //   }
+  //   const resultAction = await dispatch(action);
+  //   if (resultAction.error) {
+  //     // setErrors(resultAction.error.errors || {});
+  //     setErrors(resultAction.error);
+
+  //   } else {
+  //     onClose();
+  //   }
+  // };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setErrors({});
     let action;
 
     if (location) {
@@ -50,7 +70,11 @@ const LocationForm = ({ location, onClose }) => {
     }
     const resultAction = await dispatch(action);
     if (resultAction.error) {
-      setErrors(resultAction.error.errors || {});
+      const errorMessages = resultAction.error.errors.reduce((acc, err) => {
+        acc[err.param] = err.msg;
+        return acc;
+      }, {});
+      setErrors(errorMessages);
     } else {
       onClose();
     }
