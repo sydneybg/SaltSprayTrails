@@ -20,12 +20,12 @@ module.exports = (sequelize, DataTypes) => {
     userId: {
       type: DataTypes.INTEGER,
       allowNull: false,
-      references: { model: 'User', key: 'id' }
+      references: { model: 'Users', key: 'id' }
     },
     locationId: {
       type: DataTypes.INTEGER,
       allowNull: false,
-      references: { model: 'Location', key: 'id' }
+      references: { model: 'Locations', key: 'id' }
     },
     rating: {
       type: DataTypes.INTEGER,

@@ -26,20 +26,18 @@ module.exports = (sequelize, DataTypes) => {
     collectionId: {
       type: DataTypes.INTEGER,
       allowNull: false,
-      references: {
-        model: 'Collection',
-        key: 'id'
-      },
-      onDelete: 'CASCADE'
+      // references: {
+      //   model: 'Collections',
+      //   key: 'id'
+      // },
     },
     locationId: {
       type: DataTypes.INTEGER,
       allowNull: false,
-      references: {
-        model: 'Location',
-        key: 'id'
-      },
-      onDelete: 'CASCADE'
+      // references: {
+      //   model: 'Locations',
+      //   key: 'id'
+      // },
     },
     createdAt: {
       type: DataTypes.DATE,

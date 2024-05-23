@@ -15,7 +15,7 @@ module.exports = (sequelize, DataTypes) => {
 
   LocationImage.init({
     id: {
-      type: DataTypes.INTEGER, 
+      type: DataTypes.INTEGER,
       allowNull: false,
       autoIncrement: true,
       primaryKey: true
@@ -23,11 +23,10 @@ module.exports = (sequelize, DataTypes) => {
     locationId: {
       type: DataTypes.INTEGER,
       allowNull: false,
-      references: {
-        model: 'Locations',
-        key: 'id'
-      },
-      onDelete: 'CASCADE'
+      // references: {
+      //   model: 'Locations',
+      //   key: 'id'
+      // },
     },
     imageUrl: {
       type: DataTypes.STRING,
