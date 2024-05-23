@@ -41,8 +41,8 @@ module.exports = {
       }
     }, options);
 
-    await queryInterface.addIndex('LocationImages', ['locationId']);
-    await queryInterface.addIndex('LocationImages', ['imageUrl']);
+    // await queryInterface.addIndex('LocationImages', ['locationId']);
+    // await queryInterface.addIndex('LocationImages', ['imageUrl']);
   },
 
 
