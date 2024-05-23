@@ -84,8 +84,8 @@ module.exports = {
         updatedAt: new Date()
       },
       {
-        userId: 10,
-        locationId: 10,
+        userId: 9,
+        locationId: 8,
         rating: 5,
         comment: 'Perfect location with breathtaking views!',
         createdAt: new Date(),
@@ -141,7 +141,7 @@ module.exports = {
       },
       {
         userId: 7,
-        locationId: 10,
+        locationId: 9,
         rating: 4,
         comment: 'Enjoyable visit, kids had a lot of fun.',
         createdAt: new Date(),
@@ -164,7 +164,7 @@ module.exports = {
         updatedAt: new Date()
       },
       {
-        userId: 10,
+        userId: 8,
         locationId: 3,
         rating: 4,
         comment: 'Good experience overall, but a little crowded.',
