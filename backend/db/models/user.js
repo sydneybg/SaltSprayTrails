@@ -17,10 +17,10 @@ module.exports = (sequelize, DataTypes) => {
         models.Location,
         { foreignKey: 'ownerId', onDelete: 'CASCADE', hooks: true}
       );
-      // User.hasMany(
-      //   models.Review,
-      //   { foreignKey: 'userId', onDelete: 'CASCADE', hooks: true}
-      // );
+      User.hasMany(
+        models.Review,
+        { foreignKey: 'userId', onDelete: 'CASCADE', hooks: true}
+      );
     }
   }
   User.init({

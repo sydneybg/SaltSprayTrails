@@ -10,11 +10,11 @@ module.exports = (sequelize, DataTypes) => {
         onDelete: 'CASCADE',
         hooks: true
       });
-      // Location.hasMany(models.Review, {
-      //   foreignKey: 'locationId',
-      //   onDelete: 'CASCADE',
-      //   hooks: true
-      // });
+      Location.hasMany(models.Review, {
+        foreignKey: 'locationId',
+        onDelete: 'CASCADE',
+        hooks: true
+      });
       Location.belongsToMany(models.Collection, {
         through: models.CollectionLocation,
         foreignKey: 'locationId'
