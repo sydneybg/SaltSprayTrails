@@ -1,7 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const { Collection } = require('../models');
-const { CollectionLocation } = require('../models');
+const { Location, Collection, CollectionLocation } = require('../models');
 const { requireAuth } = require('../../utils/auth');
 const { validateCollection, validateCollectionLocation } = require('../../utils/validation');
 
@@ -50,7 +49,8 @@ router.get('/', requireAuth, async (req, res) => {
 // Create a new collection
 router.post('/', requireAuth, validateCollection, async (req, res) => {
   try {
-    const { name, imageUrl, userId } = req.body;
+    const { name, imageUrl } = req.body;
+    const userId = req.user.id;
     const collection = await Collection.create({ name, imageUrl, userId });
     res.status(201).json(collection);
   } catch (error) {
@@ -58,6 +58,7 @@ router.post('/', requireAuth, validateCollection, async (req, res) => {
     res.status(500).json({ message: 'Server Error' });
   }
 });
+
 
 // Update a collection
 router.put('/:id', requireAuth, validateCollection, async (req, res) => {

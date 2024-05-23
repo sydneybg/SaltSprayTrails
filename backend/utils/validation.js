@@ -1,5 +1,4 @@
-const { validationResult } = require('express-validator');
-const { check } = require('express-validator');
+const { validationResult, check } = require('express-validator');
 const { Location, Collection } = require('../db/models');
 
 const handleValidationErrors = (req, _res, next) => {
@@ -29,6 +28,35 @@ const validateLogin = [
   check('password')
     .exists({ checkFalsy: true })
     .withMessage('Please provide a password.'),
+  handleValidationErrors
+];
+
+//Validate Signup Request Body
+const validateSignup = [
+  check('email')
+    .exists({ checkFalsy: true })
+    .isEmail()
+    .withMessage('Please provide a valid email.'),
+  check('username')
+    .exists({ checkFalsy: true })
+    .isLength({ min: 4 })
+    .withMessage('Please provide a username with at least 4 characters.'),
+  check('username')
+    .not()
+    .isEmail()
+    .withMessage('Username cannot be an email.'),
+  check('password')
+    .exists({ checkFalsy: true })
+    .isLength({ min: 6 })
+    .withMessage('Password must be 6 characters or more.'),
+    check('firstName')
+    .exists({ checkFalsy: true })
+    .isLength({ min: 1 })
+    .withMessage('First Name is required.'),
+    check('lastName')
+    .exists({ checkFalsy: true })
+    .isLength({ min: 1 })
+    .withMessage('Last Name is required.'),
   handleValidationErrors
 ];
 
@@ -70,39 +98,14 @@ const validateLocation = [
   handleValidationErrors
 ];
 
-//Validate Signup Request Body
-const validateSignup = [
-  check('email')
-    .exists({ checkFalsy: true })
-    .isEmail()
-    .withMessage('Please provide a valid email.'),
-  check('username')
-    .exists({ checkFalsy: true })
-    .isLength({ min: 4 })
-    .withMessage('Please provide a username with at least 4 characters.'),
-  check('username')
-    .not()
-    .isEmail()
-    .withMessage('Username cannot be an email.'),
-  check('password')
-    .exists({ checkFalsy: true })
-    .isLength({ min: 6 })
-    .withMessage('Password must be 6 characters or more.'),
-    check('firstName')
-    .exists({ checkFalsy: true })
-    .isLength({ min: 1 })
-    .withMessage('First Name is required.'),
-    check('lastName')
-    .exists({ checkFalsy: true })
-    .isLength({ min: 1 })
-    .withMessage('Last Name is required.'),
-  handleValidationErrors
-];
+
 
 const validateCollection = [
   check('name')
     .exists({ checkFalsy: true })
-    .withMessage('Name is required'),
+    .withMessage('Name is required')
+    .isLength({ max: 255 })
+    .withMessage('Name cannot be longer than 255 characters'),
   check('imageUrl')
     .exists({ checkFalsy: true })
     .withMessage('Image URL is required')
@@ -111,31 +114,32 @@ const validateCollection = [
   handleValidationErrors
 ];
 
-const validateCollectionLocation = [
-  check('collectionId')
-    .exists({ checkFalsy: true })
-    .withMessage('Collection ID is required')
-    .isInt()
-    .withMessage('Collection ID must be an integer')
-    .custom(async (value) => {
-      const collection = await Collection.findByPk(value);
-      if (!collection) {
-        throw new Error('Collection not found');
-      }
-    }),
-  check('locationId')
-    .exists({ checkFalsy: true })
-    .withMessage('Location ID is required')
-    .isInt()
-    .withMessage('Location ID must be an integer')
-    .custom(async (value) => {
-      const location = await Location.findByPk(value);
-      if (!location) {
-        throw new Error('Location not found');
-      }
-    }),
-  handleValidationErrors
-];
+
+  const validateCollectionLocation = [
+    check('collectionId')
+      .exists({ checkFalsy: true })
+      .withMessage('Collection ID is required')
+      .isInt()
+      .withMessage('Collection ID must be an integer')
+      .custom(async (value) => {
+        const collection = await Collection.findByPk(value);
+        if (!collection) {
+          throw new Error('Collection not found');
+        }
+      }),
+    check('locationId')
+      .exists({ checkFalsy: true })
+      .withMessage('Location ID is required')
+      .isInt()
+      .withMessage('Location ID must be an integer')
+      .custom(async (value) => {
+        const location = await Location.findByPk(value);
+        if (!location) {
+          throw new Error('Location not found');
+        }
+      }),
+    handleValidationErrors
+  ];
 
 
 module.exports = {
