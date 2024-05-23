@@ -15,7 +15,7 @@ module.exports = (sequelize, DataTypes) => {
 
   LocationImage.init({
     id: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.INTEGER, 
       allowNull: false,
       autoIncrement: true,
       primaryKey: true
