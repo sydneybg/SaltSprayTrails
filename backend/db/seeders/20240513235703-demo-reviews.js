@@ -10,7 +10,7 @@ module.exports = {
   async up (queryInterface, Sequelize) {
     options.tableName = 'Reviews';
 
-    await queryInterface.bulkInsert(options, [
+    await queryInterface.bulkInsert([
       {
         userId: 1,
         locationId: 1,
@@ -179,7 +179,7 @@ module.exports = {
         createdAt: new Date(),
         updatedAt: new Date()
       }
-    ]);
+    ], options);
   },
 
   async down (queryInterface, Sequelize) {

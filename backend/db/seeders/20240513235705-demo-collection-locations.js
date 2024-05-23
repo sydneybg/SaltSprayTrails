@@ -10,7 +10,7 @@ module.exports = {
   async up(queryInterface, Sequelize) {
     options.tableName = 'CollectionLocations';
 
-    await queryInterface.bulkInsert(options, [
+    await queryInterface.bulkInsert([
       { collectionId: 1, locationId: 1, createdAt: new Date(), updatedAt: new Date() },
       { collectionId: 1, locationId: 2, createdAt: new Date(), updatedAt: new Date() },
       { collectionId: 1, locationId: 3, createdAt: new Date(), updatedAt: new Date() },
@@ -21,7 +21,7 @@ module.exports = {
       { collectionId: 4, locationId: 8, createdAt: new Date(), updatedAt: new Date() },
       { collectionId: 4, locationId: 9, createdAt: new Date(), updatedAt: new Date() },
       { collectionId: 5, locationId: 10, createdAt: new Date(), updatedAt: new Date() }
-    ]);
+    ], options);
   },
 
   async down(queryInterface, Sequelize) {
