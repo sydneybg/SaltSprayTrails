@@ -19,10 +19,10 @@ module.exports = {
       { collectionId: 4, locationId: 8, createdAt: new Date(), updatedAt: new Date() },
       { collectionId: 4, locationId: 9, createdAt: new Date(), updatedAt: new Date() },
       { collectionId: 5, locationId: 10, createdAt: new Date(), updatedAt: new Date() }
-    ], {});
+    ], options);
   },
 
   async down(queryInterface, Sequelize) {
-    await queryInterface.bulkDelete('CollectionLocations', null, {});
+    await queryInterface.bulkDelete('CollectionLocations', null, options);
   }
 };

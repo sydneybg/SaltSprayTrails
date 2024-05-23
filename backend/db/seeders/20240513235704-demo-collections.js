@@ -44,10 +44,10 @@ module.exports = {
         createdAt: new Date(),
         updatedAt: new Date()
       }
-    ], {});
+    ], options);
   },
 
   async down (queryInterface, Sequelize) {
-    await queryInterface.bulkDelete('Collections', null, {});
+    await queryInterface.bulkDelete('Collections', null, options);
   }
 };

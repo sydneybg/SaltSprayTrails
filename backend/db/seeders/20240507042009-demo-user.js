@@ -5,13 +5,14 @@ const bcrypt = require("bcryptjs");
 
 let options = {};
 if (process.env.NODE_ENV === "production") {
-  options.schema = process.env.SCHEMA; // define your schema in options object
+  options.schema = process.env.SCHEMA;
 }
 
 /** @type {import('sequelize-cli').Migration} */
 
 module.exports = {
   async up(queryInterface, Sequelize) {
+    options.tableName = 'Users';
     await User.bulkCreate(
       [
         {
@@ -85,7 +86,7 @@ module.exports = {
           hashedPassword: bcrypt.hashSync("password10"),
         },
       ],
-      { validate: true }
+      options
     );
   },
 
@@ -99,14 +100,14 @@ module.exports = {
           [Op.in]: [
             "Demo",
             "FakeUser10",
-            "FakeUser2",
-            "FakeUser3",
-            "FakeUser4",
-            "FakeUser5",
-            "FakeUser6",
-            "FakeUser7",
-            "FakeUser8",
-            "FakeUser9",
+            "FakeUser20",
+            "FakeUser30",
+            "FakeUser40",
+            "FakeUser50",
+            "FakeUser60",
+            "FakeUser70",
+            "FakeUser80",
+            "FakeUser90",
           ],
         },
       },
