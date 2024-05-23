@@ -135,7 +135,8 @@ router.get('/:id', async (req, res, next) => {
       res.json(location);
     } catch (error) {
       console.error('Error updating location:', error);
-      res.status(500).json({ message: 'Internal server error' });
+      const message = error.errors[0].message
+      res.status(500).json({ message });
     }
   });
 

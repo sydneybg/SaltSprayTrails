@@ -5,6 +5,7 @@ const SET_LOCATIONS = 'locations/setLocations';
 const SET_LOCATION = 'locations/setLocation';
 const REMOVE_LOCATION = 'locations/removeLocation';
 const SET_USER_LOCATIONS = 'locations/setUserLocations';
+const SET_ERROR_MESSAGE = 'locations/setErrorMessage';
 
 
 // Action Creators
@@ -28,6 +29,11 @@ export const removeLocation = (locationId) => ({
     payload: locations,
   });
 
+  export const setErrorMessage = (errorMessage) => ({
+    type: SET_ERROR_MESSAGE,
+    payload: errorMessage,
+  })
+
 
 // Thunk Action Creators
 export const fetchLocations = () => async (dispatch) => {
@@ -46,9 +52,11 @@ export const fetchLocation = (locationId) => async (dispatch) => {
     const data = await response.json();
     dispatch(setLocation(data));
   } catch (error) {
+    // dispatch(setErrorMessage('error: fetching location'))
     console.error('Error fetching location:', error);
   }
 };
+
 
 export const createLocation = (locationData) => async (dispatch) => {
   try {
@@ -68,15 +76,29 @@ export const createLocation = (locationData) => async (dispatch) => {
 
 export const updateLocation = ({ id, ...locationData }) => async (dispatch) => {
   try {
-    const response = await csrfFetch(`/api/locations/${locationId}`, {
+    const response = await csrfFetch(`/api/locations/${id}`, {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(locationData),
     });
+    console.log('response', response)
     const data = await response.json();
-    dispatch(setLocation(data));
+    console.log(data)
+    if (response.ok) {
+      dispatch(setLocation(data));
+      // return { success: true };
+      return true
+    } else {
+      throw new Error(data.message)
+      // return { success: false, error: data.message };
+
+    }
   } catch (error) {
+    dispatch(setErrorMessage(error))
     console.error('Error updating location:', error);
+    return false
+    // return { success: false, error: error.message };
+
   }
 };
 
@@ -105,7 +127,7 @@ export const deleteUserLocation = (locationId) => async (dispatch) => {
 
 
 // Reducer
-const initialState = { locations: [], currentLocation: null, userLocations: [] };
+const initialState = { locations: [], errorMessage: '', currentLocation: null, userLocations: [] };
 
 const locationsReducer = (state = initialState, action) => {
   switch (action.type) {
@@ -115,6 +137,8 @@ const locationsReducer = (state = initialState, action) => {
       return { ...state, userLocations: action.payload };
     case SET_LOCATION:
       return { ...state, currentLocation: action.payload };
+    case SET_ERROR_MESSAGE:
+      return {...state, errorMessage: action.payload };
     case REMOVE_LOCATION:
       return {
         ...state,

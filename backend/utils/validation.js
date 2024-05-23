@@ -50,17 +50,21 @@ const validateLocation = [
     .withMessage('Longitude is required')
     .isNumeric()
     .withMessage('Longitude must be a number'),
+
   check('activity_type').custom(async (activity_type, { req }) => {
-    const { latitude, longitude } = req.body;
-    const existingLocation = await Location.findOne({
-      where: {
-        activity_type,
-        latitude,
-        longitude,
-      },
-    });
-    if (existingLocation) {
-      throw new Error('A location with the same type and longitude/latitude already exists');
+    if(req.method === 'POST') {
+      console.log('inside validation location', req.method)
+      const { latitude, longitude } = req.body;
+      const existingLocation = await Location.findOne({
+        where: {
+          activity_type,
+          latitude,
+          longitude,
+        },
+      });
+      if (existingLocation) {
+        throw new Error('A location with the same type and longitude/latitude already exists');
+      }
     }
   }),
   handleValidationErrors
