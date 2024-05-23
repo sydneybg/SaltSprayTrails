@@ -78,9 +78,9 @@ module.exports = {
       }, options);
 
       // Indexes
-      await queryInterface.addIndex('Locations', ['city']);
-      await queryInterface.addIndex('Locations', ['state']);
-      await queryInterface.addIndex('Locations', ['activity_type']);
+      // await queryInterface.addIndex('Locations', ['city']);
+      // await queryInterface.addIndex('Locations', ['state']);
+      // await queryInterface.addIndex('Locations', ['activity_type']);
     } catch (error) {
       console.error('Failed to execute migration:', error);
       throw error;
