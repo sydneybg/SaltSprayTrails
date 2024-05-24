@@ -23,10 +23,10 @@ const LocationForm = () => {
     country: '',
     zip_code: '',
     latitude: '',
-    longitude: ''
+    longitude: '',
+    imageUrl: '',
   });
 
-  // const [errors, setErrors] = useState({});
 
   useEffect(() => {
     if (locationId) {
@@ -43,6 +43,7 @@ const LocationForm = () => {
         zip_code: '',
         latitude: '',
         longitude: '',
+        imageUrl: '',
       });
     }
   }, [locationId, dispatch]);
@@ -80,10 +81,8 @@ const LocationForm = () => {
       <h2>{locationId ? 'Edit Location' : 'Create Location'}</h2>
       <form onSubmit={handleSubmit}>
       <input type="text" name="name" placeholder="Name" value={formData.name} onChange={handleChange} required />
-      {/* {errors.name && <p className="error">{errors.name}</p>} */}
 
         <input type="text" name="description" placeholder="Description" value={formData.description} onChange={handleChange} required />
-        {/* {errors.description && <p className="error">{errors.description}</p>} */}
 
         <select name="activity_type" value={formData.activity_type} onChange={handleChange} required>
           <option value="" disabled>Select Activity Type</option>
@@ -92,28 +91,24 @@ const LocationForm = () => {
           <option value="rafting">Rafting</option>
           <option value="kayaking">Kayaking</option>
         </select>
-        {/* {errors.activity_type && <p className="error">{errors.activity_type}</p>} */}
 
         <input type="text" name="street" placeholder="Street" value={formData.street} onChange={handleChange} required />
-        {/* {errors.street && <p className="error">{errors.street}</p>} */}
 
         <input type="text" name="city" placeholder="City" value={formData.city} onChange={handleChange} required />
-        {/* {errors.city && <p className="error">{errors.city}</p>} */}
 
         <input type="text" name="state" placeholder="State" value={formData.state} onChange={handleChange} required />
-        {/* {errors.state && <p className="error">{errors.state}</p>} */}
 
         <input type="text" name="country" placeholder="Country" value={formData.country} onChange={handleChange} required />
-        {/* {errors.country && <p className="error">{errors.country}</p>} */}
 
         <input type="text" name="zip_code" placeholder="Zip Code" value={formData.zip_code} onChange={handleChange} required />
-        {/* {errors.zip_code && <p className="error">{errors.zip_code}</p>} */}
 
         <input type="text" name="latitude" placeholder="Latitude" value={formData.latitude} onChange={handleChange} required />
-        {/* {errors.latitude && <p className="error">{errors.latitude}</p>} */}
 
         <input type="text" name="longitude" placeholder="Longitude" value={formData.longitude} onChange={handleChange} required />
-        {/* {errors.longitude && <p className="error">{errors.longitude}</p>} */}
+
+        {!locationId && (
+          <input type="text" name="imageUrl" placeholder="Image URL" value={formData.imageUrl} onChange={handleChange} required />
+        )}
 
         <button type="submit">{locationId ? 'Update' : 'Create'}</button>
       </form>

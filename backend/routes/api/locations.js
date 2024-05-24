@@ -175,13 +175,13 @@ router.post('/:locationId/images', requireAuth, async (req, res, next) => {
 
       const locationImage = await LocationImage.create({
         locationId: location.id,
-        url,
+        imageUrl: url,
         preview,
       });
 
       return res.json({
         id: locationImage.id,
-        url: locationImage.url,
+        imageUrl: locationImage.imageUrl,
         preview: locationImage.preview,
       });
     } catch (error) {

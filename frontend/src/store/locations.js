@@ -57,14 +57,8 @@ export const fetchLocation = (locationId) => async (dispatch) => {
 
 export const createLocation = (locationData) => async (dispatch) => {
   try {
-    // const response = await csrfFetch('/api/locations', {
-    //   method: 'POST',
-    //   headers: { 'Content-Type': 'application/json' },
-    //   body: JSON.stringify(locationData),
-    // });
-    // const data = await response.json();
-    // dispatch(setLocation(data));
-    // return data;
+
+    const { imageUrl, ...locationDetails } = locationData;
 
     return csrfFetch("/api/locations", {
       method: "POST",
@@ -72,10 +66,21 @@ export const createLocation = (locationData) => async (dispatch) => {
       body: JSON.stringify(locationData),
     }).then(async response => {
       if (response.ok) {
-        return response.json()
+        const location = await response.json();
+
+        if (imageUrl) {
+          await csrfFetch(`/api/locations/${location.id}/images`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ url: imageUrl, preview: true }),
+          });
+        }
+
+        dispatch(setLocation(location));
+        return true;
+
       } else {
         const data = await response.json()
-        console.log('data  ', data)
         dispatch(setErrorMessage(data.message))
         throw new Error(data.message)
       }
@@ -83,10 +88,10 @@ export const createLocation = (locationData) => async (dispatch) => {
       dispatch(setLocation(data));
       return true
     })
-    // .catch(error => false);
     .catch(error => {
-      console.log('error  ', error)
-    })
+      console.error("Error creating location:", error);
+      return false;
+    });
   } catch (error) {
     console.error("Error creating location:", error);
     throw error;
@@ -122,33 +127,6 @@ export const updateLocation = ({ id, ...locationData }) => async (dispatch) => {
   }
 };
 
-// export const updateLocation =
-//   ({ id, ...locationData }) =>
-//   async (dispatch) => {
-//     try {
-//       const response = await csrfFetch(`/api/locations/${id}`, {
-//         method: "PUT",
-//         headers: { "Content-Type": "application/json" },
-//         body: JSON.stringify(locationData),
-//       });
-//       console.log("response", response);
-//       const data = await response.json();
-//       console.log(data);
-//       if (response.ok) {
-//         dispatch(setLocation(data));
-//         // return { success: true };
-//         return true;
-//       } else {
-//         throw new Error(data.message);
-//         // return { success: false, error: data.message };
-//       }
-//     } catch (error) {
-//       dispatch(setErrorMessage(error));
-//       console.error("Error updating location:", error);
-//       return false;
-//       // return { success: false, error: error.message };
-//     }
-//   };
 
 export const deleteUserLocation = (locationId) => async (dispatch) => {
   try {
