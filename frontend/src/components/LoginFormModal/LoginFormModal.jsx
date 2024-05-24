@@ -60,7 +60,7 @@ function LoginFormModal() {
     e.preventDefault();
 
     dispatch(sessionActions.login({
-      credential: "demo@user.io",
+      credential: "demo@aa.io",
       password: 'password'
     }))
     .then(closeModal)
