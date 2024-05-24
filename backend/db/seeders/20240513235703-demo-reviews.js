@@ -10,7 +10,7 @@ module.exports = {
   async up (queryInterface, Sequelize) {
     options.tableName = 'Reviews';
 
-    await queryInterface.bulkCreate([
+    await Review.bulkCreate([
       {
         userId: 1,
         locationId: 1,
