@@ -1,13 +1,13 @@
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { fetchLocation } from '../../store/locations';
 
 const LocationDetail = () => {
   const dispatch = useDispatch();
   const { locationId } = useParams();
   const location = useSelector((state) => state.locations.currentLocation);
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
 
   useEffect(() => {
