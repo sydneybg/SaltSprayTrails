@@ -1,8 +1,19 @@
 'use strict';
 
+const { Collection } = require("../models");
+
+
+let options = {};
+
+if (process.env.NODE_ENV === 'production') {
+  options.schema = process.env.SCHEMA;
+}
+
 module.exports = {
   async up (queryInterface, Sequelize) {
-    await queryInterface.bulkInsert('Collections', [
+    options.tableName = 'Collections';
+
+    await Collection.bulkCreate([
       {
         userId: 1,
         name: 'Mountain Adventures',
@@ -38,10 +49,12 @@ module.exports = {
         createdAt: new Date(),
         updatedAt: new Date()
       }
-    ], {});
+    ], options);
   },
 
   async down (queryInterface, Sequelize) {
-    await queryInterface.bulkDelete('Collections', null, {});
+    options.tableName = 'Collections';
+
+    await queryInterface.bulkDelete({}, null, options);
   }
 };

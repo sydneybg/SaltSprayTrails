@@ -120,7 +120,8 @@ router.get('/:id', async (req, res, next) => {
       res.status(201).json(location);
     } catch (error) {
       console.error('Error creating location:', error);
-      res.status(500).json({ message: 'Internal server error' });
+      const message = error.errors ? error.errors[0].message : 'Internal server error';
+      res.status(500).json({ message });
     }
   });
 

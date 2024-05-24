@@ -1,4 +1,4 @@
-import React from 'react';
+// import React from 'react';
 import { useModal } from '../../context/Modal';
 
 const DeleteConfirmationModal = ({ onDelete, itemName, itemType }) => {

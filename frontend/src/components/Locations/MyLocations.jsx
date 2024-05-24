@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { fetchUserLocations, deleteUserLocation } from '../../store/locations';
@@ -8,23 +8,22 @@ import DeleteConfirmationModal from '../DeleteModal/DeleteConfirmationModal';
 const MyLocations = () => {
   const dispatch = useDispatch();
   const userLocations = useSelector(state => state.locations.userLocations);
-  // const [isModalOpen, setIsModalOpen] = useState(false);
-  const [currentLocationId, setCurrentLocationId] = useState(null);
+  // const [currentLocationId, setCurrentLocationId] = useState(null);
 
 
   useEffect(() => {
     dispatch(fetchUserLocations());
   }, [dispatch]);
 
-  console.log(userLocations);
+  // console.log(userLocations);
 
   const handleDelete = (locationId) => {
     dispatch(deleteUserLocation(locationId));
   };
 
-  const openDeleteModal = (locationId) => {
-    setCurrentLocationId(locationId);
-  };
+  // const openDeleteModal = (locationId) => {
+  //   setCurrentLocationId(locationId);
+  // };
 
   return (
     <div className="my-locations-page">
@@ -42,7 +41,7 @@ const MyLocations = () => {
               <Link to={`/locations/${location.id}/edit`}>Edit</Link>
               <OpenModalButton
                 buttonText="Delete"
-                onButtonClick={() => openDeleteModal(location.id)}
+                onButtonClick={() => handleDelete(location.id)}
                 modalComponent={
                   <DeleteConfirmationModal
                     onDelete={handleDelete}
