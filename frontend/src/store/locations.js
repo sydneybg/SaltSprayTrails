@@ -1,12 +1,11 @@
-import { csrfFetch } from './csrf';
+import { csrfFetch } from "./csrf";
 
 // Constants
-const SET_LOCATIONS = 'locations/setLocations';
-const SET_LOCATION = 'locations/setLocation';
-const REMOVE_LOCATION = 'locations/removeLocation';
-const SET_USER_LOCATIONS = 'locations/setUserLocations';
-const SET_ERROR_MESSAGE = 'locations/setErrorMessage';
-
+const SET_LOCATIONS = "locations/setLocations";
+const SET_LOCATION = "locations/setLocation";
+const REMOVE_LOCATION = "locations/removeLocation";
+const SET_USER_LOCATIONS = "locations/setUserLocations";
+const SET_ERROR_MESSAGE = "locations/setErrorMessage";
 
 // Action Creators
 export const setLocations = (locations) => ({
@@ -20,29 +19,28 @@ export const setLocation = (location) => ({
 });
 
 export const removeLocation = (locationId) => ({
-    type: REMOVE_LOCATION,
-    payload: locationId,
-  });
+  type: REMOVE_LOCATION,
+  payload: locationId,
+});
 
-  export const setUserLocations = (locations) => ({
-    type: SET_USER_LOCATIONS,
-    payload: locations,
-  });
+export const setUserLocations = (locations) => ({
+  type: SET_USER_LOCATIONS,
+  payload: locations,
+});
 
-  export const setErrorMessage = (errorMessage) => ({
-    type: SET_ERROR_MESSAGE,
-    payload: errorMessage,
-  })
-
+export const setErrorMessage = (errorMessage) => ({
+  type: SET_ERROR_MESSAGE,
+  payload: errorMessage,
+});
 
 // Thunk Action Creators
 export const fetchLocations = () => async (dispatch) => {
   try {
-    const response = await csrfFetch('/api/locations');
+    const response = await csrfFetch("/api/locations");
     const data = await response.json();
     dispatch(setLocations(data.locations));
   } catch (error) {
-    console.error('Error fetching locations:', error);
+    console.error("Error fetching locations:", error);
   }
 };
 
@@ -53,81 +51,135 @@ export const fetchLocation = (locationId) => async (dispatch) => {
     dispatch(setLocation(data));
   } catch (error) {
     // dispatch(setErrorMessage('error: fetching location'))
-    console.error('Error fetching location:', error);
+    console.error("Error fetching location:", error);
   }
 };
 
-
 export const createLocation = (locationData) => async (dispatch) => {
   try {
-    const response = await csrfFetch('/api/locations', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+    // const response = await csrfFetch('/api/locations', {
+    //   method: 'POST',
+    //   headers: { 'Content-Type': 'application/json' },
+    //   body: JSON.stringify(locationData),
+    // });
+    // const data = await response.json();
+    // dispatch(setLocation(data));
+    // return data;
+
+    return csrfFetch("/api/locations", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
       body: JSON.stringify(locationData),
-    });
-    const data = await response.json();
-    dispatch(setLocation(data));
-    return data;
+    }).then(async response => {
+      if (response.ok) {
+        return response.json()
+      } else {
+        const data = await response.json()
+        console.log('data  ', data)
+        dispatch(setErrorMessage(data.message))
+        throw new Error(data.message)
+      }
+    }).then(data => {
+      dispatch(setLocation(data));
+      return true
+    })
+    // .catch(error => false);
+    .catch(error => {
+      console.log('error  ', error)
+    })
   } catch (error) {
-    console.error('Error creating location:', error);
-    throw error
+    console.error("Error creating location:", error);
+    throw error;
   }
 };
 
 export const updateLocation = ({ id, ...locationData }) => async (dispatch) => {
   try {
-    const response = await csrfFetch(`/api/locations/${id}`, {
-      method: 'PUT',
-      headers: { 'Content-Type': 'application/json' },
+    return csrfFetch(`/api/locations/${id}`, {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
       body: JSON.stringify(locationData),
-    });
-    console.log('response', response)
-    const data = await response.json();
-    console.log(data)
-    if (response.ok) {
+    }).then(async (response) => {
+      if (response.ok) {
+        return response.json();
+      } else {
+        const data = await response.json();
+        console.log('data  ', data);
+        dispatch(setErrorMessage(data.message));
+        throw new Error(data.message);
+      }
+    }).then((data) => {
       dispatch(setLocation(data));
-      // return { success: true };
-      return true
-    } else {
-      throw new Error(data.message)
-      // return { success: false, error: data.message };
+      return true;
+    }).catch((error) => {
+      console.log('error  ', error);
+    });
+        // .catch(error => false);
 
-    }
   } catch (error) {
-    dispatch(setErrorMessage(error))
-    console.error('Error updating location:', error);
-    return false
-    // return { success: false, error: error.message };
-
+    console.error("Error updating location:", error);
+    throw error;
   }
 };
 
+// export const updateLocation =
+//   ({ id, ...locationData }) =>
+//   async (dispatch) => {
+//     try {
+//       const response = await csrfFetch(`/api/locations/${id}`, {
+//         method: "PUT",
+//         headers: { "Content-Type": "application/json" },
+//         body: JSON.stringify(locationData),
+//       });
+//       console.log("response", response);
+//       const data = await response.json();
+//       console.log(data);
+//       if (response.ok) {
+//         dispatch(setLocation(data));
+//         // return { success: true };
+//         return true;
+//       } else {
+//         throw new Error(data.message);
+//         // return { success: false, error: data.message };
+//       }
+//     } catch (error) {
+//       dispatch(setErrorMessage(error));
+//       console.error("Error updating location:", error);
+//       return false;
+//       // return { success: false, error: error.message };
+//     }
+//   };
+
 export const deleteUserLocation = (locationId) => async (dispatch) => {
-    try {
-      const response = await csrfFetch(`/api/locations/${locationId}`, {
-        method: 'DELETE',
-      });
-      if (response.ok) {
-        dispatch(removeLocation(locationId));
-      }
-    } catch (error) {
-      console.error('Error deleting location:', error);
+  try {
+    const response = await csrfFetch(`/api/locations/${locationId}`, {
+      method: "DELETE",
+    });
+    if (response.ok) {
+      dispatch(removeLocation(locationId));
     }
-  };
+  } catch (error) {
+    console.error("Error deleting location:", error);
+  }
+};
 
-  export const fetchUserLocations = () => async (dispatch) => {
-    try {
-      const response = await csrfFetch('/api/locations/current');
-      const data = await response.json();
-      dispatch(setUserLocations(data.locations));
-    } catch (error) {
-      console.error('Error fetching user locations:', error);
-    }
-  };
-
+export const fetchUserLocations = () => async (dispatch) => {
+  try {
+    const response = await csrfFetch("/api/locations/current");
+    const data = await response.json();
+    dispatch(setUserLocations(data.locations));
+  } catch (error) {
+    console.error("Error fetching user locations:", error);
+  }
+};
 
 // Reducer
-const initialState = { locations: [], errorMessage: '', currentLocation: null, userLocations: [] };
+const initialState = {
+  locations: [],
+  errorMessage: "",
+  currentLocation: null,
+  userLocations: [],
+};
 
 const locationsReducer = (state = initialState, action) => {
   switch (action.type) {
@@ -138,12 +190,16 @@ const locationsReducer = (state = initialState, action) => {
     case SET_LOCATION:
       return { ...state, currentLocation: action.payload };
     case SET_ERROR_MESSAGE:
-      return {...state, errorMessage: action.payload };
+      return { ...state, errorMessage: action.payload };
     case REMOVE_LOCATION:
       return {
         ...state,
-        locations: state.locations.filter(location => location.id !== action.payload),
-        userLocations: state.userLocations.filter(location => location.id !== action.payload),
+        locations: state.locations.filter(
+          (location) => location.id !== action.payload
+        ),
+        userLocations: state.userLocations.filter(
+          (location) => location.id !== action.payload
+        ),
       };
     default:
       return state;

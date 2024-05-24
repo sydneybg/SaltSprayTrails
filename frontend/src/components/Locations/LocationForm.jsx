@@ -67,7 +67,6 @@ const LocationForm = () => {
      if (actionResult) {
       navigate(`/locations/${currentLocation.id}`);
      }
-
     } else {
       actionResult = await dispatch(createLocation(formData));
       if (actionResult) {
