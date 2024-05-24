@@ -61,7 +61,7 @@ function LoginFormModal() {
 
     dispatch(sessionActions.login({
       credential: "demo@aa.io",
-      password: 'password'
+      password: "password"
     }))
     .then(closeModal)
   }

@@ -7,6 +7,8 @@ import LandingPage from './components/Locations/LandingPage';
 import MyLocations from './components/Locations/MyLocations';
 import LocationForm from './components/Locations/LocationForm';
 import LocationDetail from './components/Locations/LocationDetail';
+import AllLocations from './components/Locations/AllLocations';
+
 // import MyCollections from './components/Collections/MyCollections';
 
 function Layout() {
@@ -45,6 +47,8 @@ function App() {
         { path: 'locations/new', element: <ProtectedRoute><LocationForm /></ProtectedRoute> },
         { path: 'locations/:locationId', element: <LocationDetail /> },
         { path: 'locations/:locationId/edit', element: <ProtectedRoute><LocationForm /></ProtectedRoute> },
+        { path: 'locations', element: <AllLocations /> },
+
         // { path: 'my-collections', element: <ProtectedRoute><MyCollections /></ProtectedRoute> },
       ],
     },
