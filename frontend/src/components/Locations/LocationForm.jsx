@@ -26,7 +26,7 @@ const LocationForm = () => {
     longitude: ''
   });
 
-  const [errors, setErrors] = useState({});
+  // const [errors, setErrors] = useState({});
 
   useEffect(() => {
     if (locationId) {
@@ -81,7 +81,7 @@ const LocationForm = () => {
       <h2>{locationId ? 'Edit Location' : 'Create Location'}</h2>
       <form onSubmit={handleSubmit}>
       <input type="text" name="name" placeholder="Name" value={formData.name} onChange={handleChange} required />
-      {errors.name && <p className="error">{errors.name}</p>}
+      {/* {errors.name && <p className="error">{errors.name}</p>} */}
 
         <input type="text" name="description" placeholder="Description" value={formData.description} onChange={handleChange} required />
         {/* {errors.description && <p className="error">{errors.description}</p>} */}
@@ -102,7 +102,7 @@ const LocationForm = () => {
         {/* {errors.city && <p className="error">{errors.city}</p>} */}
 
         <input type="text" name="state" placeholder="State" value={formData.state} onChange={handleChange} required />
-        {errors.state && <p className="error">{errors.state}</p>}
+        {/* {errors.state && <p className="error">{errors.state}</p>} */}
 
         <input type="text" name="country" placeholder="Country" value={formData.country} onChange={handleChange} required />
         {/* {errors.country && <p className="error">{errors.country}</p>} */}

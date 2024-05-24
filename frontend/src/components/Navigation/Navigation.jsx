@@ -51,7 +51,7 @@ function Navigation({ isLoaded }) {
         <NavLink to="/">
           <div className="logo-container">
             <span className="logo-placeholder">Logo</span>
-            <span className="app-name">Salt'n'Swim</span>
+            <span className="app-name">Salt&apos;n&apos;Swim</span>
           </div>
         </NavLink>
       </div>
