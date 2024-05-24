@@ -7,7 +7,12 @@ import LandingPage from './components/Locations/LandingPage';
 import MyLocations from './components/Locations/MyLocations';
 import LocationForm from './components/Locations/LocationForm';
 import LocationDetail from './components/Locations/LocationDetail';
-// import MyCollections from './components/Collections/MyCollections';
+import MyCollections from './components/Collections/MyCollections';
+import CollectionDetail from "./components/CollectionDetail";
+import AllCollections from './components/Collections/AllCollections';
+import AllLocations from './components/Locations/AllLocations';
+
+
 
 function Layout() {
   const dispatch = useDispatch();
@@ -45,7 +50,11 @@ function App() {
         { path: 'locations/new', element: <ProtectedRoute><LocationForm /></ProtectedRoute> },
         { path: 'locations/:locationId', element: <LocationDetail /> },
         { path: 'locations/:locationId/edit', element: <ProtectedRoute><LocationForm /></ProtectedRoute> },
-        // { path: 'my-collections', element: <ProtectedRoute><MyCollections /></ProtectedRoute> },
+        { path: 'my-collections', element: <ProtectedRoute><MyCollections /></ProtectedRoute> },
+        { path: 'collections/:id', element: <ProtectedRoute><CollectionDetail /></ProtectedRoute> },
+        { path: 'collections', element: <AllCollections /> },
+        { path: 'locations', element: <AllLocations /> },
+
       ],
     },
   ]);

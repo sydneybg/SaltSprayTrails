@@ -1,0 +1,28 @@
+/* Add this CSS to your main stylesheet */
+
+.collection-tile {
+    border: 1px solid #ddd;
+    padding: 16px;
+    margin: 16px;
+    cursor: pointer;
+    transition: transform 0.2s;
+  }
+
+  .collection-tile:hover {
+    transform: scale(1.05);
+  }
+
+  .collection-tile img {
+    width: 100%;
+    height: auto;
+  }
+
+  .collection-tile h2 {
+    margin: 8px 0;
+  }
+
+  .collections-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+  }

@@ -1,4 +1,3 @@
-import React from 'react';
 
 const CollectionCard = ({ collection }) => {
   const locationCount = collection.locations ? collection.locations.length : 0;

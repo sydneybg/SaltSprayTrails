@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import axios from 'axios';
 
-const AddCollectionModal = ({ onClose, onSave }) => {
+const AddCollectionForm = ({ onClose, onSave }) => {
   const [name, setName] = useState('');
   const [imageUrl, setImageUrl] = useState('');
 
@@ -34,4 +34,4 @@ const AddCollectionModal = ({ onClose, onSave }) => {
   );
 };
 
-export default AddCollectionModal;
+export default AddCollectionForm;

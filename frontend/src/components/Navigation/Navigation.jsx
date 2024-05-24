@@ -63,6 +63,12 @@ function Navigation({ isLoaded }) {
         />
       </div>
       <ul className="nav-right">
+        <li>
+          <NavLink to="/collections">All Collections</NavLink>
+        </li>
+        <li>
+          <NavLink to="/locations">All Locations</NavLink>
+        </li>
         {isLoaded && sessionLinks}
       </ul>
     </nav>

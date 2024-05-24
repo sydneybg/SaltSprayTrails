@@ -1,42 +1,36 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
-import CollectionCard from './CollectionCard';
-import AddCollectionModal from './AddCollectionModal';
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchCollections, createCollection } from "../store/collections";
+import CollectionTile from "./CollectionTile";
+import { useNavigate } from "react-router-dom";
 
-const MyCollectionsPage = () => {
-  const [collections, setCollections] = useState([]);
-  const [showAddModal, setShowAddModal] = useState(false);
+const MyCollections = () => {
+  const dispatch = useDispatch();
+  const collections = useSelector((state) => state.collections.collections);
+  const navigate = useNavigate();
 
   useEffect(() => {
-    fetchCollections();
-  }, []);
+    dispatch(fetchCollections());
+  }, [dispatch]);
 
-  const fetchCollections = async () => {
-    try {
-      const response = await axios.get('/api/collections');
-      setCollections(response.data);
-    } catch (error) {
-      console.error('Error fetching collections', error);
-    }
+  const handleAddCollection = () => {
+    const newCollection = { name: "New Collection", imageUrl: "default-image-url" };
+    dispatch(createCollection(newCollection)).then((collection) => {
+      navigate(`/collections/${collection.id}`);
+    });
   };
 
   return (
     <div>
       <h1>My Collections</h1>
-      <button onClick={() => setShowAddModal(true)}>Add Collection</button>
+      <button onClick={handleAddCollection}>Add Collection</button>
       <div className="collections-grid">
         {collections.map((collection) => (
-          <CollectionCard key={collection.id} collection={collection} />
+          <CollectionTile key={collection.id} collection={collection} />
         ))}
       </div>
-      {showAddModal && (
-        <AddCollectionModal
-          onClose={() => setShowAddModal(false)}
-          onSave={fetchCollections}
-        />
-      )}
     </div>
   );
 };
 
-export default MyCollectionsPage;
+export default MyCollections;
