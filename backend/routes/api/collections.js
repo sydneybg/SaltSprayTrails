@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const { Location, Collection, CollectionLocation } = require('../models');
+const { Location, Collection, CollectionLocation } = require('../../db/models');
 const { requireAuth } = require('../../utils/auth');
 const { validateCollection, validateCollectionLocation } = require('../../utils/validation');
 
@@ -9,10 +9,10 @@ const { validateCollection, validateCollectionLocation } = require('../../utils/
 router.get('/', async (req, res) => {
   try {
     const collections = await Collection.findAll();
-    res.json(collections);
+    res.json({ collections });
   } catch (error) {
     console.error(error);
-    res.status(500).json({ message: 'Server Error' });
+    res.status(500).json({ error: 'Failed to fetch collections' });
   }
 });
 

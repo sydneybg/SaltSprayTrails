@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchCollections, createCollection } from "../store/collections";
+import { fetchCollections, createCollection } from "../../store/collections";
 import CollectionTile from "./CollectionTile";
 import { useNavigate } from "react-router-dom";
 

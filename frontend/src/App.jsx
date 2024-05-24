@@ -8,7 +8,7 @@ import MyLocations from './components/Locations/MyLocations';
 import LocationForm from './components/Locations/LocationForm';
 import LocationDetail from './components/Locations/LocationDetail';
 import MyCollections from './components/Collections/MyCollections';
-import CollectionDetail from "./components/CollectionDetail";
+import CollectionDetail from "./components/Collections/CollectionDetails";
 import AllCollections from './components/Collections/AllCollections';
 import AllLocations from './components/Locations/AllLocations';
 

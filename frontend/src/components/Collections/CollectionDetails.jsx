@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchCollection, addLocation, removeLocation } from "../store/collections";
+import { fetchCollection, addLocation, removeLocation } from "../../store/collections";
 import { useParams } from "react-router-dom";
 
 const CollectionDetail = () => {
