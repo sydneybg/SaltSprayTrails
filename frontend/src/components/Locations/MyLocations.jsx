@@ -21,9 +21,7 @@ const MyLocations = () => {
     dispatch(deleteUserLocation(locationId));
   };
 
-  // const openDeleteModal = (locationId) => {
-  //   setCurrentLocationId(locationId);
-  // };
+
 
   return (
     <div className="my-locations-page">
@@ -41,10 +39,9 @@ const MyLocations = () => {
               <Link to={`/locations/${location.id}/edit`}>Edit</Link>
               <OpenModalButton
                 buttonText="Delete"
-                onButtonClick={() => handleDelete(location.id)}
                 modalComponent={
                   <DeleteConfirmationModal
-                    onDelete={handleDelete}
+                    onDelete={() => handleDelete(location.id)}
                     itemName={location.name}
                     itemType="location"
                   />
