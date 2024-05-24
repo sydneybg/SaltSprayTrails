@@ -10,7 +10,7 @@ module.exports = {
   async up(queryInterface, Sequelize) {
     options.tableName = 'CollectionLocations';
 
-    await queryInterface.bulkInsert([
+    await queryInterface.bulkCreate([
       { collectionId: 1, locationId: 1, createdAt: new Date(), updatedAt: new Date() },
       { collectionId: 1, locationId: 2, createdAt: new Date(), updatedAt: new Date() },
       { collectionId: 1, locationId: 3, createdAt: new Date(), updatedAt: new Date() },
