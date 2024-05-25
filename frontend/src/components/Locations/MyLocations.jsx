@@ -7,6 +7,8 @@ import DeleteConfirmationModal from '../DeleteModal/DeleteConfirmationModal';
 
 const MyLocations = () => {
   const dispatch = useDispatch();
+
+  // console.log('locations ', locations)
   const userLocations = useSelector(state => state.locations.userLocations);
   // const [currentLocationId, setCurrentLocationId] = useState(null);
 

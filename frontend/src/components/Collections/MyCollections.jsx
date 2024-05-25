@@ -8,7 +8,7 @@ import DeleteConfirmationModal from '../DeleteModal/DeleteConfirmationModal';
 const MyCollections = () => {
   const dispatch = useDispatch();
 
-//   const userCollections = useSelector(state => state.collections.userCollections);
+//   const userCollections = useSelector(state => state.collections.userCollection);
 
   useEffect(() => {
     dispatch(fetchUserCollections());

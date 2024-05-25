@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, useParams, useLocation } from 'react-router-dom';
 import { createCollection, updateCollection, fetchCollection } from '../../store/collections';
-import './CollectionForm.css';
+// import './CollectionForm.css';
 
 const CollectionForm = () => {
   const dispatch = useDispatch();

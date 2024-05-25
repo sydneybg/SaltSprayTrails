@@ -61,19 +61,20 @@ router.post('/', requireAuth, validateCollection, async (req, res) => {
 
 
 // Update a collection
-router.put('/:id', requireAuth, validateCollection, async (req, res) => {
+router.put('/:id', requireAuth, async (req, res) => {
   try {
     const { name, imageUrl } = req.body;
     const collection = await Collection.findByPk(req.params.id);
+
     if (!collection) {
-      res.status(404).json({ message: 'Collection not found' });
-    } else {
-      await collection.update({ name, imageUrl });
-      res.json(collection);
+      return res.status(404).json({ message: 'Collection not found' });
     }
+
+    await collection.update({ name, imageUrl });
+    return res.json(collection);
   } catch (error) {
     console.error(error);
-    res.status(500).json({ message: 'Server Error' });
+    return res.status(500).json({ message: 'Server Error' });
   }
 });
 

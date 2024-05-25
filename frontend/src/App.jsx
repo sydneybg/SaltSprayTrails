@@ -10,6 +10,7 @@ import LocationDetail from './components/Locations/LocationDetail';
 import AllLocations from './components/Locations/AllLocations';
 import MyCollections from './components/Collections/MyCollections';
 import AddCollectionForm from './components/Collections/AddCollectionForm';
+import EditCollectionForm from './components/Collections/EditCollectionForm';
 
 
 function Layout() {
@@ -51,6 +52,7 @@ function App() {
         { path: 'locations', element: <AllLocations /> },
         { path: 'my-collections', element: <ProtectedRoute><MyCollections /></ProtectedRoute> },
         { path: 'collections/new', element: <ProtectedRoute><AddCollectionForm /></ProtectedRoute> },
+        { path: 'collections/:collectionId/edit', element: <ProtectedRoute><EditCollectionForm /></ProtectedRoute> },
 
       ],
     },
