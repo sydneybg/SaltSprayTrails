@@ -10,7 +10,6 @@ const MyLocations = () => {
 
 
   const userLocations = useSelector(state => state.locations.userLocations);
-  // const [currentLocationId, setCurrentLocationId] = useState(null);
 
 
   useEffect(() => {
@@ -23,31 +22,32 @@ const MyLocations = () => {
   };
 
 
-
   return (
     <div className="my-locations-page">
       <h1>My Locations</h1>
-      <Link to="/locations/new" className="create-location-button">Create Location</Link>
-      <div className="locations-grid">
+      <Link to="/locations/new" className="create-button">Create Location</Link>
+      <div className="grid locations-grid">
         {userLocations.map(location => (
-          <div key={location.id} className="location-tile">
-            <div className="location-image">
+          <div key={location.id} className="tile location-tile">
+            <div className="image-container location-image">
               <img src={location.image} alt={location.name} />
             </div>
-            <div className="location-details">
+            <div className="details location-details">
               <h2>{location.name}</h2>
               <p>{location.description}</p>
-              <Link to={`/locations/${location.id}/edit`}>Edit</Link>
-              <OpenModalButton
-                buttonText="Delete"
-                modalComponent={
-                  <DeleteConfirmationModal
-                    onDelete={() => handleDelete(location.id)}
-                    itemName={location.name}
-                    itemType="location"
-                  />
-                }
-              />
+              <div className="button-container">
+                <Link to={`/locations/${location.id}/edit`}>Edit</Link>
+                <OpenModalButton
+                  buttonText="Delete"
+                  modalComponent={
+                    <DeleteConfirmationModal
+                      onDelete={() => handleDelete(location.id)}
+                      itemName={location.name}
+                      itemType="location"
+                    />
+                  }
+                />
+              </div>
             </div>
           </div>
         ))}

@@ -151,20 +151,23 @@ router.post('/:collectionId/locations/:locationId', requireAuth, validateCollect
 });
 
 
-  // Remove a location from a collection
-  router.delete('/:id', requireAuth, async (req, res) => {
-    try {
-      const collectionLocation = await CollectionLocation.findByPk(req.params.id);
-      if (!collectionLocation) {
-        res.status(404).json({ message: 'Collection Location not found' });
-      } else {
-        await collectionLocation.destroy();
-        res.sendStatus(204);
-      }
-    } catch (error) {
-      console.error(error);
-      res.status(500).json({ message: 'Server Error' });
+// Remove a location from a collection
+router.delete('/:collectionId/locations/:locationId', requireAuth, async (req, res) => {
+  try {
+    const { collectionId, locationId } = req.params;
+    const collectionLocation = await CollectionLocation.findOne({
+      where: { collectionId, locationId }
+    });
+    if (!collectionLocation) {
+      res.status(404).json({ message: 'Collection Location not found' });
+    } else {
+      await collectionLocation.destroy();
+      res.sendStatus(204);
     }
-  });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Server Error' });
+  }
+});
 
 module.exports = router;

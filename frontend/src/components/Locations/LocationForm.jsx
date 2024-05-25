@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, useParams, useLocation } from 'react-router-dom';
 import { createLocation, updateLocation, fetchLocation } from '../../store/locations';
-import './LocationForm.css'
+
 
 const LocationForm = () => {
   const dispatch = useDispatch();

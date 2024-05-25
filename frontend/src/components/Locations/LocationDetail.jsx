@@ -7,7 +7,6 @@ const LocationDetail = () => {
   const dispatch = useDispatch();
   const { locationId } = useParams();
   const location = useSelector((state) => state.locations.currentLocation);
-  // const navigate = useNavigate();
 
 
   useEffect(() => {
@@ -19,11 +18,19 @@ const LocationDetail = () => {
   }
 
   return (
-    <div>
+    <div className="location-detail-page">
       <h1>{location.name}</h1>
-      <p>{location.description}</p>
-      {/* Render other location details */}
-      {/* Add edit and delete buttons */}
+      <div className="location-details">
+        <div className="location-image">
+          <img src={location.imageUrl} alt={location.name} />
+        </div>
+        <div className="location-info">
+          <p><strong>Description:</strong> {location.description}</p>
+          <p><strong>Activity Type:</strong> {location.activity_type}</p>
+          <p><strong>Address:</strong> {location.street}, {location.city}, {location.state}, {location.country}, {location.zip_code}</p>
+          <p><strong>Coordinates:</strong> {location.latitude}, {location.longitude}</p>
+        </div>
+      </div>
     </div>
   );
 };

@@ -26,7 +26,7 @@ const AllLocations = () => {
 
   const handleAddToCollection = (collection, location) => {
     if (sessionUser) {
-      dispatch(addLocation(collection.id, location))
+      dispatch(addLocation(collection.id))
     } else {
       alert("Please log in or sign up to add locations to collections.");
     }
@@ -48,8 +48,10 @@ const AllLocations = () => {
                 <p>{location.description}</p>
               </div>
             </Link>
-            {sessionUser && (<OpenModalButton
+            {sessionUser && (
+              <OpenModalButton
                 buttonText="Add Location To Collection"
+                buttonClass="add-button"
                 modalComponent={
                   <AddLocationToCollection
                     location={location}
@@ -59,21 +61,10 @@ const AllLocations = () => {
                   />
                 }
               />
-                )}
-            {/* {sessionUser && (
-              <button onClick={() => handleAddToCollection(location)}>
-                Add to Collection
-              </button>
-            )} */}
+            )}
           </div>
         ))}
       </div>
-      {/* {showModal && (
-        <AddToCollectionModal
-          location={selectedLocation}
-          onClose={() => setShowModal(false)}
-        />
-      )} */}
     </div>
   );
 };

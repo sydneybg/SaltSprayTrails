@@ -1,0 +1,84 @@
+.collection-detail-page {
+    padding: 20px;
+  }
+
+  .collection-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+
+  .collection-image {
+    width: 300px; 
+    height: 300px;
+    object-fit: cover;
+    margin-right: 20px;
+  }
+
+  .locations-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 20px;
+  }
+
+  .location-tile {
+    display: flex;
+    flex-direction: column;
+    text-decoration: none;
+    color: inherit;
+    border: 1px solid #ddd;
+    background-color: #fff;
+    transition: box-shadow 0.3s ease;
+  }
+
+  .location-tile:hover {
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+
+  .location-image {
+    width: 100%;
+    height: 200px;
+    overflow: hidden;
+  }
+
+  .location-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .location-details {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 10px;
+    background-color: #e7f7f7;
+  }
+
+  .location-details h2 {
+    margin-top: 0;
+  }
+
+  .location-details p {
+    flex: 1;
+    margin-bottom: 10px;
+  }
+
+  .location-buttons {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .location-view-button, .location-remove-button {
+    text-decoration: none;
+    color: #007bff;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 5px 10px;
+  }
+
+  .location-view-button:hover, .location-remove-button:hover {
+    text-decoration: underline;
+  }
