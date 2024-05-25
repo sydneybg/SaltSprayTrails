@@ -62,3 +62,28 @@
 .location-details p {
   margin-bottom: 0;
 }
+
+@media (max-width: 768px) {
+  .large-image-container {
+      height: 300px;
+  }
+
+  .image-text {
+      font-size: 24px;
+      bottom: 10px;
+      left: 10px;
+  }
+
+  .locations-grid {
+      grid-template-columns: 1fr;
+      gap: 10px;
+  }
+
+  .location-image {
+      height: 150px;
+  }
+
+  .location-details {
+      padding: 8px;
+  }
+}
