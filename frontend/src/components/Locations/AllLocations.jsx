@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchLocations } from "../../store/locations";
-import { addLocation } from '../../store/collections';
+import { addLocationToCollectionThunk } from '../../store/collections';
 
 import { Link } from 'react-router-dom';
 import OpenModalButton from '../OpenModalButton/OpenModalButton';
@@ -19,7 +19,7 @@ const AllLocations = () => {
 
   const handleAddToCollection = (collection, location) => {
     if (sessionUser) {
-      dispatch(addLocation(collection.id, location));
+      dispatch(addLocationToCollectionThunk(collection.id, location));
     } else {
       alert("Please log in or sign up to add locations to collections.");
     }

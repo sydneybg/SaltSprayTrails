@@ -5,8 +5,7 @@ const SET_COLLECTIONS = "collections/setCollections";
 const SET_COLLECTION = "collections/setCollection";
 const REMOVE_COLLECTION = "collections/removeCollection";
 const ADD_LOCATION_TO_COLLECTION = "collections/addLocationToCollection";
-const REMOVE_LOCATION_FROM_COLLECTION =
-  "collections/removeLocationFromCollection";
+const REMOVE_LOCATION_FROM_COLLECTION = "collections/removeLocationFromCollection";
 const SET_USER_COLLECTIONS = "collections/setUserCollections";
 const SET_ERROR_MESSAGE = "collections/setErrorMessage";
 
@@ -32,14 +31,14 @@ export const setUserCollections = (collections) => ({
 });
 
 export const addLocationToCollection = (collectionId, location) => ({
-  type: ADD_LOCATION_TO_COLLECTION,
-  payload: { collectionId, location },
-});
+    type: ADD_LOCATION_TO_COLLECTION,
+    payload: { collectionId, location },
+  });
 
-export const removeLocationFromCollection = (collectionId, locationId) => ({
-  type: REMOVE_LOCATION_FROM_COLLECTION,
-  payload: { collectionId, locationId },
-});
+  export const removeLocationFromCollection = (collectionId, locationId) => ({
+    type: REMOVE_LOCATION_FROM_COLLECTION,
+    payload: { collectionId, locationId },
+  });
 
 export const setErrorMessage = (errorMessage) => ({
   type: SET_ERROR_MESSAGE,
@@ -123,24 +122,23 @@ export const deleteCollection = (collectionId) => async (dispatch) => {
   }
 };
 
-export const addLocation = (collectionId, location) => async (dispatch) => {
-  try {
-    const response = await csrfFetch(
-      `/api/collections/${collectionId}/locations/${location.id}`,
-      {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-      }
-    );
-    const data = await response.json();
-    dispatch(addLocationToCollection(collectionId, data));
-  } catch (error) {
-    console.error("Error adding location to collection:", error);
-  }
-};
+export const addLocationToCollectionThunk = (collectionId, location) => async (dispatch) => {
+    try {
+      const response = await csrfFetch(
+        `/api/collections/${collectionId}/locations/${location.id}`,
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+        }
+      );
+      const data = await response.json();
+      dispatch(addLocationToCollection(collectionId, data));
+    } catch (error) {
+      console.error("Error adding location to collection:", error);
+    }
+  };
 
-export const removeLocation =
-  (collectionId, locationId) => async (dispatch) => {
+  export const removeLocationFromCollectionThunk = (collectionId, locationId) => async (dispatch) => {
     try {
       const response = await csrfFetch(
         `/api/collections/${collectionId}/locations/${locationId}`,
@@ -150,6 +148,7 @@ export const removeLocation =
       );
       if (response.ok) {
         dispatch(removeLocationFromCollection(collectionId, locationId));
+        dispatch(fetchCollection(collectionId));
       }
     } catch (error) {
       console.error("Error removing location from collection:", error);
