@@ -2,8 +2,6 @@ import { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { fetchUserCollections } from '../../store/collections';
 import { useModal } from '../../context/Modal';
-import { Link } from 'react-router-dom';
-
 
 const AddLocationToCollection = ({ onAdd, location}) => {
     const dispatch = useDispatch();
