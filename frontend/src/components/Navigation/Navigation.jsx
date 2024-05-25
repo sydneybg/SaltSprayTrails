@@ -5,6 +5,7 @@ import ProfileButton from './ProfileButton';
 import OpenModalButton from '../OpenModalButton/OpenModalButton';
 import LoginFormModal from '../LoginFormModal/LoginFormModal'
 import SignupFormModal from '../SignupFormModal';
+import Logo from '../../../../images/Logo.png';
 import './Navigation.css';
 
 
@@ -50,8 +51,8 @@ function Navigation({ isLoaded }) {
       <div className="nav-left">
         <NavLink to="/">
           <div className="logo-container">
-            <span className="logo-placeholder">Logo</span>
-            <span className="app-name">Salt&apos;n&apos;Swim</span>
+            <img src={Logo} alt="Logo" className="logo" />
+            <span className="app-name">Salt&Swim</span>
           </div>
         </NavLink>
       </div>
