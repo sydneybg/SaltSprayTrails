@@ -31,6 +31,8 @@ const CollectionDetail = () => {
     return <div>No Collections Created Yet</div>;
   }
 
+  const { Locations = [] } = collection;
+
   return (
     <div className="collection-detail-page">
     <div className="collection-header">
@@ -38,11 +40,11 @@ const CollectionDetail = () => {
       <h1>{collection.name}</h1>
     </div>
     <h2>Locations in this Collection</h2>
-    {collection.Locations.length === 0 ? (
+    {Locations.length === 0 ? (
       <div>No Locations Added to Collection At This Time</div>
     ) : (
       <div className="locations-grid">
-        {collection.Locations.map(location => (
+        {Locations.map(location => (
           <div key={location.id} className="location-tile">
             <div className="location-image">
               <img src={location.image} alt={location.name} />

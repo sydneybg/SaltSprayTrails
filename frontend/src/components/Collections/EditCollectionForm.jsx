@@ -1,10 +1,9 @@
 import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, useParams, useLocation } from 'react-router-dom';
-import { createCollection, updateCollection, fetchCollection } from '../../store/collections';
-// import './CollectionForm.css';
+import { updateCollection, fetchCollection } from '../../store/collections';
 
-const CollectionForm = () => {
+const EditCollectionForm = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { collectionId } = useParams();
@@ -21,11 +20,6 @@ const CollectionForm = () => {
   useEffect(() => {
     if (collectionId) {
       dispatch(fetchCollection(collectionId));
-    } else {
-      setFormData({
-        name: '',
-        imageUrl: '',
-      });
     }
   }, [collectionId, dispatch]);
 
@@ -52,25 +46,20 @@ const CollectionForm = () => {
       if (actionResult) {
         navigate(`/collections/${collectionId}`);
       }
-    } else {
-      actionResult = await dispatch(createCollection(formData));
-      if (actionResult) {
-        navigate(`/my-collections`);
-      }
     }
   };
 
   return (
     <div className="collection-form">
-      <h2>{collectionId ? 'Edit Collection' : 'Create Collection'}</h2>
+      <h2>Edit Collection</h2>
       <form onSubmit={handleSubmit}>
         <input type="text" name="name" placeholder="Name" value={formData.name} onChange={handleChange} required />
         <input type="text" name="imageUrl" placeholder="Image URL" value={formData.imageUrl} onChange={handleChange} required />
-        <button type="submit">{collectionId ? 'Update' : 'Create'}</button>
+        <button type="submit">Update</button>
       </form>
       <div>{errorMessage}</div>
     </div>
   );
 };
 
-export default CollectionForm;
+export default EditCollectionForm;
