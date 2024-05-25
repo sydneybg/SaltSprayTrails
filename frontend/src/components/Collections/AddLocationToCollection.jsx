@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-// import OpenModalButton from '../OpenModalButton/OpenModalButton';
 import { fetchUserCollections } from '../../store/collections';
 import { useModal } from '../../context/Modal';
+import { Link } from 'react-router-dom';
 
 
 const AddLocationToCollection = ({ onAdd, location}) => {
@@ -29,24 +29,30 @@ const AddLocationToCollection = ({ onAdd, location}) => {
 
     return (
         <>
-        <h2>Add Location To Collection</h2>
-        <select
-        name="Collection"
-        value={activeCollectionId}
-        onChange={handleChange}
-        required
-      >
-        <option value="">Select Collection</option>
-        {collections.map((collection) => (
-          <option key={collection.id} value={collection.id}>
-            {collection.name}
-          </option>
-        ))}
-      </select>
-        <button onClick={handleClick}>Submit</button>
-
-        <div></div>
+       <h2>Add Location To Collection</h2>
+      {collections.length === 0 ? (
+        <div>
+          <p>You have no collections yet. Please navigate to My Collections to Create a Collection.</p>
+        </div>
+      ) : (
+        <>
+          <select
+            name="Collection"
+            value={activeCollectionId}
+            onChange={handleChange}
+            required
+          >
+            <option value="">Select Collection</option>
+            {collections.map((collection) => (
+              <option key={collection.id} value={collection.id}>
+                {collection.name}
+              </option>
+            ))}
+          </select>
+          <button onClick={handleClick}>Submit</button>
         </>
+      )}
+    </>
 
     )
 }
