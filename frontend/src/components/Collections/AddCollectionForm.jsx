@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, useParams, useLocation } from 'react-router-dom';
 import { createCollection, updateCollection, fetchCollection } from '../../store/collections';
-import './CollectionForm.css';
+// import './CollectionForm.css'
 
 const CollectionForm = () => {
   const dispatch = useDispatch();
@@ -32,10 +32,7 @@ const CollectionForm = () => {
   useEffect(() => {
     const isEdit = location.pathname.includes('edit');
     if (currentCollection && isEdit) {
-      setFormData({
-        name: currentCollection.name,
-        imageUrl: currentCollection.imageUrl,
-      });
+      setFormData(currentCollection);
     }
   }, [currentCollection, location]);
 
@@ -50,7 +47,7 @@ const CollectionForm = () => {
     if (collectionId) {
       actionResult = await dispatch(updateCollection(collectionId, formData));
       if (actionResult) {
-        navigate(`/collections/${collectionId}`);
+        navigate(`/collections/${currentCollection.id}`);
       }
     } else {
       actionResult = await dispatch(createCollection(formData));
@@ -65,7 +62,9 @@ const CollectionForm = () => {
       <h2>{collectionId ? 'Edit Collection' : 'Create Collection'}</h2>
       <form onSubmit={handleSubmit}>
         <input type="text" name="name" placeholder="Name" value={formData.name} onChange={handleChange} required />
-        <input type="text" name="imageUrl" placeholder="Image URL" value={formData.imageUrl} onChange={handleChange} required />
+        {!collectionId && (
+          <input type="text" name="imageUrl" placeholder="Image URL" value={formData.imageUrl} onChange={handleChange} required />
+        )}
         <button type="submit">{collectionId ? 'Update' : 'Create'}</button>
       </form>
       <div>{errorMessage}</div>

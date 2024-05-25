@@ -5,8 +5,9 @@ import { Link } from 'react-router-dom';
 // import { OpenModalButton } from '../OpenModalButton/OpenModalButton';
 // import { LoginFormModal } from '../LoginFormModal/LoginFormModal';
 // import { SignupFormModal } from '../SignupFormModal/SignupFormModal';
-import AddToCollectionModal from "../Collections/AddCollectionModal";
+import AddToCollectionModal from "../Collections/AddCollectionForm";
 import "./LandingPage.css";
+
 
 const AllLocations = () => {
   const dispatch = useDispatch();
@@ -19,6 +20,7 @@ const AllLocations = () => {
     dispatch(fetchLocations());
   }, [dispatch]);
 
+
   const handleAddToCollection = (location) => {
     if (sessionUser) {
       setSelectedLocation(location);
@@ -27,6 +29,7 @@ const AllLocations = () => {
       alert("Please log in or sign up to add locations to collections.");
     }
   };
+
 
   return (
     <div className="landing-page">

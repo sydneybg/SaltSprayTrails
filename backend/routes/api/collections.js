@@ -31,17 +31,17 @@ router.get('/:id', async (req, res) => {
   }
 });
 
-// Get all collections for a specific user
-router.get('/', requireAuth, async (req, res) => {
+// Get all collections for the current user
+router.get('/current', requireAuth, async (req, res) => {
   try {
     const collections = await Collection.findAll({
       where: { userId: req.user.id },
       include: [{ model: CollectionLocation, include: [Location] }]
     });
-    res.json(collections);
+    res.json({ collections });
   } catch (error) {
-    console.error(error);
-    res.status(500).json({ message: 'Server Error' });
+    console.error('Error fetching user collections:', error);
+    res.status(500).json({ message: 'Internal server error' });
   }
 });
 
