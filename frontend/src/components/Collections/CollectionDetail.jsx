@@ -29,7 +29,7 @@ const CollectionDetail = () => {
 
   if (!collection) {
     return <div>No Collections Created Yet</div>;
-  };
+  }
 
   return (
     <div className="collection-detail-page">

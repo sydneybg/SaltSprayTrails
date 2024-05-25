@@ -1,37 +1,29 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchLocations } from "../../store/locations";
 import { addLocation } from '../../store/collections';
 
 import { Link } from 'react-router-dom';
 import OpenModalButton from '../OpenModalButton/OpenModalButton';
-// import { LoginFormModal } from '../LoginFormModal/LoginFormModal';
-// import { SignupFormModal } from '../SignupFormModal/SignupFormModal';
 import AddLocationToCollection from '../Collections/AddLocationToCollection';
 import "./LandingPage.css";
-import DeleteConfirmationModal from "../DeleteModal/DeleteConfirmationModal";
-
 
 const AllLocations = () => {
   const dispatch = useDispatch();
   const locations = useSelector((state) => state.locations.locations);
   const sessionUser = useSelector((state) => state.session.user);
-  const [selectedLocation, setSelectedLocation] = useState(null);
-  const [showModal, setShowModal] = useState(false);
 
   useEffect(() => {
     dispatch(fetchLocations());
   }, [dispatch]);
 
-
   const handleAddToCollection = (collection, location) => {
     if (sessionUser) {
-      dispatch(addLocation(collection.id))
+      dispatch(addLocation(collection.id, location));
     } else {
       alert("Please log in or sign up to add locations to collections.");
     }
   };
-
 
   return (
     <div className="landing-page">
