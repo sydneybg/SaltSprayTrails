@@ -58,7 +58,7 @@ export const fetchLocation = (locationId) => async (dispatch) => {
 export const createLocation = (locationData) => async (dispatch) => {
   try {
 
-    const { imageUrl, ...locationDetails } = locationData;
+    const { imageUrl } = locationData;
 
     return csrfFetch("/api/locations", {
       method: "POST",

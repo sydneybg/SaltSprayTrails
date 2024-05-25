@@ -126,11 +126,10 @@ export const deleteCollection = (collectionId) => async (dispatch) => {
 export const addLocation = (collectionId, location) => async (dispatch) => {
   try {
     const response = await csrfFetch(
-      `/api/collections/${collectionId}/locations`,
+      `/api/collections/${collectionId}/locations/${location.id}`,
       {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(location),
       }
     );
     const data = await response.json();

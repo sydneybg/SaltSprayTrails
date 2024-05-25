@@ -11,6 +11,7 @@ import AllLocations from './components/Locations/AllLocations';
 import MyCollections from './components/Collections/MyCollections';
 import AddCollectionForm from './components/Collections/AddCollectionForm';
 import EditCollectionForm from './components/Collections/EditCollectionForm';
+import CollectionDetail from './components/Collections/CollectionDetail';
 
 
 function Layout() {
@@ -53,7 +54,7 @@ function App() {
         { path: 'my-collections', element: <ProtectedRoute><MyCollections /></ProtectedRoute> },
         { path: 'collections/new', element: <ProtectedRoute><AddCollectionForm /></ProtectedRoute> },
         { path: 'collections/:collectionId/edit', element: <ProtectedRoute><EditCollectionForm /></ProtectedRoute> },
-
+        { path: 'collections/:collectionId', element: <CollectionDetail /> },
       ],
     },
   ]);

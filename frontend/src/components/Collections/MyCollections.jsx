@@ -8,7 +8,7 @@ import DeleteConfirmationModal from '../DeleteModal/DeleteConfirmationModal';
 const MyCollections = () => {
   const dispatch = useDispatch();
 
-//   const userCollections = useSelector(state => state.collections.userCollection);
+  const userCollections = useSelector(state => state.collections.userCollections);
 
   useEffect(() => {
     dispatch(fetchUserCollections());
@@ -18,9 +18,9 @@ const MyCollections = () => {
     dispatch(deleteCollection(collectionId));
   };
 
-//   if (!userCollections) {
-//     return <div>Loading...</div>;
-//   }
+  if (!userCollections) {
+    return <div>Loading...</div>;
+  }
 
 
   return (
@@ -28,14 +28,15 @@ const MyCollections = () => {
       <h1>My Collections</h1>
       <Link to="/collections/new" className="create-collection-button">Create Collection</Link>
       <div className="collections-grid">
-        {/* {userCollections.map(collection => (
+        {userCollections.map(collection => (
           <div key={collection.id} className="collection-tile">
             <div className="collection-image">
               <img src={collection.image} alt={collection.name} />
             </div>
             <div className="collection-details">
-              <h2>{collection.name}</h2>
-              <p>{collection.locations.length} locations</p>
+              <Link to={`/collections/${collection.id}`}><h2>{collection.name}</h2></Link>
+              {/* <p>{collection.locations.length} locations</p> */}
+
               <Link to={`/collections/${collection.id}/edit`}>Edit</Link>
               <OpenModalButton
                 buttonText="Delete"
@@ -49,7 +50,7 @@ const MyCollections = () => {
               />
             </div>
           </div>
-        ))} */}
+        ))}
       </div>
     </div>
   );

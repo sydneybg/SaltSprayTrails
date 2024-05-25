@@ -26,18 +26,18 @@ module.exports = (sequelize, DataTypes) => {
     collectionId: {
       type: DataTypes.INTEGER,
       allowNull: false,
-      // references: {
-      //   model: 'Collections',
-      //   key: 'id'
-      // },
+      references: {
+        model: 'Collections',
+        key: 'id'
+      },
     },
     locationId: {
       type: DataTypes.INTEGER,
       allowNull: false,
-      // references: {
-      //   model: 'Locations',
-      //   key: 'id'
-      // },
+      references: {
+        model: 'Locations',
+        key: 'id'
+      },
     },
     createdAt: {
       type: DataTypes.DATE,

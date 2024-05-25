@@ -16,10 +16,35 @@ router.get('/', async (req, res) => {
   }
 });
 
+// Get all collections for the current user
+router.get('/current', requireAuth, async (req, res) => {
+  // console.log('my collecitons')
+  // res.status()
+  try {
+    const collections = await Collection.findAll({
+      where: { userId: req.user.id },
+      // include: [{ model: CollectionLocation, include: [Location] }]
+    });
+    res.json({ collections });
+  } catch (error) {
+    console.error('Error fetching user collections:', error);
+    res.status(500).json({ message: 'Internal server error' });
+  }
+});
+
 // Get a specific collection by ID
 router.get('/:id', async (req, res) => {
   try {
-    const collection = await Collection.findByPk(req.params.id);
+    // const collection = await Collection.findByPk(req.params.id);
+    const collection = await Collection.findOne({
+      where: { id: req.params.id },
+      include: [
+        {
+          model: Location,
+          through: { attributes: [] },
+        }
+      ]
+    });
     if (!collection) {
       res.status(404).json({ message: 'Collection not found' });
     } else {
@@ -28,20 +53,6 @@ router.get('/:id', async (req, res) => {
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: 'Server Error' });
-  }
-});
-
-// Get all collections for the current user
-router.get('/current', requireAuth, async (req, res) => {
-  try {
-    const collections = await Collection.findAll({
-      where: { userId: req.user.id },
-      include: [{ model: CollectionLocation, include: [Location] }]
-    });
-    res.json({ collections });
-  } catch (error) {
-    console.error('Error fetching user collections:', error);
-    res.status(500).json({ message: 'Internal server error' });
   }
 });
 
@@ -121,9 +132,9 @@ router.get('/:collectionId/locations', requireAuth, async (req, res) => {
 
 
 // Add a location to a collection
-router.post('/locations', requireAuth, validateCollectionLocation, async (req, res) => {
+router.post('/:collectionId/locations/:locationId', requireAuth, validateCollectionLocation, async (req, res) => {
   try {
-    const { collectionId, locationId } = req.body;
+    const { collectionId, locationId } = req.params;
 
     // Check if the location belongs to the same user
     const location = await Location.findByPk(locationId);

@@ -1,12 +1,15 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchLocations } from "../../store/locations";
+import { addLocation } from '../../store/collections';
+
 import { Link } from 'react-router-dom';
-// import { OpenModalButton } from '../OpenModalButton/OpenModalButton';
+import OpenModalButton from '../OpenModalButton/OpenModalButton';
 // import { LoginFormModal } from '../LoginFormModal/LoginFormModal';
 // import { SignupFormModal } from '../SignupFormModal/SignupFormModal';
-import AddToCollectionModal from "../Collections/AddCollectionForm";
+import AddLocationToCollection from '../Collections/AddLocationToCollection';
 import "./LandingPage.css";
+import DeleteConfirmationModal from "../DeleteModal/DeleteConfirmationModal";
 
 
 const AllLocations = () => {
@@ -21,10 +24,9 @@ const AllLocations = () => {
   }, [dispatch]);
 
 
-  const handleAddToCollection = (location) => {
+  const handleAddToCollection = (collection, location) => {
     if (sessionUser) {
-      setSelectedLocation(location);
-      setShowModal(true);
+      dispatch(addLocation(collection.id, location))
     } else {
       alert("Please log in or sign up to add locations to collections.");
     }
@@ -46,20 +48,32 @@ const AllLocations = () => {
                 <p>{location.description}</p>
               </div>
             </Link>
-            {sessionUser && (
+            {sessionUser && (<OpenModalButton
+                buttonText="Add Location To Collection"
+                modalComponent={
+                  <AddLocationToCollection
+                    location={location}
+                    onAdd={handleAddToCollection}
+                    itemName={location.name}
+                    itemType="location"
+                  />
+                }
+              />
+                )}
+            {/* {sessionUser && (
               <button onClick={() => handleAddToCollection(location)}>
                 Add to Collection
               </button>
-            )}
+            )} */}
           </div>
         ))}
       </div>
-      {showModal && (
+      {/* {showModal && (
         <AddToCollectionModal
           location={selectedLocation}
           onClose={() => setShowModal(false)}
         />
-      )}
+      )} */}
     </div>
   );
 };

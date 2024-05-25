@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams, Link } from 'react-router-dom';
-import { fetchCollection, addLocationToCollection, removeLocationFromCollection } from '../../store/collections';
+import { fetchCollection, addLocation, removeLocationFromCollection } from '../../store/collections';
 // import OpenModalButton from '../OpenModalButton/OpenModalButton';
 // import DeleteConfirmationModal from '../DeleteModal/DeleteConfirmationModal';
 
@@ -9,7 +9,8 @@ const CollectionDetail = () => {
   const dispatch = useDispatch();
   const { collectionId } = useParams();
   const collection = useSelector((state) => state.collections.currentCollection);
-  const locations = useSelector((state) => state.locations.locations);
+
+  console.log(collection)
 
   useEffect(() => {
     dispatch(fetchCollection(collectionId));
@@ -19,13 +20,10 @@ const CollectionDetail = () => {
     return <div>Loading...</div>;
   }
 
-  const handleAddLocation = (locationId) => {
-    dispatch(addLocationToCollection(collectionId, locationId));
-  };
-
   const handleRemoveLocation = (locationId) => {
     dispatch(removeLocationFromCollection(collectionId, locationId));
   };
+
 
   return (
     <div>
@@ -33,14 +31,14 @@ const CollectionDetail = () => {
       <img src={collection.imageUrl} alt={collection.name} />
       <h2>Locations in this Collection</h2>
       <ul>
-        {collection.locations.map(location => (
+        {collection.Locations.map(location => (
           <li key={location.id}>
             <Link to={`/locations/${location.id}`}>{location.name}</Link>
             <button onClick={() => handleRemoveLocation(location.id)}>Remove</button>
           </li>
         ))}
       </ul>
-      <h2>Add Location to Collection</h2>
+      {/* <h2>Add Location to Collection</h2>
       <ul>
         {locations.map(location => (
           <li key={location.id}>
@@ -48,7 +46,7 @@ const CollectionDetail = () => {
             <button onClick={() => handleAddLocation(location.id)}>Add to Collection</button>
           </li>
         ))}
-      </ul>
+      </ul> */}
     </div>
   );
 };
