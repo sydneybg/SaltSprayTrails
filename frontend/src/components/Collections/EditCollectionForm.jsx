@@ -50,14 +50,14 @@ const EditCollectionForm = () => {
   };
 
   return (
-    <div className="collection-form">
-      <h2>Edit Collection</h2>
-      <form onSubmit={handleSubmit}>
-        <input type="text" name="name" placeholder="Name" value={formData.name} onChange={handleChange} required />
-        <input type="text" name="imageUrl" placeholder="Image URL" value={formData.imageUrl} onChange={handleChange} required />
-        <button type="submit">Update</button>
+    <div className="form-container">
+      <h2 className="form-header">Edit Collection</h2>
+      <form onSubmit={handleSubmit} className="form">
+        <input type="text" name="name" placeholder="Name" value={formData.name} onChange={handleChange} required className="form-input" />
+        <input type="text" name="imageUrl" placeholder="Image URL" value={formData.imageUrl} onChange={handleChange} required className="form-input" />
+        <button type="submit" className="form-button">Update</button>
       </form>
-      <div>{errorMessage}</div>
+      <div className="form-error">{errorMessage}</div>
     </div>
   );
 };

@@ -41,6 +41,7 @@ const AllLocations = () => {
               </div>
             </Link>
             {sessionUser && (
+              <div className="button-container">
               <OpenModalButton
                 buttonText="Add Location To Collection"
                 buttonClass="add-button"
@@ -53,6 +54,7 @@ const AllLocations = () => {
                   />
                 }
               />
+            </div>
             )}
           </div>
         ))}

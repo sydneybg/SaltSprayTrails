@@ -63,6 +63,7 @@ const CollectionDetail = () => {
                 <p>{location.description}</p>
                 <OpenModalButton
                   buttonText="Remove Location"
+                  buttonClass="primary-button"
                   modalComponent={
                     <DeleteConfirmationModal
                       onDelete={() => handleRemoveLocation(location.id)}

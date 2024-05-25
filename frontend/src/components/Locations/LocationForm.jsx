@@ -77,14 +77,14 @@ const LocationForm = () => {
   };
 
   return (
-    <div className="location-form">
-      <h2>{locationId ? 'Edit Location' : 'Create Location'}</h2>
-      <form onSubmit={handleSubmit}>
-      <input type="text" name="name" placeholder="Name" value={formData.name} onChange={handleChange} required />
+    <div className="form-container">
+      <h2 className="form-header">{locationId ? 'Edit Location' : 'Create Location'}</h2>
+      <form onSubmit={handleSubmit} className="form">
+      <input type="text" name="name" placeholder="Name" value={formData.name} onChange={handleChange} required className="form-input" />
 
-        <input type="text" name="description" placeholder="Description" value={formData.description} onChange={handleChange} required />
+        <input type="text" name="description" placeholder="Description" value={formData.description} onChange={handleChange} required className="form-input" />
 
-        <select name="activity_type" value={formData.activity_type} onChange={handleChange} required>
+        <select name="activity_type" value={formData.activity_type} onChange={handleChange} required className="form-input">
           <option value="" disabled>Select Activity Type</option>
           <option value="swimming">Swimming</option>
           <option value="surfing">Surfing</option>
@@ -92,27 +92,27 @@ const LocationForm = () => {
           <option value="kayaking">Kayaking</option>
         </select>
 
-        <input type="text" name="street" placeholder="Street" value={formData.street} onChange={handleChange} required />
+        <input type="text" name="street" placeholder="Street" value={formData.street} onChange={handleChange} required className="form-input" />
 
-        <input type="text" name="city" placeholder="City" value={formData.city} onChange={handleChange} required />
+        <input type="text" name="city" placeholder="City" value={formData.city} onChange={handleChange} required className="form-input" />
 
-        <input type="text" name="state" placeholder="State" value={formData.state} onChange={handleChange} required />
+        <input type="text" name="state" placeholder="State" value={formData.state} onChange={handleChange} required className="form-input" />
 
-        <input type="text" name="country" placeholder="Country" value={formData.country} onChange={handleChange} required />
+        <input type="text" name="country" placeholder="Country" value={formData.country} onChange={handleChange} required className="form-input" />
 
-        <input type="text" name="zip_code" placeholder="Zip Code" value={formData.zip_code} onChange={handleChange} required />
+        <input type="text" name="zip_code" placeholder="Zip Code" value={formData.zip_code} onChange={handleChange} required className="form-input"/>
 
-        <input type="text" name="latitude" placeholder="Latitude" value={formData.latitude} onChange={handleChange} required />
+        <input type="text" name="latitude" placeholder="Latitude" value={formData.latitude} onChange={handleChange} required className="form-input"/>
 
-        <input type="text" name="longitude" placeholder="Longitude" value={formData.longitude} onChange={handleChange} required />
+        <input type="text" name="longitude" placeholder="Longitude" value={formData.longitude} onChange={handleChange} required className="form-input"/>
 
         {!locationId && (
-          <input type="text" name="imageUrl" placeholder="Image URL" value={formData.imageUrl} onChange={handleChange} required />
+          <input type="text" name="imageUrl" placeholder="Image URL" value={formData.imageUrl} onChange={handleChange} required className="form-input"/>
         )}
 
-        <button type="submit">{locationId ? 'Update' : 'Create'}</button>
+        <button type="submit" className="form-button">{locationId ? 'Update' : 'Create'}</button>
       </form>
-      <div>{errorMessage}</div>
+      <div className="form-error">{errorMessage}</div>
     </div>
   );
 };

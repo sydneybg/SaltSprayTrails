@@ -2,7 +2,6 @@ import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, useParams, useLocation } from 'react-router-dom';
 import { createCollection, updateCollection, fetchCollection } from '../../store/collections';
-// import './CollectionForm.css'
 
 const CollectionForm = () => {
   const dispatch = useDispatch();
@@ -58,16 +57,16 @@ const CollectionForm = () => {
   };
 
   return (
-    <div className="collection-form">
-      <h2>{collectionId ? 'Edit Collection' : 'Create Collection'}</h2>
-      <form onSubmit={handleSubmit}>
-        <input type="text" name="name" placeholder="Name" value={formData.name} onChange={handleChange} required />
+    <div className="form-container">
+      <h2 className="form-header">{collectionId ? 'Edit Collection' : 'Create Collection'}</h2>
+      <form onSubmit={handleSubmit} className="form">
+        <input type="text" name="name" placeholder="Name" value={formData.name} onChange={handleChange} required className="form-input" />
         {!collectionId && (
-          <input type="text" name="imageUrl" placeholder="Image URL" value={formData.imageUrl} onChange={handleChange} required />
+          <input type="text" name="imageUrl" placeholder="Image URL" value={formData.imageUrl} onChange={handleChange} required className="form-input"/>
         )}
-        <button type="submit">{collectionId ? 'Update' : 'Create'}</button>
+        <button type="submit" className="form-button">{collectionId ? 'Update' : 'Create'}</button>
       </form>
-      <div>{errorMessage}</div>
+      <div className="form-error">{errorMessage}</div>
     </div>
   );
 };
