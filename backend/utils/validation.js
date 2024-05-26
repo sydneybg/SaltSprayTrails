@@ -1,6 +1,6 @@
-const { validationResult } = require('express-validator');
-const { check } = require('express-validator');
-const { Location, Collection } = require('../db/models');
+const { validationResult } = require("express-validator");
+const { check } = require("express-validator");
+const { Location, Collection } = require("../db/models");
 
 const handleValidationErrors = (req, _res, next) => {
   const validationErrors = validationResult(req);
@@ -9,7 +9,7 @@ const handleValidationErrors = (req, _res, next) => {
     const errors = {};
     validationErrors
       .array()
-      .forEach(error => errors[error.path] = error.msg);
+      .forEach((error) => (errors[error.path] = error.msg));
 
     const err = Error("Bad request.");
     err.errors = errors;
@@ -20,40 +20,64 @@ const handleValidationErrors = (req, _res, next) => {
   next();
 };
 
-
 const validateLogin = [
-  check('credential')
+  check("credential")
     .exists({ checkFalsy: true })
     .notEmpty()
-    .withMessage('Please provide a valid email or username.'),
-  check('password')
+    .withMessage("Please provide a valid email or username."),
+  check("password")
     .exists({ checkFalsy: true })
-    .withMessage('Please provide a password.'),
-  handleValidationErrors
+    .withMessage("Please provide a password."),
+  handleValidationErrors,
 ];
 
-
 const validateLocation = [
-  check('name')
+  check("name")
     .exists({ checkFalsy: true })
-    .withMessage('Name is required'),
-  check('activity_type')
+    .isLength({ max: 255 })
+    .withMessage("Name is required and must be less than 255 characters"),
+  check("description")
     .exists({ checkFalsy: true })
-    .withMessage('Type is required'),
-  check('latitude')
+    .isLength({ max: 255 })
+    .withMessage(
+      "Description is required and must be less than 255 characters"
+    ),
+  check("street")
+      .exists({ checkFalsy: true })
+      .isLength({ max: 255 })
+      .withMessage("Street is required and must be less than 255 characters"),
+  check("city")
+      .exists({ checkFalsy: true })
+      .isLength({ max: 255 })
+      .withMessage("City is required and must be less than 255 characters"),
+  check("state")
+      .exists({ checkFalsy: true })
+      .isLength({ max: 255 })
+      .withMessage("State is required and must be less than 255 characters"),
+  check("country")
+      .exists({ checkFalsy: true })
+      .isLength({ max: 255 })
+      .withMessage("Country is required and must be less than 255 characters"),
+  check("activity_type")
     .exists({ checkFalsy: true })
-    .withMessage('Latitude is required')
+    .withMessage("Type is required"),
+    check("zip_code")
+    .exists({ checkFalsy: true })
+    .withMessage("Zip Code is required")
     .isNumeric()
-    .withMessage('Latitude must be a number'),
-  check('longitude')
+    .withMessage("Zip Code must be a number"),
+  check("latitude")
     .exists({ checkFalsy: true })
-    .withMessage('Longitude is required')
     .isNumeric()
-    .withMessage('Longitude must be a number'),
+    .withMessage("Latitude must be a number between -90 and 90"),
+  check("longitude")
+    .exists({ checkFalsy: true })
+    .isNumeric()
+    .withMessage("Longitude must be a number between -90 and 90"),
 
-  check('activity_type').custom(async (activity_type, { req }) => {
-    if(req.method === 'POST') {
-      console.log('inside validation location', req.method)
+  check("activity_type").custom(async (activity_type, { req }) => {
+    if (req.method === "POST") {
+      console.log("inside validation location", req.method);
       const { latitude, longitude } = req.body;
       const existingLocation = await Location.findOne({
         where: {
@@ -63,80 +87,80 @@ const validateLocation = [
         },
       });
       if (existingLocation) {
-        throw new Error('A location with the same type and longitude/latitude already exists');
+        throw new Error(
+          "A location with the same type and longitude/latitude already exists"
+        );
       }
     }
   }),
-  handleValidationErrors
+  handleValidationErrors,
 ];
 
 //Validate Signup Request Body
 const validateSignup = [
-  check('email')
+  check("email")
     .exists({ checkFalsy: true })
     .isEmail()
-    .withMessage('Please provide a valid email.'),
-  check('username')
+    .withMessage("Please provide a valid email."),
+  check("username")
     .exists({ checkFalsy: true })
     .isLength({ min: 4 })
-    .withMessage('Please provide a username with at least 4 characters.'),
-  check('username')
-    .not()
-    .isEmail()
-    .withMessage('Username cannot be an email.'),
-  check('password')
+    .withMessage("Please provide a username with at least 4 characters."),
+  check("username").not().isEmail().withMessage("Username cannot be an email."),
+  check("password")
     .exists({ checkFalsy: true })
     .isLength({ min: 6 })
-    .withMessage('Password must be 6 characters or more.'),
-    check('firstName')
+    .withMessage("Password must be 6 characters or more."),
+  check("firstName")
     .exists({ checkFalsy: true })
     .isLength({ min: 1 })
-    .withMessage('First Name is required.'),
-    check('lastName')
+    .withMessage("First Name is required."),
+  check("lastName")
     .exists({ checkFalsy: true })
     .isLength({ min: 1 })
-    .withMessage('Last Name is required.'),
-  handleValidationErrors
+    .withMessage("Last Name is required."),
+  handleValidationErrors,
 ];
 
 const validateCollection = [
-  check('name')
+  check("name")
     .exists({ checkFalsy: true })
-    .withMessage('Name is required'),
-  check('imageUrl')
+    .isLength({ max: 255 })
+    .withMessage("Name is required and be must less than 255 characters"),
+  check("imageUrl")
     .exists({ checkFalsy: true })
-    .withMessage('Image URL is required')
+    .isLength({ max: 255 })
+    .withMessage("ImageUrl is required and be must less than 255 characters")
     .isURL()
-    .withMessage('Image URL must be a valid URL'),
-  handleValidationErrors
+    .withMessage("Image URL must be a valid URL"),
+  handleValidationErrors,
 ];
 
 const validateCollectionLocation = [
-  check('collectionId')
+  check("collectionId")
     .exists({ checkFalsy: true })
-    .withMessage('Collection ID is required')
+    .withMessage("Collection ID is required")
     .isInt()
-    .withMessage('Collection ID must be an integer')
+    .withMessage("Collection ID must be an integer")
     .custom(async (value) => {
       const collection = await Collection.findByPk(value);
       if (!collection) {
-        throw new Error('Collection not found');
+        throw new Error("Collection not found");
       }
     }),
-  check('locationId')
+  check("locationId")
     .exists({ checkFalsy: true })
-    .withMessage('Location ID is required')
+    .withMessage("Location ID is required")
     .isInt()
-    .withMessage('Location ID must be an integer')
+    .withMessage("Location ID must be an integer")
     .custom(async (value) => {
       const location = await Location.findByPk(value);
       if (!location) {
-        throw new Error('Location not found');
+        throw new Error("Location not found");
       }
     }),
-  handleValidationErrors
+  handleValidationErrors,
 ];
-
 
 module.exports = {
   validateLocation,
@@ -144,5 +168,5 @@ module.exports = {
   validateLogin,
   validateSignup,
   validateCollection,
-  validateCollectionLocation
+  validateCollectionLocation,
 };

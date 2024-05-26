@@ -175,9 +175,13 @@ const collectionsReducer = (state = initialState, action) => {
     case SET_ERROR_MESSAGE:
       return { ...state, errorMessage: action.payload };
     case REMOVE_COLLECTION:
+      console.log('in remove collection', action.payload, typeof action.payload)
+      console.log(state.collections)
+      console.log(state)
+
       return {
         ...state,
-        collections: state.collections.filter(
+        userCollections: state.userCollections.filter(
           (collection) => collection.id !== action.payload
         ),
       };

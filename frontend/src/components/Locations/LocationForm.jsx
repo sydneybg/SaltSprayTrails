@@ -1,7 +1,12 @@
 import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, useParams, useLocation } from 'react-router-dom';
-import { createLocation, updateLocation, fetchLocation } from '../../store/locations';
+import { createLocation, updateLocation, fetchLocation, setErrorMessage } from '../../store/locations';
+
+function isValidHttpUrl(string) {
+  const pattern = /^(https?:\/\/)?((([a-zA-Z\d]([a-zA-Z\d-]*[a-zA-Z\d])*)\.)+[a-zA-Z]{2,}|((\d{1,3}\.){3}\d{1,3}))(\:\d+)?(\/[-a-zA-Z\d%_.~+]*)*(\?[;&a-zA-Z\d%_.~+=-]*)?(\#[-a-zA-Z\d_]*)?$/i;
+  return pattern.test(string);
+}
 
 
 const LocationForm = () => {
@@ -69,6 +74,11 @@ const LocationForm = () => {
       navigate(`/locations/${currentLocation.id}`);
      }
     } else {
+
+      if (!formData.imageUrl || !isValidHttpUrl(formData.imageUrl)) {
+        dispatch(setErrorMessage('Image Url is required and must be a valid Url'))
+        return
+      }
       actionResult = await dispatch(createLocation(formData));
       if (actionResult) {
         navigate(`/my-locations`);
@@ -107,7 +117,7 @@ const LocationForm = () => {
         <input type="text" name="longitude" placeholder="Longitude" value={formData.longitude} onChange={handleChange} required className="form-input"/>
 
         {!locationId && (
-          <input type="text" name="imageUrl" placeholder="Image URL" value={formData.imageUrl} onChange={handleChange} required className="form-input"/>
+          <input type="text" name="imageUrl" placeholder="Image URL" value={formData.imageUrl} onChange={handleChange} maxlength='254' className="form-input"/>
         )}
 
         <button type="submit" className="form-button">{locationId ? 'Update' : 'Create'}</button>

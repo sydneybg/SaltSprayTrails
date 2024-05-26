@@ -17,6 +17,7 @@ const MyCollections = () => {
 
   const handleDelete = (collectionId) => {
     dispatch(deleteCollection(collectionId));
+    // dispatch(fetchUserCollections())
   };
 
   if (!userCollections) {
