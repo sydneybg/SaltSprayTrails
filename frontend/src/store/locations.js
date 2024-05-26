@@ -187,7 +187,7 @@ const locationsReducer = (state = initialState, action) => {
       return { ...state, userLocations: action.payload };
     case SET_LOCATION:
       let stateCopy = { ...state }
-      let updatedLocations = [...state.locations.userLocations]
+      let updatedLocations = [...state.locations.userLocations] || []
       try{
         updatedLocations = state.locations.userLocations.map((location) => {
           if(action.payload.id !== location.id) {
