@@ -81,20 +81,7 @@ export const createLocation = (locationData) => async (dispatch) => {
 
       } else {
         const data = await response.json()
-
-        console.log('data', data)
-        let errorMessage = '';
-        if(data.errors) {
-          for (const key in data.errors) {
-            if(data.errors[key]){
-              errorMessage = data.errors[key]
-              break
-            }
-          }
-        } else {
-          errorMessage = data.message
-        }
-        dispatch(setErrorMessage(errorMessage))
+        dispatch(setErrorMessage(data.message))
         throw new Error(data.message)
       }
     }).then(data => {
@@ -122,15 +109,8 @@ export const updateLocation = ({ id, ...locationData }) => async (dispatch) => {
         return response.json();
       } else {
         const data = await response.json();
-        let errorMessage = '';
-        if(data.errors) {
-          for (const key in data.errors) {
-            errorMessage = data.errors[key]
-          }
-        } else {
-          errorMessage = data.message
-        }
-        dispatch(setErrorMessage(errorMessage));
+        console.log('data  ', data);
+        dispatch(setErrorMessage(data.message));
         throw new Error(data.message);
       }
     }).then((data) => {
@@ -186,20 +166,7 @@ const locationsReducer = (state = initialState, action) => {
     case SET_USER_LOCATIONS:
       return { ...state, userLocations: action.payload };
     case SET_LOCATION:
-      let stateCopy = { ...state }
-      let updatedLocations = [...state.locations.userLocations] || []
-      try{
-        updatedLocations = state.locations.userLocations.map((location) => {
-          if(action.payload.id !== location.id) {
-            return location
-          } else {
-            return action.payload
-          }
-        })
-      } catch {
-
-      }
-      return { ...stateCopy, currentLocation: action.payload, userLocations: updatedLocations };
+      return { ...state, currentLocation: action.payload };
     case SET_ERROR_MESSAGE:
       return { ...state, errorMessage: action.payload };
     case REMOVE_LOCATION:
