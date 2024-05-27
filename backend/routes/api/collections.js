@@ -102,7 +102,7 @@ router.delete('/:id', requireAuth, async (req, res) => {
       res.status(404).json({ message: 'Collection not found' });
     } else {
       await collection.destroy();
-      res.status(204).json({id: req.params.id})
+      res.status(200).json({id: req.params.id})
     }
   } catch (error) {
     console.error(error);

@@ -200,6 +200,7 @@ const initialState = {
 };
 
 const collectionsReducer = (state = initialState, action) => {
+  console.log(action)
   switch (action.type) {
     case SET_COLLECTIONS:
       return { ...state, collections: action.payload };
@@ -213,7 +214,7 @@ const collectionsReducer = (state = initialState, action) => {
     case REMOVE_COLLECTION:
       return {
         ...state,
-        collections: state.collections.filter(
+        userCollections: state.userCollections.filter(
           (collection) => collection.id !== action.payload
         ),
       };
