@@ -23,10 +23,10 @@ module.exports = (sequelize, DataTypes) => {
     locationId: {
       type: DataTypes.INTEGER,
       allowNull: false,
-      // references: {
-      //   model: 'Locations',
-      //   key: 'id'
-      // },
+      references: {
+        model: 'Locations',
+        key: 'id'
+      },
     },
     imageUrl: {
       type: DataTypes.STRING,
