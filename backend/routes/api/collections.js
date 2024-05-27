@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const { Location, Collection, CollectionLocation } = require('../../db/models');
+const { Location, Collection, CollectionLocation, LocationImage } = require('../../db/models');
 const { requireAuth } = require('../../utils/auth');
 const { validateCollection, validateCollectionLocation } = require('../../utils/validation');
 
@@ -42,6 +42,13 @@ router.get('/:id', async (req, res) => {
         {
           model: Location,
           through: { attributes: [] },
+          include: [
+            {
+              model: LocationImage,
+              as: 'LocationImages',
+              attributes: ['imageUrl']
+            }
+          ]
         }
       ]
     });
