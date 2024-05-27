@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, useParams, useLocation } from 'react-router-dom';
-import { createCollection, updateCollection, fetchCollection } from '../../store/collections';
+import { createCollection, updateCollection, fetchCollection, setErrorMessage } from '../../store/collections';
 
 const CollectionForm = () => {
   const dispatch = useDispatch();
@@ -16,6 +16,10 @@ const CollectionForm = () => {
     name: '',
     imageUrl: '',
   });
+
+  useEffect(() => {
+    dispatch(setErrorMessage(''))
+  }, []);
 
   useEffect(() => {
     if (collectionId) {
@@ -50,7 +54,7 @@ const CollectionForm = () => {
       }
     } else {
       actionResult = await dispatch(createCollection(formData));
-      if (actionResult) {
+      if (actionResult && !actionResult.errors) {
         navigate(`/my-collections`);
       }
     }
