@@ -27,7 +27,7 @@ const MyLocations = () => {
         {userLocations.map((location) => (
           <div key={location.id} className="tile location-tile">
             <div className="image-container location-image">
-              <img src={location.locationImages[0].imageUrl} alt={location.name} />
+              <img src={location.locationImages[0]?.imageUrl || ''} alt={location.name} />
             </div>
             <div className="details location-details">
               <Link to={`/locations/${location.id}`}>

@@ -82,7 +82,18 @@ export const createLocation = (locationData) => async (dispatch) => {
 
       } else {
         const data = await response.json()
-        dispatch(setErrorMessage(data.message))
+        let errorMessage = '';
+        if(data.errors) {
+          for (const key in data.errors){
+            if(data.errors[key]) {
+              errorMessage = data.errors[key]
+              break
+            }
+          }
+        } else {
+          errorMessage = data.message
+        }
+        dispatch(setErrorMessage(errorMessage))
         throw new Error(data.message)
       }
     }).then(data => {
@@ -109,11 +120,21 @@ export const updateLocation = ({ id, ...locationData }) => async (dispatch) => {
       if (response.ok) {
         return response.json();
       } else {
-        const data = await response.json();
-        console.log('data  ', data);
-        dispatch(setErrorMessage(data.message));
-        throw new Error(data.message);
-      }
+          const data = await response.json()
+          let errorMessage = '';
+          if(data.errors) {
+            for (const key in data.errors){
+              if(data.errors[key]) {
+                errorMessage = data.errors[key]
+                break
+              }
+            }
+          } else {
+            errorMessage = data.message
+          }
+          dispatch(setErrorMessage(errorMessage))
+          throw new Error(data.message)
+        }
     }).then((data) => {
       dispatch(setLocation(data));
       return true;

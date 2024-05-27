@@ -33,7 +33,7 @@ const AllLocations = () => {
           <div key={location.id} className="location-tile">
             <Link to={`/locations/${location.id}`} className="location-link">
               <div className="location-image">
-                <img src={location.locationImages[0].imageUrl} alt={location.name} />
+                <img src={location.locationImages[0]?.imageUrl || ''} alt={location.name} />
               </div>
               <div className="location-details">
                 <h2>{location.name}</h2>

@@ -22,7 +22,7 @@ const LocationDetail = () => {
       <h1>{location.name}</h1>
       <div className="location-details">
         <div className="location-image">
-          <img src={location.locationImages[0].imageUrl} alt={location.name} />
+          <img src={location.locationImages[0]?.imageUrl || ''} alt={location.name} />
         </div>
         <div className="location-info">
           <p><strong>Description:</strong> {location.description}</p>
