@@ -117,9 +117,28 @@ export const updateCollection =
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(collectionData),
       });
+
+
       const data = await response.json();
-      dispatch(setCollection(data));
-      return data;
+      if (response.ok){
+        dispatch(setCollection(data));
+        return data;
+      } else {
+        let errorMessage = '';
+        if(data.errors) {
+          for (const key in data.errors){
+            if(data.errors[key]) {
+              errorMessage = data.errors[key]
+              break
+            }
+          }
+        } else {
+          errorMessage = data.message
+        }
+        dispatch(setErrorMessage(errorMessage))
+        throw new Error(data.message)
+      }
+
     } catch (error) {
       console.error("Error updating collection:", error);
       throw error;

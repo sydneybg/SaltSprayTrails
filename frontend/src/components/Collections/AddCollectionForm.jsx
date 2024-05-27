@@ -19,7 +19,7 @@ const CollectionForm = () => {
 
   useEffect(() => {
     dispatch(setErrorMessage(''))
-  }, []);
+  }, [dispatch]);
 
   useEffect(() => {
     if (collectionId) {

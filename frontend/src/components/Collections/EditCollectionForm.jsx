@@ -43,7 +43,8 @@ const EditCollectionForm = () => {
 
     if (collectionId) {
       actionResult = await dispatch(updateCollection(collectionId, formData));
-      if (actionResult) {
+      if (actionResult && !actionResult.errors) {
+        console.log(actionResult)
         navigate(`/collections/${collectionId}`);
       }
     }
