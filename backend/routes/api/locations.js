@@ -48,7 +48,7 @@ router.get('/', async (req, res, next) => {
 router.get('/current',
 requireAuth,
 async (req, res, next) => {
-    try { 
+    try {
       const userId = req.user.id;
       const locations = await Location.findAll({
         where: { ownerId: userId },
@@ -120,7 +120,7 @@ router.get('/:id', async (req, res, next) => {
       const message = error.errors ? error.errors[0].message : 'Internal server error';
       res.status(500).json({ message });
     }
-  });
+  })
 
   // PUT update an existing location
   router.put('/:id', requireAuth, validateLocation, async (req, res, next) => {
