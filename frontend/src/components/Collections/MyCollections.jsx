@@ -32,7 +32,7 @@ const MyCollections = () => {
         {userCollections.map(collection => (
           <div key={collection.id} className="tile collection-tile">
             <div className="image-container collection-image">
-              <img src={collection.image} alt={collection.name} />
+              <img src={collection.imageUrl} alt={collection.name} />
             </div>
             <div className="details collection-details">
               <Link to={`/collections/${collection.id}`}><h2>{collection.name}</h2></Link>
