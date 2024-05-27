@@ -18,8 +18,6 @@ router.get('/', async (req, res) => {
 
 // Get all collections for the current user
 router.get('/current', requireAuth, async (req, res) => {
-  // console.log('my collecitons')
-  // res.status()
   try {
     const collections = await Collection.findAll({
       where: { userId: req.user.id },
@@ -35,7 +33,6 @@ router.get('/current', requireAuth, async (req, res) => {
 // Get a specific collection by ID
 router.get('/:id', async (req, res) => {
   try {
-    // const collection = await Collection.findByPk(req.params.id);
     const collection = await Collection.findOne({
       where: { id: req.params.id },
       include: [
