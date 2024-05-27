@@ -29,7 +29,7 @@ router.get('/', async (req, res, next) => {
 
     const locations = rows.map((location) => ({
       ...location.toJSON(),
-      locationImages: location.locationImages,
+      locationImages: location.LocationImages,
     }));
 
     res.json({
@@ -48,10 +48,7 @@ router.get('/', async (req, res, next) => {
 router.get('/current',
 requireAuth,
 async (req, res, next) => {
-    try { //not necessary but using to figure out why requireauth isnt working
-      if (!req.user) {
-        return res.status(401).json({ message: 'You must be logged in to access this resource' });
-      }
+    try { 
       const userId = req.user.id;
       const locations = await Location.findAll({
         where: { ownerId: userId },

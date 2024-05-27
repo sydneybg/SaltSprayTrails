@@ -38,6 +38,7 @@ export const fetchLocations = () => async (dispatch) => {
   try {
     const response = await csrfFetch("/api/locations");
     const data = await response.json();
+    console.log("Fetched locations data:", data);
     dispatch(setLocations(data.locations));
   } catch (error) {
     console.error("Error fetching locations:", error);

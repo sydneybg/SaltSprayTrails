@@ -13,6 +13,10 @@ const LandingPage = () => {
     dispatch(fetchLocations());
   }, [dispatch]);
 
+  useEffect(() => {
+    console.log("Locations state:", locations);
+  }, [locations]);
+
   return (
     <div className="landing-page">
       <div className="large-image-container">
@@ -25,7 +29,7 @@ const LandingPage = () => {
         {locations.map((location) => (
           <Link to={`/locations/${location.id}`} key={location.id} className="location-tile">
             <div className="location-image">
-              <img src={location.image} alt={location.name} />
+              <img src={location.locationImages[0].imageUrl} alt={location.name} />
             </div>
             <div className="location-details">
               <h2>{location.name}</h2>
