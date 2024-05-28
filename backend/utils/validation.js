@@ -43,29 +43,29 @@ const validateLocation = [
       "Description is required and must be less than 255 characters"
     ),
   check("street")
-      .exists({ checkFalsy: true })
-      .isLength({ max: 255 })
-      .withMessage("Street is required and must be less than 255 characters"),
+    .exists({ checkFalsy: true })
+    .isLength({ max: 255 })
+    .withMessage("Street is required and must be less than 255 characters"),
   check("city")
-      .exists({ checkFalsy: true })
-      .isLength({ max: 255 })
-      .withMessage("City is required and must be less than 255 characters"),
+    .exists({ checkFalsy: true })
+    .isLength({ max: 255 })
+    .withMessage("City is required and must be less than 255 characters"),
   check("state")
-      .exists({ checkFalsy: true })
-      .isLength({ max: 255 })
-      .withMessage("State is required and must be less than 255 characters"),
+    .exists({ checkFalsy: true })
+    .isLength({ max: 255 })
+    .withMessage("State is required and must be less than 255 characters"),
   check("country")
-      .exists({ checkFalsy: true })
-      .isLength({ max: 255 })
-      .withMessage("Country is required and must be less than 255 characters"),
+    .exists({ checkFalsy: true })
+    .isLength({ max: 255 })
+    .withMessage("Country is required and must be less than 255 characters"),
   check("activity_type")
     .exists({ checkFalsy: true })
     .withMessage("Type is required"),
-    check("zip_code")
+  check("zip_code")
     .exists({ checkFalsy: true })
     .withMessage("Zip Code is required")
-    .isNumeric()
-    .withMessage("Zip Code must be a number"),
+    .matches(/^\d{5}(-\d{4})?$/)
+    .withMessage("Zip code must be in the format 12345 or 12345-6789"),
   check("latitude")
     .isNumeric()
     .withMessage("Latitude must be a number between -90 and 90"),
