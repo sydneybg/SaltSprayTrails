@@ -24,11 +24,10 @@ const CollectionDetail = () => {
 
   useEffect(() => {
     return () => {
-      // console.log('useEffect')
       dispatch(setCollection(null))
       setLocalCollection(null)
     }
-  }, [])
+  }, [dispatch])
 
   const handleRemoveLocation = async (locationId) => {
     if (collectionId && locationId) {

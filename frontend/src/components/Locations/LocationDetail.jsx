@@ -1,7 +1,8 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
-import { fetchLocation } from '../../store/locations';
+import { fetchLocation, setLocation } from '../../store/locations';
+
 
 const LocationDetail = () => {
   const dispatch = useDispatch();
@@ -13,6 +14,12 @@ const LocationDetail = () => {
   useEffect(() => {
     dispatch(fetchLocation(locationId));
   }, [dispatch, locationId]);
+
+useEffect(()=> {
+  return ()=>{
+    dispatch(setLocation(null))
+  }
+}, [dispatch]);
 
   if (!location) {
     return <div>Loading...</div>;
