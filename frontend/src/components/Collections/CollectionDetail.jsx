@@ -63,7 +63,7 @@ const CollectionDetail = () => {
           {Locations.map((location) => {
             const imageUrl = location.LocationImages?.[0]?.imageUrl || '';
             return (
-              <div key={location.id} className="location-tile">
+              <div key={location.id} className="tile location-tile">
                 <div className="location-image">
                   <img src={imageUrl} alt={location.name} />
                 </div>
