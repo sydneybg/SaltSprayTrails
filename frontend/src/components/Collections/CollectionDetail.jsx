@@ -78,6 +78,7 @@ const CollectionDetail = () => {
                         onDelete={() => handleRemoveLocation(location.id)}
                         itemName={location.name}
                         itemType="location"
+                        customMessage={`Are you sure you want to remove this location: ${location.name} from the collection?`}
                       />
                     }
                   />

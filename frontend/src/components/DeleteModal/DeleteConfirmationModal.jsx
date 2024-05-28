@@ -1,7 +1,7 @@
 // import React from 'react';
 import { useModal } from '../../context/Modal';
 
-const DeleteConfirmationModal = ({ onDelete, itemName, itemType }) => {
+const DeleteConfirmationModal = ({ onDelete, itemName, itemType, customMessage }) => {
   const { closeModal } = useModal();
 
   const handleDelete = () => {
@@ -13,7 +13,7 @@ const DeleteConfirmationModal = ({ onDelete, itemName, itemType }) => {
     <>
       <div className="modal-overlay" onClick={closeModal}></div>
       <div className="modal">
-        <p>Are you sure you want to delete this {itemType}: {itemName}?</p>
+      <p>{customMessage || `Are you sure you want to delete this ${itemType}: ${itemName}?`}</p>
         <div className="button-container">
           <button className="primary-button" onClick={handleDelete}>Yes</button>
           <button className="secondary-button" onClick={closeModal}>No</button>
