@@ -32,6 +32,19 @@
     object-fit: cover;
 }
 
+.location-detail-page .location-details .location-image {
+    width: 100%;
+    height: auto;
+    max-height: 400px;
+    overflow: hidden;
+}
+
+.location-detail-page .location-details .location-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
 .details {
     padding: 10px;
     background-color: #e7f7f7;
