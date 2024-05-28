@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, useParams, useLocation } from 'react-router-dom';
 import { createLocation, updateLocation, fetchLocation, setErrorMessage } from '../../store/locations';
+import { setCollection } from '../../store/collections';
 
 function isValidHttpUrl(string) {
   const pattern = /^(https?:\/\/)?((([a-zA-Z\d]([a-zA-Z\d-]*[a-zA-Z\d])*)\.)+[a-zA-Z]{2,}|((\d{1,3}\.){3}\d{1,3}))(:\d+)?(\/[-a-zA-Z\d%_.~+]*)*(\?[;&a-zA-Z\d%_.~+=-]*)?(#[a-zA-Z\d_]*)?$/i;
@@ -59,6 +60,12 @@ const LocationForm = () => {
       setFormData(currentLocation);
     }
   }, [currentLocation, location]);
+
+  useEffect(() => {
+    return () => {
+      dispatch(setCollection(null))
+    }
+  }, [dispatch])
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });

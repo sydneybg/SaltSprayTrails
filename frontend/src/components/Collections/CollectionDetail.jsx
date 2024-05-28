@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams, Link } from 'react-router-dom';
-import { fetchCollection, removeLocationFromCollectionThunk } from '../../store/collections';
+import { fetchCollection, removeLocationFromCollectionThunk, setCollection } from '../../store/collections';
 import OpenModalButton from '../OpenModalButton/OpenModalButton';
 import DeleteConfirmationModal from '../DeleteModal/DeleteConfirmationModal';
 import './CollectionDetails.css';
@@ -21,6 +21,13 @@ const CollectionDetail = () => {
   useEffect(() => {
     setLocalCollection(collection);
   }, [collection]);
+
+  useEffect(() => {
+    return () => {
+      dispatch(setCollection(null))
+      setLocalCollection(null)
+    }
+  }, [dispatch])
 
   const handleRemoveLocation = async (locationId) => {
     if (collectionId && locationId) {

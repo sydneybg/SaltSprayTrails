@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, useParams, useLocation } from 'react-router-dom';
-import { updateCollection, fetchCollection } from '../../store/collections';
+import { updateCollection, fetchCollection, setCollection } from '../../store/collections';
 
 const EditCollectionForm = () => {
   const dispatch = useDispatch();
@@ -32,6 +32,15 @@ const EditCollectionForm = () => {
       });
     }
   }, [currentCollection, location]);
+
+  useEffect(()=> {
+    return () => {
+      dispatch(setCollection(null))
+      setFormData({
+        name: '',
+        imageUrl: '',
+    })}
+  }, [dispatch]);
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
