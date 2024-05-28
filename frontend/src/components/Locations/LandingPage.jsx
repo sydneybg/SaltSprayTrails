@@ -27,7 +27,7 @@ const LandingPage = () => {
       </div>
       <div className="locations-grid">
         {locations.map((location) => (
-          <Link to={`/locations/${location.id}`} key={location.id} className="location-tile">
+          <Link to={`/locations/${location.id}`} key={location.id} className="tile location-tile">
             <div className="location-image">
               <img src={location.locationImages[0]?.imageUrl || ''} alt={location.name} />
             </div>

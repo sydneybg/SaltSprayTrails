@@ -67,11 +67,9 @@ const validateLocation = [
     .isNumeric()
     .withMessage("Zip Code must be a number"),
   check("latitude")
-    .exists({ checkFalsy: true })
     .isNumeric()
     .withMessage("Latitude must be a number between -90 and 90"),
   check("longitude")
-    .exists({ checkFalsy: true })
     .isNumeric()
     .withMessage("Longitude must be a number between -90 and 90"),
 

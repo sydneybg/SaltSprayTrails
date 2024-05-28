@@ -30,7 +30,7 @@ const AllLocations = () => {
       <h1>All Locations</h1>
       <div className="locations-grid">
         {locations.map((location) => (
-          <div key={location.id} className="location-tile">
+          <div key={location.id} className="tile location-tile">
             <Link to={`/locations/${location.id}`} className="location-link">
               <div className="location-image">
                 <img src={location.locationImages[0]?.imageUrl || ''} alt={location.name} />
