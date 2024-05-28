@@ -166,7 +166,7 @@ router.post('/:locationId/images', requireAuth, async (req, res, next) => {
         return res.status(404).json({ message: "Location couldn't be found" });
       }
 
-      if (location.userId !== req.user.id) {
+      if (location.ownerId !== req.user.id) {
         return res.status(403).json({ message: "Forbidden" });
       }
 

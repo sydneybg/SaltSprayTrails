@@ -33,7 +33,7 @@ const AddLocationToCollection = ({ onAdd, location}) => {
           <p>You have no collections yet. Please navigate to My Collections to Create a Collection.</p>
         </div>
       ) : (
-        <>
+        <div className="modal-content">
           <select
             name="Collection"
             value={activeCollectionId}
@@ -48,7 +48,7 @@ const AddLocationToCollection = ({ onAdd, location}) => {
             ))}
           </select>
           <button onClick={handleClick}>Submit</button>
-        </>
+        </div>
       )}
     </>
 
