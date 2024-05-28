@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, useParams, useLocation } from 'react-router-dom';
-import { createCollection, updateCollection, fetchCollection, setErrorMessage } from '../../store/collections';
+import { createCollection, updateCollection, fetchCollection, setErrorMessage, setCollection } from '../../store/collections';
 
 const CollectionForm = () => {
   const dispatch = useDispatch();
@@ -19,6 +19,10 @@ const CollectionForm = () => {
 
   useEffect(() => {
     dispatch(setErrorMessage(''))
+    return () => {
+      dispatch(setErrorMessage(''))
+      dispatch(setCollection(null))
+    }
   }, [dispatch]);
 
   useEffect(() => {
