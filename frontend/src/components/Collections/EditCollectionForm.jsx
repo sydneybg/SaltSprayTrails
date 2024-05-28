@@ -21,6 +21,16 @@ const EditCollectionForm = () => {
     if (collectionId) {
       dispatch(fetchCollection(collectionId));
     }
+
+    return () => {
+      dispatch(setCollection(null))
+      dispatch(setErrorMessage(''))
+      setFormData({
+        name: '',
+        imageUrl: '',
+    })
+  }
+
   }, [collectionId, dispatch]);
 
   useEffect(() => {
@@ -33,16 +43,6 @@ const EditCollectionForm = () => {
     }
   }, [currentCollection, location]);
 
-  useEffect(()=> {
-    return () => {
-      dispatch(setCollection(null))
-      dispatch(setErrorMessage(''))
-      setFormData({
-        name: '',
-        imageUrl: '',
-    })
-  }
-  }, [dispatch]);
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -55,7 +55,6 @@ const EditCollectionForm = () => {
     if (collectionId) {
       actionResult = await dispatch(updateCollection(collectionId, formData));
       if (actionResult && !actionResult.errors) {
-        console.log(actionResult)
         navigate(`/collections/${collectionId}`);
       }
     }
