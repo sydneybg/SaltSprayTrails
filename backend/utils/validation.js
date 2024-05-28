@@ -75,7 +75,7 @@ const validateLocation = [
 
   check("activity_type").custom(async (activity_type, { req }) => {
     if (req.method === "POST") {
-      console.log("inside validation location", req.method);
+
       const { latitude, longitude } = req.body;
       const existingLocation = await Location.findOne({
         where: {

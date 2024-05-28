@@ -9,8 +9,6 @@ const LocationDetail = () => {
   const { locationId } = useParams();
   const location = useSelector((state) => state.locations.currentLocation);
 
-  console.log(location)
-
   useEffect(() => {
     dispatch(fetchLocation(locationId));
   }, [dispatch, locationId]);

@@ -96,7 +96,6 @@ router.put('/:id', requireAuth, validateCollection, async (req, res) => {
 // Delete a collection
 router.delete('/:id', requireAuth, async (req, res) => {
   try {
-    console.log('in delete ')
     const collection = await Collection.findByPk(req.params.id);
     if (!collection) {
       res.status(404).json({ message: 'Collection not found' });

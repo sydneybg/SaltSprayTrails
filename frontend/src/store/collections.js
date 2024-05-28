@@ -200,7 +200,6 @@ const initialState = {
 };
 
 const collectionsReducer = (state = initialState, action) => {
-  console.log(action)
   switch (action.type) {
     case SET_COLLECTIONS:
       return { ...state, collections: action.payload };

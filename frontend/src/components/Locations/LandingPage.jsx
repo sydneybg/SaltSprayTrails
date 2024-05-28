@@ -13,10 +13,6 @@ const LandingPage = () => {
     dispatch(fetchLocations());
   }, [dispatch]);
 
-  useEffect(() => {
-    console.log("Locations state:", locations);
-  }, [locations]);
-
   return (
     <div className="landing-page">
       <div className="large-image-container">

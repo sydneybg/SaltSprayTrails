@@ -26,8 +26,6 @@ router.post(
       }
     });
 
-    console.log('Found user:', user);
-
     if(!credential || !password) {
       return res.status(400).json({
         message: 'Bad Request',

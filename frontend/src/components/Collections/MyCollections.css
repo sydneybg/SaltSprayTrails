@@ -1,7 +1,6 @@
 /* MyCollections.css */
 @import '../../index.css';
 
-/* Use the same styles as MyLocations.css for consistency */
 .create-collection-button {
   display: inline-block;
   padding: 10px 20px;
