@@ -168,6 +168,20 @@
     outline: none;
 }
 
+#modal-content {
+    max-width: 100vw;
+}
+
+#modal-content select {
+    max-width: 100%;
+}
+
+#modal-content option {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 100%;
+}
+
 /* LoginForm and SignupForm Styles */
 .login-form,
 .signup-form {
