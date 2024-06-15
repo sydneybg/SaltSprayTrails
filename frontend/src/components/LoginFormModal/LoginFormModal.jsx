@@ -65,7 +65,7 @@ function LoginFormModal() {
     .then(closeModal)
   }
 
-  const isDisabled = Object.keys(errors).length > 0 || !credential || !password;
+  // const isDisabled = Object.keys(errors).length > 0 || !credential || !password;
 
 
   return (
@@ -83,7 +83,6 @@ function LoginFormModal() {
             required
           />
         </label>
-        {errors.credential && <p className="error-message">{errors.credential}</p>}
         <label>
           Password
           <input
@@ -94,10 +93,8 @@ function LoginFormModal() {
             required
           />
         </label>
-        {errors.credential && (
-          <p>{errors.credential}</p>
-        )}
-          <button className={isDisabled ? "disabled-button" : ""} type="submit" disabled={isDisabled}>Log In</button>
+        {errors.credential && <p className="error-message">{errors.credential}</p>}
+        <button type="submit">Log In</button>
         <div className='demo'>
         <a href="/" onClick={demoLogin}>Demo User</a>
         </div>
