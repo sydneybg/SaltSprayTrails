@@ -65,8 +65,6 @@ function LoginFormModal() {
     .then(closeModal)
   }
 
-  // const isDisabled = Object.keys(errors).length > 0 || !credential || !password;
-
 
   return (
     <>
