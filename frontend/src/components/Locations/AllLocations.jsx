@@ -39,7 +39,8 @@ const AllLocations = () => {
                 <h2>{location.name}</h2>
                 <p>{location.description}</p>
               </div>
-            </Link>
+              </Link>
+
             {sessionUser && (
               <div className="button-container">
               <OpenModalButton

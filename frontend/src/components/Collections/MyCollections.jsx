@@ -37,7 +37,7 @@ const MyCollections = () => {
             <div className="details collection-details">
               <Link to={`/collections/${collection.id}`}><h2>{collection.name}</h2></Link>
               <div className="button-container">
-                <Link to={`/collections/${collection.id}/edit`}>Edit</Link>
+                <Link to={`/collections/${collection.id}/edit`} className='edit-button'>Edit</Link>
                 <OpenModalButton
                   buttonText="Delete"
                   modalComponent={

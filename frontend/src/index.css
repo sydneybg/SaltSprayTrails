@@ -50,6 +50,29 @@
 }
 
 
+.location-link {
+    text-decoration: none;
+    color: inherit;
+  }
+
+  .location-link:hover .location-details h2,
+  .location-link:hover .location-details p {
+    color: inherit;
+  }
+
+  .location-link .location-details h2,
+  .location-link .location-details p {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  .location-link:visited .location-details h2,
+  .location-link:visited .location-details p {
+    color: inherit;
+  }
+
+
+
 .details {
     padding: 10px;
     background-color: #e7f7f7;
@@ -137,6 +160,7 @@
     display: flex;
     justify-content: space-between;
     margin-top: 20px;
+    /* background-color: #e7f7f7; */
 }
 
 /* Modal Styles */
@@ -324,3 +348,53 @@
         padding: 8px 16px;
     }
 }
+
+/* AddLocationToCollection.css */
+
+.add-location-modal {
+    padding: 20px;
+    max-width: 500px;
+    margin: 0 auto;
+    background-color: #fff;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+
+  .add-location-modal h2 {
+    margin-top: 0;
+    font-size: 1.5em;
+    color: #333;
+  }
+
+  .no-collections {
+    padding: 10px;
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+  }
+
+  .modal-content {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  .collection-select {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 1em;
+  }
+
+  .submit-button {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+
+  .submit-button:hover {
+    background-color: #0056b3;
+  }

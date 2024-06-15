@@ -35,7 +35,7 @@ const MyLocations = () => {
               </Link>
               <p>{location.description}</p>
               <div className="button-container">
-                <Link to={`/locations/${location.id}/edit`}>Edit</Link>
+                <Link to={`/locations/${location.id}/edit`} className="edit-button">Edit</Link>
                 <OpenModalButton
                   buttonText="Delete"
                   modalComponent={
